@@ -14,12 +14,12 @@ namespace DataLayer
             }
         }
 
-        public static SqlConnection GetSqlConnection
+        public static SqlConnection SqlConnection
         {
             get
             {
                 return new SqlConnection(ConnectionString);
-            }            
+            }    
         }
     }
 }
