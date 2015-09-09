@@ -7,10 +7,19 @@
         mc:Ignorable="d"
         Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="87*"/>
-            <ColumnDefinition Width="293*"/>
-        </Grid.ColumnDefinitions>
-
+        <TabControl x:Name="tabControl" >
+            <TabItem Header="Diary" x:Name="tabDiary">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Calendar" x:Name="tabCalendar">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Bookkeeper" x:Name="tabBookkeper">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Settings" x:Name="Settings">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
