@@ -59,4 +59,10 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Diary.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="dbDCB.refactorlog" />
+  </ItemGroup>
 </Project>

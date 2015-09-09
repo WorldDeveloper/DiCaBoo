@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Diary]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[PostDateTime] DATETIME2(0) NOT NULL,
+	[Content] NVARCHAR(MAX) NOT NULL
+)
