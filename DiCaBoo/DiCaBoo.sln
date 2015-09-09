@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiCaBoo", "DiCaBoo.csproj",
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "dbDCB", "..\dbDCB\dbDCB.sqlproj", "{8739B2A6-BDA7-4409-8AA7-85B1A9717749}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "..\DataLayer\DataLayer.csproj", "{F90793F3-4054-42E2-AEBB-5AF454AA6C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{8739B2A6-BDA7-4409-8AA7-85B1A9717749}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8739B2A6-BDA7-4409-8AA7-85B1A9717749}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8739B2A6-BDA7-4409-8AA7-85B1A9717749}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F90793F3-4054-42E2-AEBB-5AF454AA6C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90793F3-4054-42E2-AEBB-5AF454AA6C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90793F3-4054-42E2-AEBB-5AF454AA6C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90793F3-4054-42E2-AEBB-5AF454AA6C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
