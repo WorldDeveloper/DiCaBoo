@@ -1,24 +1,45 @@
-﻿<Window x:Class="DiCaBoo.MainWindow"
+﻿<Window x:Name="window" x:Class="DiCaBoo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
+        Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF5D6275" MinWidth="300">
     <Grid>
-        <TabControl x:Name="tabControl" >
+        <TabControl x:Name="tabControl"  Background="{Binding Background, ElementName=window}">
             <TabItem Header="Diary" x:Name="tabDiary">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid x:Name="gridDairy">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="300"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3">
+                        <Menu Margin="0,0,0,10">
+                            <MenuItem Header="Command" />
+                        </Menu>
+
+                    </Grid>
+                    
+                    <Grid Grid.Column="1" Height="1500" Grid.Row="1" Background="White">
+
+                    </Grid>
+                </Grid>
+
             </TabItem>
             <TabItem Header="Calendar" x:Name="tabCalendar">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid />
             </TabItem>
             <TabItem Header="Bookkeeper" x:Name="tabBookkeper">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid />
             </TabItem>
             <TabItem Header="Settings" x:Name="Settings">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid />
             </TabItem>
         </TabControl>
     </Grid>
