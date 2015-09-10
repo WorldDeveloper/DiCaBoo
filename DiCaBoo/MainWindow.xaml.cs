@@ -36,11 +36,21 @@ namespace DiCaBoo
             Style contentStyle = Application.Current.Resources["postContent"] as Style;
             Style dateStyle = Application.Current.Resources["postDate"] as Style;
             Style timeStyle = Application.Current.Resources["postTime"] as Style;
+
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem item = new MenuItem();
+            item.Header = "Remove post";
+            item.Click += RemovePost_Click;
+            contextMenu.Items.Add(item);
+
             foreach (DiaryPost post in mDiary)
             {
-                StackPanel itemStackPanel = new StackPanel();
-                itemStackPanel.Tag = post.ID.ToString();
-                itemStackPanel.Orientation = Orientation.Horizontal;
+                DockPanel itemPanel = new DockPanel();
+                itemPanel.Tag = post.ID.ToString();
+                itemPanel.MouseEnter += ItemStackPanel_MouseEnter;
+                itemPanel.MouseLeave += ItemStackPanel_MouseLeave;
+                itemPanel.ContextMenu = contextMenu;
+
                 TextBlock postDate = new TextBlock();
                 postDate.Style = dateStyle;
                 
@@ -54,16 +64,59 @@ namespace DiCaBoo
                 postTime.Style = timeStyle;
                 postTime.Text = post.DateTime.ToString("HH:mm");
 
-                itemStackPanel.Children.Add(postTime);
+                itemPanel.Children.Add(postTime);
                 TextBlock postContent = new TextBlock();
                 postContent.Style = contentStyle;
                 postContent.Text = post.Content;
-                itemStackPanel.Children.Add(postContent);
-                postsStackPanel.Children.Add(itemStackPanel);
+                postContent.TextWrapping = TextWrapping.Wrap;
+                itemPanel.Children.Add(postContent);
+                postsStackPanel.Children.Add(itemPanel);
 
                 counter++;
             }
 
+        }
+
+        private void RemovePost_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+            MenuItem menuItem = e.Source as MenuItem;
+            if (menuItem == null)
+                return;
+
+            ContextMenu contextMenu = menuItem.Parent as ContextMenu;
+            if (contextMenu == null)
+                return;
+
+            DockPanel activePanel = contextMenu.PlacementTarget as DockPanel;
+            if (activePanel == null)
+                return;
+
+            if (MessageBox.Show("Remove selected post?", "Post removing...", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) //don't move up
+                return;
+
+
+            int id = 0;
+            if (int.TryParse(activePanel.Tag.ToString(), out id))
+            {
+                if (Diary.RemovePost(id)>0)
+                    postsStackPanel.Children.Remove(activePanel);
+            }
+
+        }
+
+        private void ItemStackPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DockPanel activePanel = sender as DockPanel;
+            activePanel.Background = new SolidColorBrush(Colors.White);
+            
+        }
+
+        private void ItemStackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DockPanel activePanel = sender as DockPanel;
+            activePanel.Background = new SolidColorBrush(Colors.Beige);
         }
 
         private void NewPost_GotFocus(object sender, RoutedEventArgs e)
@@ -88,11 +141,10 @@ namespace DiCaBoo
         private void publishPost_Click(object sender, RoutedEventArgs e)
         {
             string text = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd).Text;
-            if (string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text) || Diary.AddPost(text) !=1)
             {
                 return;
             }
-            Diary.AddPost(text);
 
             newPost.Document.Blocks.Clear();
             newPost.Document.Blocks.Add(new Paragraph(new Run("What are you thinking about?")));
