@@ -56,6 +56,61 @@ namespace DataLayer
             }
         }
 
+        public static DiaryPost GetPost(int id)
+        {
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM Diary WHERE id=@id;";
+
+                    SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+                    idParam.Value = id;
+                    command.Parameters.Add(idParam);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                           return new DiaryPost(
+                                (int)reader["Id"],
+                                (DateTime)reader["PostDateTime"],
+                                (string)reader["Content"]
+                                );
+                        }
+                    }
+
+                    return null;
+                }
+            }
+        }
+
+        public static int UpdatePost(int id, string postContent)
+        {
+            if (string.IsNullOrWhiteSpace(postContent)) return 0;
+
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Diary SET Content=@PostContent WHERE id=@id;";
+
+                    SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+                    idParam.Value = id;
+                    command.Parameters.Add(idParam);
+
+                    SqlParameter content = new SqlParameter("@PostContent", SqlDbType.NVarChar, -1);
+                    content.Value = postContent;
+                    command.Parameters.Add(content);
+
+                    connection.Open();
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public static int AddPost(string postContent)
         {
             if (string.IsNullOrWhiteSpace(postContent)) return 0;
