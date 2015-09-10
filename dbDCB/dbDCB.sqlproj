@@ -58,9 +58,11 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Diary.sql" />
+    <Build Include="Views\DiaryView.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />

@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataLayer
+{
+    public class DiaryPost
+    {
+        public int ID { get; set; }
+        public DateTime DateTime { get; set; }
+        public string Content { get; set; }
+        public DiaryPost(int id, DateTime dateTime, string postContent)
+        {
+            ID = id;
+            DateTime = dateTime;
+            Content = postContent;
+        }
+
+    }
+
+    public class Diary : IEnumerable<DiaryPost> //without generic??****************************
+    {
+        private List<DiaryPost> mPosts;
+
+        public Diary()
+        {
+            Fill();
+        }
+
+        public void Fill()
+        {
+            mPosts = new List<DiaryPost>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "Select * from Diary Order by PostDateTime Desc;";
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            mPosts.Add(new DiaryPost(
+                                (int)reader["Id"],
+                                (DateTime)reader["PostDateTime"],
+                                (string)reader["Content"])
+                                );
+                        }
+                    }
+                }
+            }
+        }
+
+        public static int AddPost(string postContent)
+        {
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                using (SqlCommand command=connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Diary VALUES(@DateTime, @PostContent);";
+
+                    SqlParameter dateTime = new SqlParameter("@DateTime", SqlDbType.DateTime2, 0);
+                    dateTime.Value = DateTime.Now;
+                    command.Parameters.Add(dateTime);
+
+                    SqlParameter content = new SqlParameter("@PostContent", SqlDbType.NVarChar, -1);
+                    content.Value = postContent;
+                    command.Parameters.Add(content);
+
+                    connection.Open();
+                    return  command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public IEnumerator<DiaryPost> GetEnumerator()
+        {
+            return mPosts.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return mPosts.GetEnumerator();
+        }
+    }
+}
