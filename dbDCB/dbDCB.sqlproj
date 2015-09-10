@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="Views" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Diary.sql" />
@@ -67,5 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
