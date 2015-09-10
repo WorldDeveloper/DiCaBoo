@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataLayer;
+using System.IO;
 
 namespace DiCaBoo
 {
@@ -37,19 +38,13 @@ namespace DiCaBoo
             Style dateStyle = Application.Current.Resources["postDate"] as Style;
             Style timeStyle = Application.Current.Resources["postTime"] as Style;
 
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem item = new MenuItem();
-            item.Header = "Remove post";
-            item.Click += RemovePost_Click;
-            contextMenu.Items.Add(item);
-
             foreach (DiaryPost post in mDiary)
             {
                 DockPanel itemPanel = new DockPanel();
                 itemPanel.Tag = post.ID.ToString();
                 itemPanel.MouseEnter += ItemStackPanel_MouseEnter;
                 itemPanel.MouseLeave += ItemStackPanel_MouseLeave;
-                itemPanel.ContextMenu = contextMenu;
+                itemPanel.ContextMenu = DiaryContextMenu();
 
                 TextBlock postDate = new TextBlock();
                 postDate.Style = dateStyle;
@@ -65,10 +60,16 @@ namespace DiCaBoo
                 postTime.Text = post.DateTime.ToString("HH:mm");
 
                 itemPanel.Children.Add(postTime);
-                TextBlock postContent = new TextBlock();
-                postContent.Style = contentStyle;
-                postContent.Text = post.Content;
-                postContent.TextWrapping = TextWrapping.Wrap;
+
+                FlowDocumentScrollViewer postContent = new FlowDocumentScrollViewer();
+                FlowDocument doc = new FlowDocument();
+                TextRange tr = new TextRange(doc.ContentStart, doc.ContentEnd);
+                MemoryStream ms = GetMemoryStreamFromString(post.Content);
+                tr.Load(ms, DataFormats.Rtf);
+                postContent.Document = doc;
+                postContent.ContextMenu = null;
+                postContent.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+
                 itemPanel.Children.Add(postContent);
                 postsStackPanel.Children.Add(itemPanel);
 
@@ -77,10 +78,33 @@ namespace DiCaBoo
 
         }
 
-        private void RemovePost_Click(object sender, RoutedEventArgs e)
+        private ContextMenu DiaryContextMenu()
+        {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem copyItem = new MenuItem();
+            copyItem.Command = ApplicationCommands.Copy;
+            contextMenu.Items.Add(copyItem);
+
+            MenuItem item = new MenuItem();
+            item.Header = "Remove record";
+            item.Click += RemovePost_Click;
+            contextMenu.Items.Add(item);
+
+            MenuItem editItem = new MenuItem();
+            editItem.Header = "Edit record";
+            editItem.Click += EditRecord_Click;
+            contextMenu.Items.Add(editItem);
+
+            return contextMenu;
+        }
+
+        private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
             
+        }
 
+        private void RemovePost_Click(object sender, RoutedEventArgs e)
+        {
             MenuItem menuItem = e.Source as MenuItem;
             if (menuItem == null)
                 return;
@@ -93,7 +117,7 @@ namespace DiCaBoo
             if (activePanel == null)
                 return;
 
-            if (MessageBox.Show("Remove selected post?", "Post removing...", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) //don't move up
+            if (MessageBox.Show("Remove selected record?", "Removing...", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) //don't move up
                 return;
 
 
@@ -140,8 +164,12 @@ namespace DiCaBoo
 
         private void publishPost_Click(object sender, RoutedEventArgs e)
         {
-            string text = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd).Text;
-            if (string.IsNullOrWhiteSpace(text) || Diary.AddPost(text) !=1)
+            TextRange tr = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd);
+            MemoryStream ms = new MemoryStream();
+            tr.Save(ms, DataFormats.Rtf);
+            string SQLData = ASCIIEncoding.Default.GetString(ms.ToArray());
+
+            if (string.IsNullOrWhiteSpace(SQLData) || Diary.AddPost(SQLData) != 1  )
             {
                 return;
             }
@@ -151,6 +179,17 @@ namespace DiCaBoo
             newPost.Height = 50;
 
             UpdateDiary();
+        }
+
+        public static MemoryStream GetMemoryStreamFromString(string s)
+        {
+            if (s == null || s.Length == 0)
+                return null;
+            MemoryStream m = new MemoryStream();
+            StreamWriter sw = new StreamWriter(m);
+            sw.Write(s);
+            sw.Flush();
+            return m;
         }
     }
 }
