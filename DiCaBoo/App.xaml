@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:DiCaBoo"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="postContent" TargetType="TextBlock">
+            <Setter Property ="FontSize" Value ="14"/>
+            <Setter Property="Padding" Value="20" />
+        </Style>
+        <Style x:Key="postDate" TargetType="TextBlock">
+            <Setter Property ="FontSize" Value ="20"/>
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="postTime" TargetType="TextBlock">
+            <Setter Property ="FontSize" Value ="12"/>
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Width" Value="70" />
+            <Setter Property="Foreground" Value="Gray" />
+        </Style>
     </Application.Resources>
 </Application>
