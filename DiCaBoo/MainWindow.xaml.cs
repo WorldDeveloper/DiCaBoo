@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataLayer;
 using System.IO;
+using System.Windows.Media.Animation;
+using System.Net;
 
 namespace DiCaBoo
 {
@@ -22,17 +24,20 @@ namespace DiCaBoo
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Settings mSettings;
         public MainWindow()
         {
             InitializeComponent();
             UpdateDiary();
+            mSettings = new Settings();
+            SetSettings();
         }
 
         public void UpdateDiary()
         {
             Diary mDiary = new Diary();
             postsStackPanel.Children.Clear();
-            DateTime previousDate=DateTime.Now;
+            DateTime previousDate = DateTime.Now;
             int counter = 0;
             Style contentStyle = Application.Current.Resources["postContent"] as Style;
             Style dateStyle = Application.Current.Resources["postDate"] as Style;
@@ -48,7 +53,7 @@ namespace DiCaBoo
 
                 TextBlock postDate = new TextBlock();
                 postDate.Style = dateStyle;
-                
+
                 if (previousDate != post.DateTime.Date)
                 {
                     postDate.Text = post.DateTime.ToString("dd MMMM yyyy");
@@ -116,7 +121,7 @@ namespace DiCaBoo
             if (int.TryParse(activePanel.Tag.ToString(), out id))
             {
                 FlowDocumentScrollViewer textViewer = activePanel.Children.OfType<FlowDocumentScrollViewer>().FirstOrDefault();
-                if (textViewer==null)
+                if (textViewer == null)
                     return;
 
                 //copy document from selected record to newPost RichTextBox
@@ -177,7 +182,7 @@ namespace DiCaBoo
             int id = 0;
             if (int.TryParse(activePanel.Tag.ToString(), out id))
             {
-                if (Diary.RemovePost(id)>0)
+                if (Diary.RemovePost(id) > 0)
                     postsStackPanel.Children.Remove(activePanel);
             }
 
@@ -187,7 +192,7 @@ namespace DiCaBoo
         {
             DockPanel activePanel = sender as DockPanel;
             activePanel.Background = new SolidColorBrush(Colors.White);
-            
+
         }
 
         private void ItemStackPanel_MouseEnter(object sender, MouseEventArgs e)
@@ -218,11 +223,12 @@ namespace DiCaBoo
         private void publishPost_Click(object sender, RoutedEventArgs e)
         {
             TextRange tr = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd);
+            String record = tr.Text;
             MemoryStream ms = new MemoryStream();
             tr.Save(ms, DataFormats.Rtf);
             string SQLData = ASCIIEncoding.Default.GetString(ms.ToArray());
 
-            if (string.IsNullOrWhiteSpace(SQLData) || Diary.AddPost(SQLData) != 1  )
+            if (string.IsNullOrWhiteSpace(SQLData) || Diary.AddPost(SQLData) != 1)
             {
                 return;
             }
@@ -232,6 +238,8 @@ namespace DiCaBoo
             newPost.Height = 50;
 
             UpdateDiary();
+            if (chkPostOnFacebook.IsChecked == true)
+                PostOnFacebook(record);
         }
 
         public static MemoryStream GetMemoryStreamFromString(string s)
@@ -243,6 +251,87 @@ namespace DiCaBoo
             sw.Write(s);
             sw.Flush();
             return m;
+        }
+
+        private void btnSubmitSettings_Click(object sender, RoutedEventArgs e)
+        {
+            mSettings = new Settings(txtFbAppToken.Text, txtFbUserId.Text);
+            BeginStoryboard sbHide = Application.Current.Resources["HideLabelAnimation"] as BeginStoryboard;
+            txtSaved.Visibility = Visibility.Visible;
+            sbHide.Storyboard.Begin(txtSaved);
+
+            if (FacebooNotValid())
+            {
+                chkPostOnFacebook.IsChecked = false;
+                chkPostOnFacebook.IsEnabled = false;
+            }
+            else
+            {
+                chkPostOnFacebook.IsEnabled = true;
+            }
+        }
+
+        private void SetSettings()
+        {
+            txtFbAppToken.Text = mSettings.FacebookAppToken;
+            txtFbUserId.Text = mSettings.FacebookUserId;
+
+            if (FacebooNotValid())
+            {
+                chkPostOnFacebook.IsChecked = false;
+                chkPostOnFacebook.IsEnabled = false;
+            }
+        }
+
+        private bool FacebooNotValid()
+        {
+            return (String.IsNullOrWhiteSpace(mSettings.FacebookAppToken)
+                || String.IsNullOrWhiteSpace(mSettings.FacebookUserId));
+        }
+
+        private void PostOnFacebook(string record)
+        {
+            if (FacebooNotValid())
+            {
+                MessageBox.Show("Record has not been posted on Facebook. Check your settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var req = WebRequest.Create("https://graph.facebook.com/" + mSettings.FacebookUserId.Trim() + "/feed?access_token=" + mSettings.FacebookAppToken);
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            string postData = "access_token=" + mSettings.FacebookAppToken
+                           + "&message=" + record;
+            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+            var stream = req.GetRequestStream();
+
+            try
+            {
+                stream.Write(byteArray, 0, byteArray.Length);
+                stream.Close();
+
+                using (WebResponse response = (HttpWebResponse)req.GetResponse())
+                {
+                    string output = "Facebook post status: " + ((HttpWebResponse)response).StatusDescription;
+
+                    stream = response.GetResponseStream();
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        output += "\n" + @reader.ReadToEnd();
+                    }
+
+                    MessageBox.Show(output, "Facebook status");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                stream.Close();
+            }
+
         }
     }
 }
