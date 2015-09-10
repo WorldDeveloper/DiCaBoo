@@ -9,6 +9,7 @@
     <Grid>
         <TabControl x:Name="tabControl"  Background="{Binding Background, ElementName=window}">
             <TabItem Header="Diary" x:Name="tabDiary">
+
                 <Grid x:Name="gridDairy">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -19,15 +20,32 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.ColumnSpan="3">
-                        <Menu Margin="0,0,0,10">
-                            <MenuItem Header="Command" />
-                        </Menu>
 
+
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <StackPanel Margin="0,10">
+                            <RichTextBox x:Name="newPost"  MinHeight="50" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus" >
+                                <FlowDocument>
+                                    <Paragraph>
+                                        What are you thinking about?
+                                    </Paragraph>
+                                </FlowDocument>
+
+                            </RichTextBox>
+
+                            <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click"/>
+
+                        </StackPanel>
                     </Grid>
-                    
-                    <Grid Grid.Column="1" Height="1500" Grid.Row="1" Background="White">
+                    <Grid Grid.Column="1" Grid.Row="1" Background="White">
+<ScrollViewer VerticalScrollBarVisibility="Auto">
 
+                        <StackPanel x:Name="diaryStackPanel">
+                           
+                                <StackPanel x:Name="postsStackPanel" />
+                            
+                        </StackPanel>
+</ScrollViewer>
                     </Grid>
                 </Grid>
 
@@ -41,6 +59,8 @@
             <TabItem Header="Settings" x:Name="Settings">
                 <Grid />
             </TabItem>
+
         </TabControl>
+
     </Grid>
 </Window>
