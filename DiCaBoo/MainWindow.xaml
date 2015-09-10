@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
         Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF5D6275" MinWidth="300">
+
     <Grid>
         <TabControl x:Name="tabControl"  Background="{Binding Background, ElementName=window}">
             <TabItem Header="Diary" x:Name="tabDiary">
@@ -21,33 +22,35 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-
                     <Grid Grid.Row="0" Grid.Column="1">
                         <StackPanel Margin="0,10">
-                            <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click"/>
-                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130*" />
+                                    <ColumnDefinition Width="71*"/>
+                                    <ColumnDefinition Width="201*" />
+                                    <ColumnDefinition Width="201*" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click" Grid.ColumnSpan="2"/>
+                                <CheckBox x:Name="chkPostOnFacebook" Content="Post on Facebook" Grid.Column="2" IsChecked="True" Foreground="AliceBlue" Margin="20, 0"/>
+                            </Grid>
+
                             <RichTextBox x:Name="newPost"  MinHeight="50" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus">
                                 <FlowDocument>
                                     <Paragraph>
                                         What are you thinking about?
                                     </Paragraph>
                                 </FlowDocument>
-
                             </RichTextBox>
-
-                           
-
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1" Background="White">
-<ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                        <StackPanel x:Name="diaryStackPanel">
-                           
+                            <StackPanel x:Name="diaryStackPanel">
                                 <StackPanel x:Name="postsStackPanel" />
-                            
-                        </StackPanel>
-</ScrollViewer>
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
 
@@ -59,9 +62,39 @@
                 <Grid />
             </TabItem>
             <TabItem Header="Settings" x:Name="Settings">
-                <Grid />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="7*" MaxWidth="600" MinWidth="150"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Column="1">
+                        <TextBlock Text="Facebook App Token:" Foreground="AliceBlue" Margin="0,20,0,10" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <TextBox Text="" x:Name="txtFbAppToken" Margin="0,20,0,10" TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <TextBlock Text="Facebook User Id:" Foreground="AliceBlue" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2">
+                        <TextBox Text="" x:Name="txtFbUserId" Margin="0,0,0,10" TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <TextBlock x:Name="txtSaved" Text="Saved" Foreground="GreenYellow" FontWeight="Bold" Visibility="Hidden"  />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="2" >
+                        <Button x:Name="btnSubmitSettings" Content="Submit" Width="100" Click="btnSubmitSettings_Click"/>
+                    </Grid>
+                </Grid>
             </TabItem>
-
         </TabControl>
 
     </Grid>
