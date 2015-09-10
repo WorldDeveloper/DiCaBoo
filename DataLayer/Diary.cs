@@ -58,6 +58,8 @@ namespace DataLayer
 
         public static int AddPost(string postContent)
         {
+            if (string.IsNullOrWhiteSpace(postContent)) return 0;
+
             using (SqlConnection connection = DB.SqlConnection)
             {
                 using (SqlCommand command=connection.CreateCommand())
@@ -74,6 +76,25 @@ namespace DataLayer
 
                     connection.Open();
                     return  command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static int RemovePost(int postId)
+        {
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                using (SqlCommand command=connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE Diary WHERE id=@id;";
+
+                    SqlParameter paramId = new SqlParameter("@id", SqlDbType.Int);
+                    paramId.Value = postId;
+                    command.Parameters.Add(paramId);
+
+                    connection.Open();
+
+                    return command.ExecuteNonQuery();
                 }
             }
         }
