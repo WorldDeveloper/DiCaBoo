@@ -74,11 +74,11 @@ namespace DataLayer
                     {
                         if (reader.Read())
                         {
-                           return new DiaryPost(
-                                (int)reader["Id"],
-                                (DateTime)reader["PostDateTime"],
-                                (string)reader["Content"]
-                                );
+                            return new DiaryPost(
+                                 (int)reader["Id"],
+                                 (DateTime)reader["PostDateTime"],
+                                 (string)reader["Content"]
+                                 );
                         }
                     }
 
@@ -117,7 +117,7 @@ namespace DataLayer
 
             using (SqlConnection connection = DB.SqlConnection)
             {
-                using (SqlCommand command=connection.CreateCommand())
+                using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = "INSERT INTO Diary VALUES(@DateTime, @PostContent);";
 
@@ -130,7 +130,7 @@ namespace DataLayer
                     command.Parameters.Add(content);
 
                     connection.Open();
-                    return  command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace DataLayer
         {
             using (SqlConnection connection = DB.SqlConnection)
             {
-                using (SqlCommand command=connection.CreateCommand())
+                using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = "DELETE Diary WHERE id=@id;";
 

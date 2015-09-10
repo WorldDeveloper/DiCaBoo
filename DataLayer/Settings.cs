@@ -28,7 +28,7 @@ namespace DataLayer
                         {
                             ID = (int)reader["Id"];
                             FacebookAppToken = reader["FacebookAppToken"] as String;
-                            FacebookUserId=reader["FacebookUserId"] as String;
+                            FacebookUserId = reader["FacebookUserId"] as String;
                         }
                     }
                 }
