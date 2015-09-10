@@ -75,7 +75,6 @@ namespace DiCaBoo
 
                 counter++;
             }
-
         }
 
         private ContextMenu DiaryContextMenu()
@@ -100,7 +99,61 @@ namespace DiCaBoo
 
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
-            
+            MenuItem menuItem = e.Source as MenuItem;
+            if (menuItem == null)
+                return;
+
+            ContextMenu contextMenu = menuItem.Parent as ContextMenu;
+            if (contextMenu == null)
+                return;
+
+            DockPanel activePanel = contextMenu.PlacementTarget as DockPanel;
+            if (activePanel == null)
+                return;
+
+
+            int id = 0;
+            if (int.TryParse(activePanel.Tag.ToString(), out id))
+            {
+                FlowDocumentScrollViewer textViewer = activePanel.Children.OfType<FlowDocumentScrollViewer>().FirstOrDefault();
+                if (textViewer==null)
+                    return;
+
+                //copy document from selected record to newPost RichTextBox
+                RichTextBox updatedPost = new RichTextBox();
+                updatedPost.Tag = id.ToString();
+                updatedPost.LostFocus += UpdatedPost_LostFocus;
+
+                TextRange tr = new TextRange(textViewer.Document.ContentStart, textViewer.Document.ContentEnd);
+                MemoryStream ms = new MemoryStream();
+                tr.Save(ms, DataFormats.Rtf);
+
+                TextRange range2 = new TextRange(updatedPost.Document.ContentEnd, updatedPost.Document.ContentEnd);
+                range2.Load(ms, DataFormats.Rtf);
+
+                activePanel.Children.Remove(textViewer);
+                activePanel.Children.Add(updatedPost);
+                updatedPost.Focus();
+            }
+        }
+
+        private void UpdatedPost_LostFocus(object sender, RoutedEventArgs e)
+        {
+            RichTextBox updatedPost = sender as RichTextBox;
+            TextRange tr = new TextRange(updatedPost.Document.ContentStart, updatedPost.Document.ContentEnd);
+            MemoryStream ms = new MemoryStream();
+            tr.Save(ms, DataFormats.Rtf);
+            string SQLData = ASCIIEncoding.Default.GetString(ms.ToArray());
+
+            int id = 0;
+            if (!int.TryParse(updatedPost.Tag.ToString(), out id))
+            {
+                UpdateDiary();
+                return;
+            }
+
+            Diary.UpdatePost(id, SQLData);
+            UpdateDiary();
         }
 
         private void RemovePost_Click(object sender, RoutedEventArgs e)
