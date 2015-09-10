@@ -24,7 +24,9 @@
 
                     <Grid Grid.Row="0" Grid.Column="1">
                         <StackPanel Margin="0,10">
-                            <RichTextBox x:Name="newPost"  MinHeight="50" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus" >
+                            <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click"/>
+                            
+                            <RichTextBox x:Name="newPost"  MinHeight="50" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus">
                                 <FlowDocument>
                                     <Paragraph>
                                         What are you thinking about?
@@ -33,7 +35,7 @@
 
                             </RichTextBox>
 
-                            <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click"/>
+                           
 
                         </StackPanel>
                     </Grid>
