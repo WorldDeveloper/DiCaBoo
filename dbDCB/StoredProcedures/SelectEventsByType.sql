@@ -3,4 +3,4 @@
 	@to DateTime2(0),
 	@eventTypeId int
 AS
-	SELECT * FROM CalendarView WHERE EventDateTime BETWEEN @from AND @to AND EventTypeId=@eventTypeId
+	SELECT * FROM CalendarView WHERE EventStart BETWEEN @from AND @to AND EventTypeId=@eventTypeId

@@ -14,17 +14,19 @@ namespace DataLayer
         public int EventId { get; }
         public int EventTypeId { get; }
         public string EventType { get; }
-        public DateTime EventDateTime { get; }
+        public DateTime EventStart { get; }
+        public DateTime EventEnd { get; }
         public string  EventTitle{ get; }
         public string  EventDescription{ get; }
         public string  EventVenue { get; }
 
-        public CalendarEvent(int eventId, int eventTypeId, string eventType, DateTime eventDateTime, string eventTitle, string eventDescription, string eventVenue)
+        public CalendarEvent(int eventId, int eventTypeId, string eventType, DateTime eventStart, DateTime eventEnd, string eventTitle, string eventDescription, string eventVenue)
         {
             EventId = eventId;
             EventTypeId = eventTypeId;
             EventType = EventType;
-            EventDateTime = eventDateTime;
+            EventStart = eventStart;
+            EventEnd = eventEnd;
             EventTitle = eventTitle;
             EventDescription = eventDescription;
             EventVenue = eventVenue;
@@ -32,11 +34,11 @@ namespace DataLayer
     }
 
 
-        public class Calendar : IEnumerable<CalendarEvent> 
+        public class MyCalendar : IEnumerable<CalendarEvent> 
         {
             private List<CalendarEvent> mEvents;
 
-            public Calendar()
+            public MyCalendar()
             {
                 mEvents = new List<CalendarEvent>();
                 using (SqlConnection connection = DB.SqlConnection)
@@ -44,7 +46,7 @@ namespace DataLayer
                     connection.Open();
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "Select * from CalendarView WHERE EvendDateTime=@today Order by EventDateTime;";
+                        command.CommandText = "Select * from CalendarView WHERE EventStart=@today Order by EventDateTime;";
                         SqlParameter today = new SqlParameter("@today", SqlDbType.DateTime2, 0);
                         today.Value = DateTime.Now.Date;
                         command.Parameters.Add(today);
@@ -57,7 +59,8 @@ namespace DataLayer
                                     (int)reader["EventId"],
                                     (int)reader["EventTypeId"],
                                     (string)reader["EventType"],
-                                    (DateTime)reader["EventDateTime"],
+                                    (DateTime)reader["EventStart"],
+                                    (DateTime)reader["EventEnd"],
                                     (string)reader["EventTitle"],
                                     (string) reader["EventDescription"],
                                     (string)reader["EventVenue"])
@@ -90,7 +93,8 @@ namespace DataLayer
                                     (int)reader["EventId"],
                                     (int)reader["EventTypeId"],
                                     (string)reader["EventType"],
-                                    (DateTime)reader["EventDateTime"],
+                                    (DateTime)reader["EventStart"],
+                                    (DateTime)reader["EventEnd"],
                                     (string)reader["EventTitle"],
                                     (string)reader["EventDescription"],
                                     (string)reader["EventVenue"]);
@@ -110,9 +114,10 @@ namespace DataLayer
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = @"UPDATE Calendar SET EventTypeId=@typeId, EventDateTime=@eventDateTime, EventTitle=@eventTitle, EventDescription=@eventDescription, EventVenue=@eventVenue WHERE EventId=@id;";
+                        command.CommandText = @"UPDATE Calendar SET EventTypeId=@typeId, EventStart=@eventStart, EventEnd=@eventEnd, EventTitle=@eventTitle, EventDescription=@eventDescription, EventVenue=@eventVenue WHERE EventId=@id;";
                         command.Parameters.AddWithValue("@typeId", updatedEvent.EventTypeId);
-                        command.Parameters.AddWithValue("@eventDateTime", updatedEvent.EventDateTime);
+                        command.Parameters.AddWithValue("@eventStart", updatedEvent.EventStart);
+                        command.Parameters.AddWithValue("@eventEnd", updatedEvent.EventEnd);
                         command.Parameters.AddWithValue("@eventTitle", updatedEvent.EventTitle);
                         command.Parameters.AddWithValue("@eventDescription", updatedEvent.EventDescription);
                         command.Parameters.AddWithValue("@eventVenue", updatedEvent.EventVenue); 
@@ -131,9 +136,10 @@ namespace DataLayer
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = @"INSERT INTO Calendar VALUES(@typeId, @eventDateTime, @eventTitle, @eventDescription, @eventVenue);";
+                        command.CommandText = @"INSERT INTO Calendar VALUES(@typeId, @eventStart, @eventEnd, @eventTitle, @eventDescription, @eventVenue);";
                         command.Parameters.AddWithValue("@typeId", newEvent.EventTypeId);
-                        command.Parameters.AddWithValue("@eventDateTime", newEvent.EventDateTime);
+                        command.Parameters.AddWithValue("@eventStart", newEvent.EventStart);
+                        command.Parameters.AddWithValue("@eventEnd", newEvent.EventEnd);
                         command.Parameters.AddWithValue("@eventTitle", newEvent.EventTitle);
                         command.Parameters.AddWithValue("@eventDescription", newEvent.EventDescription);
                         command.Parameters.AddWithValue("@eventVenue", newEvent.EventVenue);
