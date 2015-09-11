@@ -7,4 +7,46 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PostDateTime" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1abbcf3d-ad0e-4829-a7a8-bd6b0c82f040" ChangeDateTime="09/11/2015 10:59:36">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Where]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Place" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="07089af3-8364-4b1d-afa8-d7747387c59f" ChangeDateTime="09/11/2015 10:59:52">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Description]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventDescription" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="76bd815a-6504-46f2-94cc-d67529a8cc44" ChangeDateTime="09/11/2015 11:00:29">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Place]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Venue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6971dfbb-a0ad-40c2-ae74-ae79c3356fad" ChangeDateTime="09/11/2015 11:00:42">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Venue]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventVenue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="469da796-723a-4917-97e1-61da1a8e680c" ChangeDateTime="09/11/2015 11:00:49">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Title]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventTitle" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bdf39343-d1f7-4660-8b39-96ba3361f4d8" ChangeDateTime="09/11/2015 11:02:37">
+    <Property Name="ElementName" Value="[dbo].[Calendar].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Calendar]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventId" />
+  </Operation>
 </Operations>

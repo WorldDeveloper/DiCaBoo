@@ -60,11 +60,17 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
     <Folder Include="Scripts" />
+    <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Diary.sql" />
     <Build Include="Views\DiaryView.sql" />
     <Build Include="Tables\Settings.sql" />
+    <Build Include="tables\Calendar.sql" />
+    <Build Include="tables\EventTypes.sql" />
+    <Build Include="Views\CalendarView.sql" />
+    <Build Include="StoredProcedures\SelectAllEvents.sql" />
+    <Build Include="StoredProcedures\SelectEventsByType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />
