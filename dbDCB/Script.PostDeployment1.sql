@@ -15,5 +15,11 @@ Print 'Inserting Settings string';
 IF NOT EXISTS(SELECT * FROM Settings)
 	INSERT INTO Settings VALUES(1,NULL,NULL);
 
+<<<<<<< HEAD
 Print 'Populating table Diary.sql';
 :r .\Scripts\DiarySample.sql
+=======
+Print 'Populating table Diary';
+:r .\Scripts\DiarySample.sql
+
+>>>>>>> origin/master
