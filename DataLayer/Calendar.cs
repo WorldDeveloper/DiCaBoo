@@ -46,7 +46,7 @@ namespace DataLayer
                     connection.Open();
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "Select * from CalendarView WHERE EventStart=@today Order by EventDateTime;";
+                        command.CommandText = "Select * FROM Calendar JOIN EventTypes ON EventTypeId=id WHERE EventEnd>=@today Order by EventStart;";
                         SqlParameter today = new SqlParameter("@today", SqlDbType.DateTime2, 0);
                         today.Value = DateTime.Now.Date;
                         command.Parameters.Add(today);
@@ -66,6 +66,7 @@ namespace DataLayer
                                     (string)reader["EventVenue"])
                                     );
                             }
+
                         }
                     }
                 }

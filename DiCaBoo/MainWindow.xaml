@@ -73,7 +73,7 @@
                         </WrapPanel>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
-                        
+                        <StackPanel x:Name="calendarPanel" />
                     </Grid>
 
                 </Grid>

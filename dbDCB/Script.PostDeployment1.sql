@@ -17,5 +17,8 @@ IF NOT EXISTS(SELECT * FROM Settings)
 
 
 Print 'Populating table Diary.sql';
-:r .\Scripts\DiarySamle.sql
+:r .\Scripts\DiarySample.sql
+
+Print 'Populating table Calendar.sql';
+:r .\Scripts\CalendarSample.sql
 

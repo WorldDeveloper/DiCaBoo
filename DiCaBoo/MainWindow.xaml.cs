@@ -29,6 +29,7 @@ namespace DiCaBoo
         {
             InitializeComponent();
             UpdateDiary();
+            UpdateCalendar();
             mSettings = new Settings();
             SetSettings();
         }
