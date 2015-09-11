@@ -14,3 +14,7 @@ Print 'Inserting Settings string';
 
 IF NOT EXISTS(SELECT * FROM Settings)
 	INSERT INTO Settings VALUES(1,NULL,NULL);
+
+Print 'Populating table Diary';
+:r .\Scripts\DiarySample.sql
+
