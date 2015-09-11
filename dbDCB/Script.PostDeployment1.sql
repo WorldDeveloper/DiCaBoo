@@ -16,9 +16,14 @@ IF NOT EXISTS(SELECT * FROM Settings)
 	INSERT INTO Settings VALUES(1,NULL,NULL);
 
 
-Print 'Populating table Diary.sql';
-:r .\Scripts\DiarySample.sql
+
+
+Print 'Populating table EventTypesSample.sql';
+:r .\Scripts\EventTypesSample.sql
+
 
 Print 'Populating table Calendar.sql';
 :r .\Scripts\CalendarSample.sql
 
+Print 'Populating table Diary.sql';
+:r .\Scripts\DiarySample.sql

@@ -81,5 +81,6 @@
   <ItemGroup>
     <None Include="Scripts\DiarySample.sql" />
     <None Include="Scripts\CalendarSample.sql" />
+    <None Include="Scripts\EventTypesSample.sql" />
   </ItemGroup>
 </Project>
