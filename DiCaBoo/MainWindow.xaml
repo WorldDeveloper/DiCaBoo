@@ -56,7 +56,28 @@
 
             </TabItem>
             <TabItem Header="Calendar" x:Name="tabCalendar">
-                <Grid />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="300"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <WrapPanel>
+                            <Button Content="Create" />
+                        </WrapPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
+                        
+                    </Grid>
+
+                </Grid>
+                
             </TabItem>
             <TabItem Header="Bookkeeper" x:Name="tabBookkeper">
                 <Grid />

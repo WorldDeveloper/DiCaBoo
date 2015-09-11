@@ -45,6 +45,7 @@
     <Compile Include="DB.cs" />
     <Compile Include="Diary.cs" />
     <Compile Include="Encription.cs" />
+    <Compile Include="EventTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
