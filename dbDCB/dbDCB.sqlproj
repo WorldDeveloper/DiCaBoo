@@ -72,7 +72,4 @@
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\DiarySample.sql" />
-  </ItemGroup>
 </Project>
