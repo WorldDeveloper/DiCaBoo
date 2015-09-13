@@ -7,13 +7,26 @@
         mc:Ignorable="d"
         Title="Event Types" SizeToContent="WidthAndHeight"  MinWidth="300" >
 
-    <StackPanel>
-        <TextBox x:Name="txtNewType" Text="Enter new event type" Padding="0,5"  Foreground="Gray" GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
-        <ListBox x:Name="lstTypes" SelectionChanged="lstTypes_SelectionChanged"></ListBox>
-        <Button x:Name="btnAddType" Content="Add" Click="btnAddType_Click" />
-        <Button x:Name="btnUpdateType" Content="Update" Click="btnUpdateType_Click" />
-        <Button x:Name="btnRemoveType" Content="Delete" Click="btnRemoveType_Click"/>
-        <Button x:Name="btnClose" Content="Close" Click="btnClose_Click" />
-    </StackPanel>
+    <Grid x:Name="Main">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox x:Name="txtNewType" Text="Enter new event type"  Grid.Row="0" Padding="0,5"  Foreground="Gray" GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
+        <ListBox x:Name="lstTypes" Grid.Row="1" SelectionChanged="lstTypes_SelectionChanged"></ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAddType" Content="Add" Grid.Column="0" Click="btnAddType_Click" />
+            <Button x:Name="btnUpdateType" Content="Update" Grid.Column="1" Click="btnUpdateType_Click" />
+            <Button x:Name="btnRemoveType" Content="Delete" Grid.Column="2" Click="btnRemoveType_Click"/>
+            <Button x:Name="btnClose" Content="Close" Grid.Column="3" Click="btnClose_Click" />
+        </Grid>
+    </Grid>
 
 </Window>
