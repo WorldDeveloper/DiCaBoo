@@ -12,14 +12,18 @@ namespace DataLayer
     public class EventType
     {
         public int TypeId { get; }
-        public string EventName{ get; }
+        public string TypeName{ get; }
     
 
         public EventType(int typeId,  string eventName)
         {
             TypeId = typeId;
-            EventName = eventName;
+            TypeName = eventName;
+        }
 
+        public override string ToString()
+        {
+            return TypeName;
         }
     }
 
@@ -43,7 +47,7 @@ namespace DataLayer
                         while (reader.Read())
                         {
                             mEventTypes.Add(new EventType(
-                                (int)reader["TypeId"],
+                                (int)reader["Id"],
                                 (string)reader["EventType"])
                                 );
                         }
@@ -52,34 +56,6 @@ namespace DataLayer
             }
         }
 
-        public static EventType GetEventType(int id)
-        {
-            using (SqlConnection connection = DB.SqlConnection)
-            {
-                using (SqlCommand command = connection.CreateCommand())
-                {
-                    command.CommandText = "SELECT * FROM EventTypes WHERE Id=@id;";
-
-                    SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
-                    idParam.Value = id;
-                    command.Parameters.Add(idParam);
-
-                    connection.Open();
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new EventType(
-                                (int)reader["TypeId"],
-                                (string)reader["EventType"]);
-                        }
-                    }
-
-                    return null;
-                }
-            }
-        }
 
         public static int UpdateEventType(EventType updatedEventType)
         {
@@ -90,7 +66,8 @@ namespace DataLayer
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = @"UPDATE EventTypes SET EventType=@eventType WHERE Id=@id;";
-                    command.Parameters.AddWithValue("@eventType", updatedEventType.EventName);
+                    command.Parameters.AddWithValue("@eventType", updatedEventType.TypeName);
+                    command.Parameters.AddWithValue("@id", updatedEventType.TypeId);
 
                     connection.Open();
                     return command.ExecuteNonQuery();
@@ -122,7 +99,7 @@ namespace DataLayer
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "DELETE EvenTypes WHERE Id=@id;";
+                    command.CommandText = "DELETE EventTypes WHERE Id=@id;";
 
                     SqlParameter paramId = new SqlParameter("@id", SqlDbType.Int);
                     paramId.Value = typeId;

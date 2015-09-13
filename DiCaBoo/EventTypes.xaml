@@ -1,0 +1,19 @@
+﻿<Window x:Class="DiCaBoo.Calendars"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiCaBoo"
+        mc:Ignorable="d"
+        Title="Event Types" SizeToContent="WidthAndHeight"  MinWidth="300" >
+
+    <StackPanel>
+        <TextBox x:Name="txtNewType" Text="Enter new event type" Padding="0,5"  Foreground="Gray" GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
+        <ListBox x:Name="lstTypes" SelectionChanged="lstTypes_SelectionChanged"></ListBox>
+        <Button x:Name="btnAddType" Content="Add" Click="btnAddType_Click" />
+        <Button x:Name="btnUpdateType" Content="Update" Click="btnUpdateType_Click" />
+        <Button x:Name="btnRemoveType" Content="Delete" Click="btnRemoveType_Click"/>
+        <Button x:Name="btnClose" Content="Close" Click="btnClose_Click" />
+    </StackPanel>
+
+</Window>

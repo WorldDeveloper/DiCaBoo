@@ -33,5 +33,16 @@ namespace DiCaBoo
             mSettings = new Settings();
             SetSettings();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnManageCalendars_Click(object sender, RoutedEventArgs e)
+        {
+            Calendars wndEventTypes = new Calendars();
+            wndEventTypes.ShowDialog();
+        }
     }
 }

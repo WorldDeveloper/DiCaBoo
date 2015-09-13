@@ -55,8 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EventTypes.xaml.cs">
+      <DependentUpon>EventTypes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainCalendar.cs" />
     <Compile Include="MainSettings.cs" />
+    <Page Include="EventTypes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
