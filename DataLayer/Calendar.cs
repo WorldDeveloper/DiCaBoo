@@ -129,21 +129,23 @@ namespace DataLayer
                 }
             }
 
-            public static int AddEvent(CalendarEvent newEvent)
+            public static int AddEvent(int typeId, DateTime fromDateTime, DateTime untilDateTime, string title, string description, string venue)
             {
-                if (newEvent == null) return 0;
+
+            if (typeId < 0 || fromDateTime == null || untilDateTime == null || string.IsNullOrWhiteSpace(title))
+                return 0;
 
                 using (SqlConnection connection = DB.SqlConnection)
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText = @"INSERT INTO Calendar VALUES(@typeId, @eventStart, @eventEnd, @eventTitle, @eventDescription, @eventVenue);";
-                        command.Parameters.AddWithValue("@typeId", newEvent.EventTypeId);
-                        command.Parameters.AddWithValue("@eventStart", newEvent.EventStart);
-                        command.Parameters.AddWithValue("@eventEnd", newEvent.EventEnd);
-                        command.Parameters.AddWithValue("@eventTitle", newEvent.EventTitle);
-                        command.Parameters.AddWithValue("@eventDescription", newEvent.EventDescription);
-                        command.Parameters.AddWithValue("@eventVenue", newEvent.EventVenue);
+                        command.Parameters.AddWithValue("@typeId", typeId);
+                        command.Parameters.AddWithValue("@eventStart", fromDateTime);
+                        command.Parameters.AddWithValue("@eventEnd", untilDateTime);
+                        command.Parameters.AddWithValue("@eventTitle", title);
+                        command.Parameters.AddWithValue("@eventDescription", description);
+                        command.Parameters.AddWithValue("@eventVenue", venue);
 
                         connection.Open();
                         return command.ExecuteNonQuery();

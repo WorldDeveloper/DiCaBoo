@@ -1,0 +1,55 @@
+﻿<Window x:Class="DiCaBoo.MainEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiCaBoo"
+        mc:Ignorable="d"
+        Title="Event" MinWidth="500"  MaxWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid x:Name="stackPanel" Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Title:" Margin="5" />
+        <TextBox x:Name="txtTitle" MaxLength="250" TextWrapping="Wrap" Margin="5" Grid.Row="0" Grid.Column="1"/>
+        <TextBlock Text="From:" Margin="5" Grid.Row="1" />
+        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" Grid.Column="1">
+            <DatePicker x:Name="dpFromDate"   />
+            <ComboBox x:Name="cbFromHour" ToolTip="From hours" IsEditable="True"  Width="50" />
+            <ComboBox x:Name="cbFromMin" ToolTip="From minutes" IsEditable="True" Width="50" />
+        </StackPanel>
+        <TextBlock Text="Until:" Margin="5" Grid.Row="2" />
+        <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" Grid.Column="1">
+            <DatePicker x:Name="dpUntilDate"   />
+            <ComboBox x:Name="cbUntilHour" ToolTip="Until hours" IsEditable="True"  Width="50" />
+            <ComboBox x:Name="cbUntilMin" ToolTip="Until minutes" IsEditable="True" Width="50" />
+        </StackPanel>
+        <TextBlock Text="Event type:" Grid.Row="3" Margin="5" />
+        <Grid Margin="5" Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="cbEventTypes" />
+            <Button x:Name="btnAddType" Content="+" ToolTip="Add new event type" Click="btnAddType_Click" Padding="0" Grid.Column="1" />
+        </Grid>
+        <TextBlock Text="Where:" Margin="5" Grid.Row="4" />
+        <TextBox x:Name="txtWhere" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" Grid.Row="4" Grid.Column="1" />
+        <TextBlock Text="Description:" Margin="5" Grid.Row="5" />
+        <TextBox x:Name="txtDescription" TextWrapping="Wrap" AcceptsReturn="True"  Margin="5" Grid.Row="5" Grid.Column="1" />
+        <StackPanel Orientation="Horizontal" Margin="5,20, 0,0" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="2">
+            <Button x:Name="btnOk"  Width="100" Content="Save" IsDefault="True" Click="btnOk_Click" />
+            <Button x:Name="btnCancel" IsCancel="True" Width="100" Margin="10,0, 5, 0" Content="Cancel" Click="btnCancel_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -44,5 +44,12 @@ namespace DiCaBoo
             Calendars wndEventTypes = new Calendars();
             wndEventTypes.ShowDialog();
         }
+
+        private void btnCreateEvent_Click(object sender, RoutedEventArgs e)
+        {
+            MainEvent wndEvent = new MainEvent();
+            if (wndEvent.ShowDialog() == true)
+            UpdateCalendar();
+        }
     }
 }

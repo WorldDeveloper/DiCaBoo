@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF5D6275" MinWidth="300">
+        Title="DiCaBoo" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF5D6275"  MinWidth="550">
 
     <Grid>
-        <TabControl x:Name="tabControl"  Background="{Binding Background, ElementName=window}">
+        <TabControl x:Name="tabControl"  Background="{Binding Background, ElementName=window}" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">
             <TabItem Header="Diary" x:Name="tabDiary">
 
                 <Grid x:Name="gridDairy">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="300"/>
+                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="500"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -59,7 +59,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="300"/>
+                        <ColumnDefinition Width="8*" MaxWidth="800" MinWidth="500"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -69,12 +69,15 @@
 
                     <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
                         <WrapPanel>
-                            <Button Content="Create event" />
+                            <Button x:Name="btnCreateEvent" Content="Create event" Click="btnCreateEvent_Click" />
                             <Button x:Name="btnManageCalendars" Content="Manage calendars" Click="btnManageCalendars_Click"/>
                         </WrapPanel>
                     </Grid>
+                    
                     <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
-                        <StackPanel x:Name="calendarPanel" />
+                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                            <StackPanel x:Name="calendarPanel" />
+                        </ScrollViewer>
                     </Grid>
 
                 </Grid>

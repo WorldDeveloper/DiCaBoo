@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="Event Types" SizeToContent="WidthAndHeight"  MinWidth="300" >
+        Title="Event Types" SizeToContent="WidthAndHeight"  MinWidth="300" MinHeight="200" >
 
-    <Grid x:Name="Main">
+    <Grid x:Name="Main" Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition  Height="30"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="txtNewType" Text="Enter new event type"  Grid.Row="0" Padding="0,5"  Foreground="Gray" GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
         <ListBox x:Name="lstTypes" Grid.Row="1" SelectionChanged="lstTypes_SelectionChanged"></ListBox>

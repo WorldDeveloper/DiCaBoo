@@ -16,7 +16,7 @@ namespace DiCaBoo
     {
         public void UpdateCalendar()
         {
-            MyCalendar calendar = new MyCalendar();               
+            MyCalendar calendar = new MyCalendar();
             calendarPanel.Children.Clear();
             DateTime previousDate = DateTime.Now;
             int counter = 0;
@@ -31,6 +31,7 @@ namespace DiCaBoo
                 itemPanel.Tag = calEvent.EventId.ToString();
                 itemPanel.MouseEnter += ItemStackPanel_MouseEnter;
                 itemPanel.MouseLeave += ItemStackPanel_MouseLeave;
+                itemPanel.MouseLeftButtonDown += ItemPanel_MouseLeftButtonDown;
                 itemPanel.ContextMenu = CalendarContextMenu();
 
                 TextBlock eventDate = new TextBlock();
@@ -51,35 +52,58 @@ namespace DiCaBoo
                 StackPanel eventDetails = new StackPanel();
 
                 TextBlock eventTitle = new TextBlock();
-                eventTitle.Text=calEvent.EventTitle;
+                eventTitle.Text = calEvent.EventTitle;
                 eventTitle.Style = eventTitleStyle;
                 eventDetails.Children.Add(eventTitle);
 
-                if (!string.IsNullOrWhiteSpace(calEvent.EventDescription))
-                {
-                    TextBlock eventDescription = new TextBlock();
-                    eventDescription.Text = calEvent.EventDescription;
-                    eventDescription.Style = eventDetailsStyle;
-                    eventDetails.Children.Add(eventDescription);
-                }
-
                 TextBlock eventEnd = new TextBlock();
-                eventEnd.Text = "Ending: " + calEvent.EventEnd.ToString("HH:mm   ddd dd MMMM yyyy") ;
+                eventEnd.Text = "Ending: " + calEvent.EventEnd.ToString("HH:mm   ddd dd MMMM yyyy");
                 eventEnd.Style = eventDetailsStyle;
                 eventDetails.Children.Add(eventEnd);
 
-                if (!string.IsNullOrWhiteSpace(calEvent.EventVenue))
-                {
-                    TextBlock eventVenue= new TextBlock();
-                    eventVenue.Text = "Location: " + calEvent.EventVenue;
-                    eventVenue.Style = eventDetailsStyle;
-                    eventDetails.Children.Add(eventVenue);
-                }
+                TextBlock eventVenue = new TextBlock();
+                eventVenue.Text = "Location: " + calEvent.EventVenue;
+                eventVenue.Style = eventDetailsStyle;
+                eventVenue.Visibility = Visibility.Collapsed;
+                eventDetails.Children.Add(eventVenue);
+
+                TextBlock eventDescription = new TextBlock();
+                eventDescription.Text = calEvent.EventDescription;
+                eventDescription.Style = eventDetailsStyle;
+                eventDescription.Visibility = Visibility.Collapsed;
+                eventDetails.Children.Add(eventDescription);
 
                 itemPanel.Children.Add(eventDetails);
                 calendarPanel.Children.Add(itemPanel);
 
                 counter++;
+            }
+        }
+
+        private void ItemPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DockPanel activePanel = sender as DockPanel;
+            StackPanel details = activePanel.Children.OfType<StackPanel>().FirstOrDefault();
+            if (details == null)
+                return;
+
+            TextBlock location = details.Children.OfType<TextBlock>().ElementAt(2);
+            TextBlock description = details.Children.OfType<TextBlock>().ElementAt(3);
+
+
+            if (description == null || location == null)
+                return;
+
+            if (description.IsVisible == true)
+            {
+                description.Visibility = Visibility.Collapsed;
+                location.Visibility = Visibility.Collapsed;
+                details.Focus();
+            }
+            else
+            {
+                description.Visibility = Visibility.Visible;
+                location.Visibility = Visibility.Visible;
             }
         }
 
