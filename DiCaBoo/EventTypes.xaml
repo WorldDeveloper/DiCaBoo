@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="Event Types" SizeToContent="WidthAndHeight"  MinWidth="300" MinHeight="200" >
+        Title="Event Types" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight"  MinWidth="300" MinHeight="200" >
 
     <Grid x:Name="Main" Margin="20">
         <Grid.RowDefinitions>

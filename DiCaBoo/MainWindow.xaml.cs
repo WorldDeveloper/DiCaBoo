@@ -34,22 +34,6 @@ namespace DiCaBoo
             SetSettings();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnManageCalendars_Click(object sender, RoutedEventArgs e)
-        {
-            Calendars wndEventTypes = new Calendars();
-            wndEventTypes.ShowDialog();
-        }
-
-        private void btnCreateEvent_Click(object sender, RoutedEventArgs e)
-        {
-            MainEvent wndEvent = new MainEvent();
-            if (wndEvent.ShowDialog() == true)
-            UpdateCalendar();
-        }
+      
     }
 }

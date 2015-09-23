@@ -70,7 +70,7 @@
                     <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
                         <WrapPanel>
                             <Button x:Name="btnCreateEvent" Content="Create event" Click="btnCreateEvent_Click" />
-                            <Button x:Name="btnManageCalendars" Content="Manage calendars" Click="btnManageCalendars_Click"/>
+                            <!--<Button x:Name="btnManageCalendars" Content="Manage calendars" Click="btnManageCalendars_Click"/>-->
                         </WrapPanel>
                     </Grid>
                     

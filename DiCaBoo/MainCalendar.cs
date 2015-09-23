@@ -61,11 +61,17 @@ namespace DiCaBoo
                 eventEnd.Style = eventDetailsStyle;
                 eventDetails.Children.Add(eventEnd);
 
+
                 TextBlock eventVenue = new TextBlock();
-                eventVenue.Text = "Location: " + calEvent.EventVenue;
+                if (!string.IsNullOrWhiteSpace(calEvent.EventVenue))
+                {
+                    eventVenue.Text = "Location: ";
+                }
+                eventVenue.Text += calEvent.EventVenue;
                 eventVenue.Style = eventDetailsStyle;
                 eventVenue.Visibility = Visibility.Collapsed;
                 eventDetails.Children.Add(eventVenue);
+
 
                 TextBlock eventDescription = new TextBlock();
                 eventDescription.Text = calEvent.EventDescription;
@@ -78,6 +84,19 @@ namespace DiCaBoo
 
                 counter++;
             }
+        }
+
+        private void btnManageCalendars_Click(object sender, RoutedEventArgs e)
+        {
+            Calendars wndEventTypes = new Calendars();
+            wndEventTypes.ShowDialog();
+        }
+
+        private void btnCreateEvent_Click(object sender, RoutedEventArgs e)
+        {
+            MainEvent wndEvent = new MainEvent();
+            if (wndEvent.ShowDialog() == true)
+                UpdateCalendar();
         }
 
         private void ItemPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -126,20 +145,22 @@ namespace DiCaBoo
 
         private void EditEvent_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            DockPanel activePanel = GetSelectedItem(e);
+            if (activePanel == null)
+                return;
+
+            int id;
+            if (!int.TryParse(activePanel.Tag.ToString(), out id))
+                return;
+
+            MainEvent wndEvent = new MainEvent(id);
+            if (wndEvent.ShowDialog() == true)
+                UpdateCalendar();
         }
 
         private void RemoveEvent_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem menuItem = e.Source as MenuItem;
-            if (menuItem == null)
-                return;
-
-            ContextMenu contextMenu = menuItem.Parent as ContextMenu;
-            if (contextMenu == null)
-                return;
-
-            DockPanel activePanel = contextMenu.PlacementTarget as DockPanel;
+            DockPanel activePanel = GetSelectedItem(e);
             if (activePanel == null)
                 return;
 
@@ -147,12 +168,27 @@ namespace DiCaBoo
                 return;
 
 
-            int id = 0;
+            int id;
             if (int.TryParse(activePanel.Tag.ToString(), out id))
             {
                 if (MyCalendar.RemoveEvent(id) > 0)
                     calendarPanel.Children.Remove(activePanel);
             }
+        }
+
+        private DockPanel GetSelectedItem(RoutedEventArgs e)
+        {
+            MenuItem menuItem = e.Source as MenuItem;
+            if (menuItem == null)
+                return null;
+
+            ContextMenu contextMenu = menuItem.Parent as ContextMenu;
+            if (contextMenu == null)
+                return null;
+
+            DockPanel activePanel = contextMenu.PlacementTarget as DockPanel;
+
+            return activePanel;
         }
     }
 }
