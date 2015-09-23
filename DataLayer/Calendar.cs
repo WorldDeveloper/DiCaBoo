@@ -38,7 +38,7 @@ namespace DataLayer
     {
         private List<CalendarEvent> mEvents;
 
-        public MyCalendar()
+        public MyCalendar(DateTime startDate, DateTime endDate, int? typeId=null)
         {
             mEvents = new List<CalendarEvent>();
             using (SqlConnection connection = DB.SqlConnection)
@@ -46,10 +46,26 @@ namespace DataLayer
                 connection.Open();
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "Select * FROM Calendar JOIN EventTypes ON EventTypeId=id WHERE EventEnd>=@today Order by EventStart;";
+                    SqlParameter pTypeId = new SqlParameter("@typeId", SqlDbType.Int);
+
+                    if (typeId != null)
+                    {
+                        command.CommandText = "Select * FROM Calendar JOIN EventTypes ON EventTypeId=id WHERE EventEnd>=@today AND EventEnd<@endDate AND EventTypeId=@typeId Order by EventStart;";
+                        pTypeId.Value = typeId;
+                        command.Parameters.Add(pTypeId);
+                    }
+                    else
+                    {
+                        command.CommandText = "Select * FROM Calendar JOIN EventTypes ON EventTypeId=id WHERE EventEnd>=@today AND EventEnd<@endDate Order by EventStart;";
+                    }
+
                     SqlParameter today = new SqlParameter("@today", SqlDbType.DateTime2, 0);
-                    today.Value = DateTime.Now.Date;
+                    today.Value = startDate;
                     command.Parameters.Add(today);
+
+                    SqlParameter pEndDate = new SqlParameter("@endDate", SqlDbType.DateTime2, 0);
+                    pEndDate.Value = endDate;
+                    command.Parameters.Add(pEndDate);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -66,7 +82,6 @@ namespace DataLayer
                                 (string)reader["EventVenue"])
                                 );
                         }
-
                     }
                 }
             }

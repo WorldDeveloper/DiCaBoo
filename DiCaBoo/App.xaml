@@ -42,6 +42,19 @@
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:3" />
             </Storyboard>
         </BeginStoryboard>
-
+        <Style x:Key="StartDate" TargetType="DatePicker">
+            <Style.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="Text" Value="Start date" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style  x:Key="EndDate" TargetType="DatePicker">
+            <Style.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="Text" Value="End date" />
+                </Style>
+            </Style.Resources>
+        </Style>
     </Application.Resources>
 </Application>

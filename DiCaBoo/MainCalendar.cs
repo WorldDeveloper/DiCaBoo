@@ -16,7 +16,24 @@ namespace DiCaBoo
     {
         public void UpdateCalendar()
         {
-            MyCalendar calendar = new MyCalendar();
+            if (dpCalendarStartDate.SelectedDate == null)
+                dpCalendarStartDate.SelectedDate = DateTime.Now;
+
+            DateTime startDate = dpCalendarStartDate.SelectedDate.Value;
+
+            if (dpCalendarEndDate.SelectedDate == null)
+                dpCalendarEndDate.SelectedDate = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(1).AddDays(-1);
+
+            DateTime endDate = dpCalendarEndDate.SelectedDate.Value;
+
+            EventType eventType = cbEventTypes.SelectedItem as EventType;
+
+            MyCalendar calendar;
+            if (eventType == null)
+                calendar = new MyCalendar(startDate, endDate.Date.AddDays(1));
+            else
+                calendar = new MyCalendar(startDate, endDate.Date.AddDays(1), eventType.TypeId);
+
             calendarPanel.Children.Clear();
             DateTime previousDate = DateTime.Now;
             int counter = 0;

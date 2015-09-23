@@ -40,7 +40,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="cbEventTypes" />
+            <ComboBox x:Name="cbEventTypes" IsEditable="True" IsReadOnly="True" Text="Select an event type" />
             <Button x:Name="btnAddType" Content="+" ToolTip="Add new event type" Click="btnAddType_Click" Padding="0" Grid.Column="1" />
         </Grid>
         <TextBlock Text="Where:" Margin="5" Grid.Row="4" />

@@ -68,9 +68,20 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                        <WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center">
                             <Button x:Name="btnCreateEvent" Content="Create event" Click="btnCreateEvent_Click" />
                             <!--<Button x:Name="btnManageCalendars" Content="Manage calendars" Click="btnManageCalendars_Click"/>-->
+                            <!--<Button x:Name="btnFilterEvents" Content="Filter"  Margin="10,0,0,0" Click="btnFilterEvents_Click" />-->
+                            <ComboBox x:Name="cbEventTypes" MinWidth="100" Margin="10,0,0,0" IsEditable="True"  IsReadOnly="True"  Text="Event type" SelectionChanged="cbEventTypes_SelectionChanged" />
+                            <Button x:Name="btnSkipEventTypes" Content=" x " ToolTip="Skip filter" Click="btnSkipEventTypes_Click" />
+                            <ComboBox x:Name="cbCalendarPeriod" MinWidth="100" Margin="10,0,0,0" IsEditable="True"  IsReadOnly="True"  Text="Period" SelectionChanged="cbCalendarPeriod_SelectionChanged">
+                                <ComboBoxItem Content="Day" />
+                                <ComboBoxItem Content="Week" />
+                                <ComboBoxItem Content="Month" />
+                                <ComboBoxItem Content="Year" />
+                            </ComboBox>
+                            <DatePicker x:Name="dpCalendarStartDate" Style="{StaticResource StartDate}" SelectedDateChanged="dpCalendarStartDate_SelectedDateChanged"/>
+                            <DatePicker x:Name="dpCalendarEndDate" Style="{StaticResource EndDate}" />
                         </WrapPanel>
                     </Grid>
                     
