@@ -9,6 +9,7 @@ using System.Windows.Media;
 using DataLayer;
 using System.IO;
 using System.Net;
+using System.Diagnostics;
 
 namespace DiCaBoo
 {
@@ -16,15 +17,14 @@ namespace DiCaBoo
     {
         public void UpdateCalendar()
         {
-            if (dpCalendarStartDate.SelectedDate == null)
-                dpCalendarStartDate.SelectedDate = DateTime.Now;
+            if (dpCalendarStartDate.SelectedDate == null || dpCalendarEndDate.SelectedDate == null)
+                return;
 
             DateTime startDate = dpCalendarStartDate.SelectedDate.Value;
-
-            if (dpCalendarEndDate.SelectedDate == null)
-                dpCalendarEndDate.SelectedDate = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(1).AddDays(-1);
-
             DateTime endDate = dpCalendarEndDate.SelectedDate.Value;
+
+            if (endDate < startDate)
+                MessageBox.Show("An End date must be greater or equal to a Start date.", "Organizer", MessageBoxButton.OK, MessageBoxImage.Information);
 
             EventType eventType = cbEventTypes.SelectedItem as EventType;
 
@@ -56,7 +56,8 @@ namespace DiCaBoo
 
                 if (previousDate != calEvent.EventStart.Date)
                 {
-                    eventDate.Text = calEvent.EventStart.ToString("dd MMMM yyyy");
+                    eventDate.Text = calEvent.EventStart.ToString("dd MMMM yyyy, ");
+                    eventDate.Text += calEvent.EventStart.ToString("ddd").ToLower();
                     previousDate = calEvent.EventStart.Date;
                     calendarPanel.Children.Add(eventDate);
                 }
@@ -206,6 +207,89 @@ namespace DiCaBoo
             DockPanel activePanel = contextMenu.PlacementTarget as DockPanel;
 
             return activePanel;
+        }
+
+        private void cbCalendarPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetEndDate();
+        }
+
+        private bool SetEndDate()
+        {
+            if (cbCalendarPeriod.SelectedItem == null)
+                return false;
+
+            if (dpCalendarStartDate.SelectedDate == null)
+                dpCalendarStartDate.SelectedDate = DateTime.Now;
+
+            DateTime startDate = dpCalendarStartDate.SelectedDate.Value;
+            ComboBoxItem selectedPeriod = (ComboBoxItem)cbCalendarPeriod.SelectedItem;
+
+            switch (selectedPeriod.Content.ToString())
+            {
+                case "Day":
+                    dpCalendarEndDate.SelectedDate = startDate;
+                    break;
+                case "Week":
+                    dpCalendarEndDate.SelectedDate = FirstDayOfWeek(startDate).AddDays(6);
+                    break;
+                case "Month":
+                    dpCalendarEndDate.SelectedDate = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(1).AddDays(-1);
+                    break;
+                case "Year":
+                    dpCalendarEndDate.SelectedDate = new DateTime(startDate.Year, 12, 31);
+                    break;
+                default:
+                    return false;
+            }
+
+            return true;
+        }
+
+        private DateTime FirstDayOfWeek(DateTime dt)
+        {
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var diff = dt.DayOfWeek - culture.DateTimeFormat.FirstDayOfWeek;
+            if (diff < 0)
+                diff += 7;
+            return dt.AddDays(-diff);
+        }
+
+        private void dpCalendarStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {           
+            SetEndDate();
+            UpdateCalendar();
+        }
+
+        private void dpCalendarEndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dpCalendarEndDate.SelectedDate == null || dpCalendarStartDate.SelectedDate==null)
+                return;
+
+            UpdateCalendar();
+        }
+
+
+        private void btnSkipEventTypes_Click(object sender, RoutedEventArgs e)
+        {
+            cbEventTypes.SelectedItem = null;
+            cbEventTypes.IsEditable = true;
+            cbEventTypes.IsReadOnly = true;
+            cbEventTypes.Text = "Event type";
+            UpdateCalendar();
+        }
+
+        private void btnSkipPeriod_Click(object sender, RoutedEventArgs e)
+        {
+            cbCalendarPeriod.SelectedItem = null;
+            cbCalendarPeriod.IsEditable = true;
+            cbCalendarPeriod.IsReadOnly = true;
+            cbCalendarPeriod.Text = "Period";
+        }
+
+        private void cbEventTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateCalendar();
         }
     }
 }

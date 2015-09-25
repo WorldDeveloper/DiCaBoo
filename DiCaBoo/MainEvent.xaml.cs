@@ -153,5 +153,10 @@ namespace DiCaBoo
             parsedDate += new TimeSpan(hour, min, 0);
             return parsedDate;
         }
+
+        private void dpFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dpUntilDate.SelectedDate = dpFromDate.SelectedDate.Value;
+        }
     }
 }

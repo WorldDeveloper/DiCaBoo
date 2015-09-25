@@ -24,7 +24,7 @@
         <TextBox x:Name="txtTitle" MaxLength="250" TextWrapping="Wrap" Margin="5" Grid.Row="0" Grid.Column="1"/>
         <TextBlock Text="From:" Margin="5" Grid.Row="1" />
         <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" Grid.Column="1">
-            <DatePicker x:Name="dpFromDate"   />
+            <DatePicker x:Name="dpFromDate"  SelectedDateChanged="dpFromDate_SelectedDateChanged"  />
             <ComboBox x:Name="cbFromHour" ToolTip="From hours" IsEditable="True"  Width="50" />
             <ComboBox x:Name="cbFromMin" ToolTip="From minutes" IsEditable="True" Width="50" />
         </StackPanel>
