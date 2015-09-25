@@ -56,4 +56,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="EventStart" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b888e27e-d1a5-40c6-93fc-a369abcd9651" ChangeDateTime="09/25/2015 12:57:30">
+    <Property Name="ElementName" Value="[dbo].[Operations].[Credit]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Operations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreditId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bcee51e3-fd18-4dd3-861d-c1e12a16af0e" ChangeDateTime="09/25/2015 12:57:33">
+    <Property Name="ElementName" Value="[dbo].[Operations].[Debit]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Operations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DebitId" />
+  </Operation>
 </Operations>
