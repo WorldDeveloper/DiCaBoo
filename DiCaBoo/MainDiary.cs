@@ -9,6 +9,7 @@ using System.Windows.Media;
 using DataLayer;
 using System.IO;
 using System.Net;
+using System.Web.Script.Serialization;
 
 namespace DiCaBoo
 {
@@ -143,6 +144,11 @@ namespace DiCaBoo
             UpdateDiary();
         }
 
+        private class Article
+        {
+            public string id { get; set; }
+        }
+
         private void PostOnFacebook(string record)
         {
             if (FacebooNotValid())
@@ -171,7 +177,9 @@ namespace DiCaBoo
                     stream = response.GetResponseStream();
                     using (StreamReader reader = new StreamReader(stream))
                     {
-                        output += "\n" + @reader.ReadToEnd();
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        Article article=serializer.Deserialize<Article>(@reader.ReadToEnd());
+                        output += "\nFacebook post id: " + article.id;
                     }
 
                     MessageBox.Show(output, "Facebook status");
