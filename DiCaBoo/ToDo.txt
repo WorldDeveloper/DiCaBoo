@@ -1,0 +1,2 @@
+﻿1. Show new item in accounts tree when new account added
+2. Select textBox text when got focus (accounts, calendar types)

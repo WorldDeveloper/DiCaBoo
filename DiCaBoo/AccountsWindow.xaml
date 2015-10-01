@@ -1,0 +1,43 @@
+﻿<Window x:Class="DiCaBoo.AccountsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiCaBoo"
+        mc:Ignorable="d"
+        Title="AccountsWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TreeView x:Name="tvAccounts" SelectedItemChanged="tvAccounts_SelectedItemChanged" />
+        <TextBox  Grid.Row="1"  VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="txtAccount" Margin="5" />
+        <TextBlock x:Name="txtAccountHint" Grid.Row="1" IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtAccount}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAddAccount" Content="Add" Grid.Column="0" Click="btnAddAccount_Click" />
+            <Button x:Name="btnUpdateAccount" Content="Update" Grid.Column="1" Click="btnUpdateAccount_Click" />
+            <Button x:Name="btnRemoveAccount" Content="Delete" Grid.Column="2" Click="btnRemoveAccount_Click"/>
+            <Button x:Name="btnCloseAccounts" Content="Close" Grid.Column="3" Click="btnCloseAccounts_Click" />
+        </Grid>
+    </Grid>
+</Window>

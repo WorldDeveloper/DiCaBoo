@@ -16,7 +16,8 @@ IF NOT EXISTS(SELECT * FROM Settings)
 	INSERT INTO Settings VALUES(1,NULL,NULL);
 
 
-
+Print 'Populating table AccountsSample.sql';
+:r .\Scripts\AccountsSample.sql
 
 Print 'Populating table EventTypesSample.sql';
 :r .\Scripts\EventTypesSample.sql

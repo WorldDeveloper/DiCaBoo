@@ -1,4 +1,4 @@
-﻿CREATE procedure [dbo].AddAccount(@parentId hierarchyid, @accountName nvarchar(100))
+﻿CREATE procedure [dbo].AddAccount(@parentId nvarchar(max), @accountName nvarchar(100))
 AS
 BEGIN
 DECLARE @lastChild hierarchyid
@@ -7,7 +7,7 @@ BEGIN TRANSACTION
 
 UPDATE Accounts 
 SET @lastChild=LastChild=AccountId.GetDescendant(LastChild, NULL)
-WHERE AccountId=@parentId
+WHERE AccountId=hierarchyid::Parse(@parentId)
 INSERT Accounts(AccountId, AccountName) VALUES(@lastChild, @accountName)
 COMMIT
 END;

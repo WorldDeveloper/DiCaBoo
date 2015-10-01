@@ -71,6 +71,10 @@
     <Build Include="Views\CalendarView.sql" />
     <Build Include="StoredProcedures\SelectAllEvents.sql" />
     <Build Include="StoredProcedures\SelectEventsByType.sql" />
+    <Build Include="tables\Accounts.sql" />
+    <Build Include="tables\Operations.sql" />
+    <Build Include="StoredProcedures\AddAccount.sql" />
+    <Build Include="Views\OperationsView.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />
@@ -82,5 +86,6 @@
     <None Include="Scripts\DiarySample.sql" />
     <None Include="Scripts\CalendarSample.sql" />
     <None Include="Scripts\EventTypesSample.sql" />
+    <None Include="Scripts\AccountsSample.sql" />
   </ItemGroup>
 </Project>
