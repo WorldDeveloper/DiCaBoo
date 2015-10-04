@@ -120,7 +120,9 @@
 
                     <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
                         <ScrollViewer VerticalScrollBarVisibility="Visible">
-                            <StackPanel x:Name="bookkeeperPanel" />
+                            <StackPanel x:Name="bookkeeperPanel">
+                               <local:TreeList x:Name="tv" />
+                            </StackPanel>
                         </ScrollViewer>
                     </Grid>
 

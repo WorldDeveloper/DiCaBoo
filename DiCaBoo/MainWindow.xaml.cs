@@ -18,6 +18,7 @@ using System.Windows.Media.Animation;
 using System.Net;
 using System.Globalization;
 using System.Diagnostics;
+using Microsoft.SqlServer.Types;
 
 namespace DiCaBoo
 {
@@ -35,6 +36,7 @@ namespace DiCaBoo
             dpCalendarStartDate.SelectedDate = DateTime.Now.Date;
             cbCalendarPeriod.SelectedIndex = 2;
 
+            tv.Tree.Items.Add(Accounts.GetTree(SqlHierarchyId.GetRoot().ToString()));
             mSettings = new Settings();
             SetSettings();
         }
