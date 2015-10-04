@@ -2,8 +2,14 @@
 
 Insert Into Accounts(AccountId, AccountName) Values(hierarchyid::GetRoot(), 'Accounts');
 go
-AddAccount '/', 'Deposits';
+AddAccount '/', 'My resources';
 go
-AddAccount '/', 'Cash';
+AddAccount '/', 'Incomes';
 go
-AddAccount '/', 'Credit cards';
+AddAccount '/', 'Expenses';
+go
+AddAccount '/1/', 'Cash';
+go
+AddAccount '/1/', 'Deposits';
+go
+AddAccount '/1/', 'Credit cards';
