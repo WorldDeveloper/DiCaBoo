@@ -35,5 +35,10 @@ namespace DiCaBoo.Controls.Transactions
             System.Windows.Data.CollectionViewSource transactionsViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionsViewSource")));
             transactionsViewSource.View.MoveCurrentToFirst();
         }
+
+        private void transactionsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("od");
+        }
     }
 }

@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid x:Name="grid" DataContext="{StaticResource transactionsViewSource}" >
 
-        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" MouseRightButtonUp="transactionsDataGrid_MouseRightButtonUp">
             <DataGrid.Columns>
 
                 <DataGridTextColumn x:Name="operationDateColumn" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=d}" MinWidth="70" />

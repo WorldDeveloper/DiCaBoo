@@ -1,4 +1,4 @@
-﻿ALTER PROCEDURE dbo.GetAccountsInfo(@parentId nvarchar(max))
+﻿Create PROCEDURE dbo.GetAccountsInfo(@parentId nvarchar(max))
 AS
 BEGIN
 DECLARE @parent hierarchyid
