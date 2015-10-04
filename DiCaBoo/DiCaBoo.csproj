@@ -60,6 +60,10 @@
     <Compile Include="AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TreeListView\TreeListView.cs" />
+    <Compile Include="Controls\TreeListView\TreeListView.xaml.cs">
+      <DependentUpon>TreeListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainEvent.xaml.cs">
       <DependentUpon>MainEvent.xaml</DependentUpon>
     </Compile>
@@ -70,6 +74,10 @@
     <Compile Include="MainSettings.cs" />
     <Compile Include="TabBookkeeper.cs" />
     <Page Include="AccountsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TreeListView\TreeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +139,7 @@
   <ItemGroup>
     <Resource Include="ToDo.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
