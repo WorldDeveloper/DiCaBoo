@@ -30,7 +30,6 @@ namespace DataLayer
             }
         }
 
-
         public Account(string accountId, string accountName)
         {
             mAccountId = accountId;
@@ -41,6 +40,48 @@ namespace DataLayer
         {
             return AccountName;
         }
+    }
+
+    public class AccountInfo
+    {
+        private SqlHierarchyId mAccountId;
+        public SqlHierarchyId AccountId
+        {
+            get
+            {
+                return mAccountId;
+            }
+        }
+
+        private string mAccountName;
+        public string AccountName
+        {
+            get
+            {
+                return mAccountName;
+            }
+        }
+        private decimal mBalance;
+        public decimal Balance
+        {
+            get
+            {
+                return mBalance;
+            }
+        }
+
+        public AccountInfo(SqlHierarchyId accountId, string accountName, decimal balance)
+        {
+            mAccountId = accountId;
+            mAccountName = accountName;
+            mBalance = balance;
+        }
+    }
+
+    public struct AccountNode
+    {
+        public AccountInfo RootAccount { get; set; }
+        public List<AccountNode> ChildAccounts { get; set; } 
     }
 
 
@@ -99,6 +140,60 @@ namespace DataLayer
                     }
                 }
             }
+        }
+
+        private static List<AccountInfo> mAccountsList;
+        public static AccountNode GetTree(string parent)
+        {
+            mAccountsList=new List<AccountInfo>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "GetAccountsInfo";
+                    command.Parameters.AddWithValue("@parentId", parent);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            mAccountsList.Add(new AccountInfo(
+                                SqlHierarchyId.Parse(reader["AccountId"].ToString()),
+                                reader["AccountName"].ToString(),
+                                (decimal)reader["Balance"]
+                                ));
+                        }
+                    }
+                }
+            }
+
+            AccountNode accountNode = new AccountNode();
+            SqlHierarchyId root = SqlHierarchyId.Parse(parent);
+            var rootAccount = from account in mAccountsList where account.AccountId.Equals(root) select account;
+            foreach (AccountInfo a in rootAccount)
+                accountNode.RootAccount = a;
+
+            accountNode.ChildAccounts = GetChildren(root);
+
+            return accountNode;
+        }
+
+        
+        private static List<AccountNode> GetChildren(SqlHierarchyId parent)
+        {
+            List<AccountNode> childAccounts = new List<AccountNode>();
+            var children = from account in mAccountsList where account.AccountId.GetAncestor(1).Equals(parent) select account;
+            foreach (AccountInfo account in children)
+            {
+                AccountNode accountNode = new AccountNode();
+                accountNode.RootAccount = account;
+                accountNode.ChildAccounts = GetChildren(account.AccountId);
+                childAccounts.Add(accountNode);
+            }
+
+            return childAccounts;
         }
 
 
