@@ -1,0 +1,28 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiCaBoo.Controls.Transactions"
+             xmlns:DiCaBoo="clr-namespace:DiCaBoo" x:Class="DiCaBoo.Controls.Transactions.Transactions"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <DiCaBoo:dbDCBDataSet x:Key="dbDCBDataSet"/>
+        <CollectionViewSource x:Key="transactionsViewSource" Source="{Binding Transactions, Source={StaticResource dbDCBDataSet}}"/>
+    </UserControl.Resources>
+    <Grid x:Name="grid" DataContext="{StaticResource transactionsViewSource}" >
+
+        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn x:Name="operationDateColumn" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=d}" MinWidth="70" />
+                <DataGridTextColumn x:Name="creditColumn" Width="SizeToHeader" Header="From Acc." Binding="{Binding Credit}" MinWidth="70" />
+                <DataGridTextColumn x:Name="debitColumn" Width="SizeToHeader" Header="To acc." Binding="{Binding Debit}" MinWidth="70"/>
+                <DataGridTextColumn x:Name="summColumn" Width="SizeToHeader" Header="Amount" Binding="{Binding Summ, StringFormat=N2}" MinWidth="50"/>
+                <DataGridTextColumn x:Name="noteColumn" Width="*" Header="Note" Binding="{Binding Note}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

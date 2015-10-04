@@ -60,9 +60,17 @@
     <Compile Include="AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Transactions\Transactions.xaml.cs">
+      <DependentUpon>Transactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TreeListView\TreeListView.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.xaml.cs">
       <DependentUpon>TreeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Transactions\dbDCBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="MainEvent.xaml.cs">
       <DependentUpon>MainEvent.xaml</DependentUpon>
@@ -74,6 +82,10 @@
     <Compile Include="MainSettings.cs" />
     <Compile Include="TabBookkeeper.cs" />
     <Page Include="AccountsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Transactions\Transactions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +133,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Controls\Transactions\dbDCBDataSet.xsc">
+      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Controls\Transactions\dbDCBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Controls\Transactions\dbDCBDataSet.xss">
+      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

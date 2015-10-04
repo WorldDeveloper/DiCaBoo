@@ -76,6 +76,7 @@
     <Build Include="StoredProcedures\AddAccount.sql" />
     <Build Include="Views\OperationsView.sql" />
     <Build Include="StoredProcedures\GetAccountsInfo.sql" />
+    <Build Include="Views\Transactions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />

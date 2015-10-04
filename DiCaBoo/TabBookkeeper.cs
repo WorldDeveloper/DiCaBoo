@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DataLayer;
+using DiCaBoo.Controls.Transactions;
+using Microsoft.SqlServer.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +13,29 @@ namespace DiCaBoo
     public partial class MainWindow
     {
 
+        private void btnTransactions_Click(object sender, RoutedEventArgs e)
+        {
+            Transactions transactions = new Transactions();
+            bookkeeperPanel.Children.Clear();
+            bookkeeperPanel.Children.Add(transactions);
+        }
 
-        private void btnAccounts_Click(object sender, RoutedEventArgs e)
+        private void btnEditAccounts_Click(object sender, RoutedEventArgs e)
         {
             AccountsWindow accountsWindow = new AccountsWindow();
             accountsWindow.ShowDialog();
         }
+
+        private void btnBalance_Click(object sender, RoutedEventArgs e)
+        {
+            TreeList treeList = new TreeList();
+            AccountNode parent = Accounts.GetTree(SqlHierarchyId.GetRoot().ToString());//Accounts.GetTree("/1/");//
+            treeList.Tree.Items.Add(parent);
+            bookkeeperPanel.Children.Clear();
+            bookkeeperPanel.Children.Add(treeList);
+        }
+
+
 
 
     }

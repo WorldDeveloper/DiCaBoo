@@ -94,6 +94,10 @@ namespace DiCaBoo
             if (string.IsNullOrWhiteSpace(newAccountName) || updatedNode == null)
                 return;
 
+            string level = SqlHierarchyId.Parse(updatedNode.Tag.ToString()).GetLevel().ToString();
+            if (level == "1")
+                return;
+
             string parentId = SqlHierarchyId.Parse(updatedNode.Tag.ToString()).GetAncestor(1).ToString();
 
             try
@@ -128,6 +132,10 @@ namespace DiCaBoo
                 TreeViewItem removedNode = tvAccounts.SelectedItem as TreeViewItem;
 
                 if (removedNode == null)
+                    return;
+
+                string level = SqlHierarchyId.Parse(removedNode.Tag.ToString()).GetLevel().ToString();
+                if (level=="1")
                     return;
 
                 int result = Accounts.RemoveAccount(removedNode.Tag.ToString());

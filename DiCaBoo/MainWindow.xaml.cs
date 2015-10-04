@@ -36,10 +36,9 @@ namespace DiCaBoo
             dpCalendarStartDate.SelectedDate = DateTime.Now.Date;
             cbCalendarPeriod.SelectedIndex = 2;
 
-            tv.Tree.Items.Add(Accounts.GetTree(SqlHierarchyId.GetRoot().ToString()));
+            btnBalance_Click(null, null);
             mSettings = new Settings();
             SetSettings();
         }
-
     }
 }
