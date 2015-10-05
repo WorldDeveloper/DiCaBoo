@@ -20,27 +20,21 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="Date:" Margin="5" Grid.Row="0" />
-        <DatePicker x:Name="dpFromDate" Grid.Column="1" Margin="5" />
+        <DatePicker x:Name="dpDate" Grid.Column="1" Margin="5" />
 
         <TextBlock Text="From Acc.:" Margin="5" Grid.Row="1" />
-        <Grid Margin="5" Grid.Row="1" Grid.Column="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" x:Name="creditHeader" Width="{Binding ActualWidth, ElementName=txtAmount, Mode=OneWay}" Height="25" PreviewMouseDown="creditHeader_PreviewMouseDown" HorizontalAlignment="Left" />
-            <Popup Grid.Row="1" x:Name="creditPopup" AllowsTransparency="True" IsOpen="False">
-                <StackPanel Background="LightGray">
-                    <TreeView x:Name="tvCredit"  Margin="5" ItemsSource="{Binding ChildAccounts}" SelectedItemChanged="tvCredit_SelectedItemChanged">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
-                                <TextBlock Text="{Binding RootAccount.AccountName}"/>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                </StackPanel>
-            </Popup>
-        </Grid>
+        <ComboBox x:Name="cbCredit" Grid.Row="1" Grid.Column="1" Margin="5" DropDownClosed="cbCredit_DropDownClosed" DropDownOpened="cbCredit_DropDownOpened" >
+            <ComboBoxItem x:Name="cbCreditItem"/>
+            <ComboBoxItem>
+                <TreeView x:Name="tvCredit" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbCredit, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
+                            <TextBlock Text="{Binding RootAccount.AccountName}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </ComboBoxItem>
+        </ComboBox>
         <TextBlock Text="To Acc.:" Margin="5" Grid.Row="2" />
         <ComboBox x:Name="cbDebit" Grid.Row="2" Grid.Column="1" Margin="5" DropDownClosed="cbDebit_DropDownClosed" DropDownOpened="cbDebit_DropDownOpened" >
             <ComboBoxItem x:Name="cbDebitItem"/>

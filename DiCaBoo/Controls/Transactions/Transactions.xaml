@@ -15,8 +15,8 @@
 
         <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" MouseRightButtonUp="transactionsDataGrid_MouseRightButtonUp">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="operationIdColumn" Width="SizeToHeader" Header="Operation Id" Binding="{Binding OperationId, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
-                <DataGridTextColumn x:Name="operationDateColumn" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=d}" MinWidth="70" />
+                <DataGridTextColumn x:Name="operationIdColumn"  Width="SizeToHeader" Header="Operation Id" Binding="{Binding OperationId, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
+                <DataGridTextColumn x:Name="operationDateColumn" SortDirection="Descending" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=\{0:dd.MM.yy HH:mm\}}" MinWidth="90" />
                 <DataGridTextColumn x:Name="creditColumn" Width="SizeToHeader" Header="From Acc." Binding="{Binding Credit}" MinWidth="70" />
                 <DataGridTextColumn x:Name="debitColumn" Width="SizeToHeader" Header="To acc." Binding="{Binding Debit}" MinWidth="70"/>
                 <DataGridTextColumn x:Name="summColumn" Width="SizeToHeader" Header="Amount" Binding="{Binding Summ, StringFormat=N2}" MinWidth="50"/>

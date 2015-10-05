@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,7 @@ namespace DiCaBoo.Controls.Transactions
             DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter dbDCBDataSetTransactionsTableAdapter = new DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter();
             dbDCBDataSetTransactionsTableAdapter.Fill(dbDCBDataSet.Transactions);
             System.Windows.Data.CollectionViewSource transactionsViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionsViewSource")));
-            transactionsViewSource.View.MoveCurrentToFirst();
+            transactionsViewSource.View.MoveCurrentToLast();
         }
 
         private void transactionsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)

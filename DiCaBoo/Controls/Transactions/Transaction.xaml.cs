@@ -24,6 +24,8 @@ namespace DiCaBoo.Controls.Transactions
         public Transaction()
         {
             InitializeComponent();
+            dpDate.SelectedDate = DateTime.Now;
+
             ShortAccountNode assets = Accounts.GetShortTree("/1/");
             ShortAccountNode incomes = Accounts.GetShortTree("/2/");
 
@@ -40,33 +42,48 @@ namespace DiCaBoo.Controls.Transactions
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-           // MessageBox.Show(((ShortAccountNode)tvTest.SelectedItem).RootAccount.AccountId);
+            try
+            {
+                if (!dpDate.SelectedDate.HasValue)
+                    throw new Exception("Select a date");
+
+                DateTime date = dpDate.SelectedDate.Value;
+                date=date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute).AddSeconds(DateTime.Now.Second);
+
+                if (tvCredit.SelectedItem == null)
+                    throw new Exception("Select a credit account (From acc)");
+
+                string credit = ((ShortAccountNode)tvCredit.SelectedItem).RootAccount.AccountId;
+
+                if (tvDebit.SelectedItem == null)
+                    throw new Exception("Select a debit account (To acc)");
+
+                string debit = ((ShortAccountNode)tvDebit.SelectedItem).RootAccount.AccountId;
+
+                decimal amount = 0M;
+                if (!decimal.TryParse(txtAmount.Text, out amount) ||amount<=0)
+                    throw new Exception("Enter correct amount");
+
+                if (Operations.AddTransaction(date, credit, debit, amount, txtNote.Text)!=1)
+                {
+                    MessageBox.Show("Can't save transaction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                this.DialogResult = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Incorrect input", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+
+            // MessageBox.Show(((ShortAccountNode)tvTest.SelectedItem).RootAccount.AccountId);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-
-        private void creditHeader_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            creditPopup.Placement = System.Windows.Controls.Primitives.PlacementMode.RelativePoint;
-            creditPopup.VerticalOffset = creditHeader.Height;
-            creditPopup.StaysOpen = true;
-            creditPopup.Height = tvCredit.Height;
-            creditPopup.Width = creditHeader.Width;
-            creditPopup.IsOpen = true;
-        }
-
-
-        private void tvCredit_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var trv = sender as TreeView;
-            ShortAccountNode trvItem = (ShortAccountNode)trv.SelectedItem;
-
-            creditHeader.Text = trvItem.RootAccount.AccountName;
-            creditPopup.IsOpen = false;
+           
         }
 
 
@@ -77,13 +94,30 @@ namespace DiCaBoo.Controls.Transactions
                 ShortAccountNode selectedNode = ((ShortAccountNode)tvDebit.SelectedItem);
                 cbDebitItem.Content = selectedNode.RootAccount.AccountName;
             }
-            cbDebit.SelectedIndex=0;
+            cbDebit.SelectedIndex = 0;
             cbDebit.Visibility = Visibility.Visible;
         }
 
         private void cbDebit_DropDownOpened(object sender, EventArgs e)
         {
             cbDebitItem.Visibility = Visibility.Collapsed;
+        }
+
+
+        private void cbCredit_DropDownClosed(object sender, EventArgs e)
+        {
+            if (tvCredit.SelectedItem != null)
+            {
+                ShortAccountNode selectedNode = ((ShortAccountNode)tvCredit.SelectedItem);
+                cbCreditItem.Content = selectedNode.RootAccount.AccountName;
+            }
+            cbCredit.SelectedIndex=0;
+            cbCredit.Visibility = Visibility.Visible;
+        }
+
+        private void cbCredit_DropDownOpened(object sender, EventArgs e)
+        {
+            cbCreditItem.Visibility = Visibility.Collapsed;
         }
     }
 

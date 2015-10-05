@@ -37,7 +37,7 @@ namespace DataLayer
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE Operations SET OperationDate=@date, CreditId=sqlhierarchyid::Parse(@credit), DebitId=sqlhierarchy::Parse(@debit), Summ=@amount, Note=@note WHERE OperationId=@id;";
+                    command.CommandText = "UPDATE Operations SET OperationDate=@date, CreditId=hierarchyid::Parse(@credit), DebitId=hierarchyid::Parse(@debit), Summ=@amount, Note=@note WHERE OperationId=@id;";
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@date", date);
                     command.Parameters.AddWithValue("@credit", credit);
@@ -61,7 +61,7 @@ namespace DataLayer
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Operations VALUES(@date, sqlhierarchyid::Parse(@credit), sqlhierarchy::Parse(@debit), @amount, @note);";
+                    command.CommandText = "INSERT INTO Operations VALUES(@date, hierarchyid::Parse(@credit), hierarchyid::Parse(@debit), @amount, @note);";
                     command.Parameters.AddWithValue("@date", date);
                     command.Parameters.AddWithValue("@credit", credit);
                     command.Parameters.AddWithValue("@debit", debit);

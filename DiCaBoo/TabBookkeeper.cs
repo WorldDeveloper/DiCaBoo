@@ -15,6 +15,11 @@ namespace DiCaBoo
 
         private void btnTransactions_Click(object sender, RoutedEventArgs e)
         {
+            ShowTransactions();
+        }
+
+        private void ShowTransactions()
+        {
             Transactions transactions = new Transactions();
             bookkeeperPanel.Children.Clear();
             bookkeeperPanel.Children.Add(transactions);
@@ -36,10 +41,11 @@ namespace DiCaBoo
         }
 
 
-        private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+        private void btnAddTransaction_Click(object sender, RoutedEventArgs e)
         {
             Transaction tr = new Transaction();
-            tr.ShowDialog();
+            if(tr.ShowDialog()== true)
+                ShowTransactions();
         }
 
 

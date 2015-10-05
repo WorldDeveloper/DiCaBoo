@@ -108,8 +108,10 @@ namespace DiCaBoo
                 if (string.IsNullOrWhiteSpace(txtTitle.Text))
                     throw new Exception("Enter event title.");
 
+
                 DateTime fromDateTime = ParseDateTime(dpFromDate.SelectedDate.Value, cbFromHour.Text, cbFromMin.Text, "From");
                 DateTime untilDateTime = ParseDateTime(dpUntilDate.SelectedDate.Value, cbUntilHour.Text, cbUntilMin.Text, "Until");
+
                 if (fromDateTime >= untilDateTime)
                     throw new Exception("Until date/time must be greater than From date/time.");
 
@@ -156,7 +158,8 @@ namespace DiCaBoo
 
         private void dpFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            dpUntilDate.SelectedDate = dpFromDate.SelectedDate.Value;
+            if(dpFromDate.SelectedDate.HasValue)
+                dpUntilDate.SelectedDate = dpFromDate.SelectedDate.Value;
         }
     }
 }
