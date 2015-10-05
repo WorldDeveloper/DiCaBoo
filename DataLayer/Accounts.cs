@@ -41,7 +41,15 @@ namespace DataLayer
             return AccountName;
         }
     }
-
+    public struct ShortAccountNode
+    {
+        public Account RootAccount { get; set; }
+        public List<ShortAccountNode> ChildAccounts { get; set; }
+        public override string ToString()
+        {
+            return RootAccount.AccountName;
+        }
+    }
     public class AccountInfo
     {
         private SqlHierarchyId mAccountId;
@@ -141,6 +149,60 @@ namespace DataLayer
                 }
             }
         }
+
+        private static List<Account> mShortAccountsList;
+        public static ShortAccountNode GetShortTree(string parent)
+        {
+            mShortAccountsList = new List<Account>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "Select AccountId, AccountName from Accounts WHERE AccountId.IsDescendantOf(hierarchyid::Parse(@parentId))=1";
+                    SqlParameter parentId = new SqlParameter("@parentId", SqlDbType.VarChar, -1);
+                    parentId.Value = parent.ToString();
+                    command.Parameters.Add(parentId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            mShortAccountsList.Add(new Account(
+                                reader["AccountId"].ToString(),
+                                reader["AccountName"].ToString())
+                                );
+                        }
+                    }
+                }
+            }
+
+            ShortAccountNode accountNode = new ShortAccountNode();
+            var rootAccount = from account in mShortAccountsList where account.AccountId.Equals(parent) select account;
+            foreach (Account a in rootAccount)
+                accountNode.RootAccount = a;
+
+            accountNode.ChildAccounts = GetShortChildren(parent);
+
+            return accountNode;
+        }
+
+        private static List<ShortAccountNode> GetShortChildren(string parent)
+        {
+            List<ShortAccountNode> childAccounts = new List<ShortAccountNode>();
+            var children = from account in mShortAccountsList where SqlHierarchyId.Parse(account.AccountId).GetAncestor(1).ToString()==parent select account;
+            foreach (Account account in children)
+            {
+                ShortAccountNode accountNode = new ShortAccountNode();
+                accountNode.RootAccount = account;
+                accountNode.ChildAccounts = GetShortChildren(account.AccountId);
+                childAccounts.Add(accountNode);
+            }
+
+            return childAccounts;
+        }
+
+
 
         private static List<AccountInfo> mAccountsList;
         public static AccountNode GetTree(string parent)

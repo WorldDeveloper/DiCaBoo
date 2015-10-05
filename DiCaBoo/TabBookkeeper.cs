@@ -36,6 +36,12 @@ namespace DiCaBoo
         }
 
 
+        private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+        {
+            Transaction tr = new Transaction();
+            tr.ShowDialog();
+        }
+
 
 
     }

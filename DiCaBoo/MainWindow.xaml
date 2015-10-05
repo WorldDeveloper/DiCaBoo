@@ -116,7 +116,7 @@
                             <Button x:Name="btnBalance" Content="Balance" Click="btnBalance_Click" />
                             <Button x:Name="btnTransactions" Content="Transactions" Click="btnTransactions_Click" />
                             <Button x:Name="btnEditAccounts" Content="Edit Accounts" Click="btnEditAccounts_Click" />
-                            
+                            <Button x:Name="btnAddAccount" Content="Add Account" Click="btnAddAccount_Click" />
                         </WrapPanel>
                     </Grid>
 

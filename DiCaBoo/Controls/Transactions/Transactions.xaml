@@ -13,15 +13,21 @@
     </UserControl.Resources>
     <Grid x:Name="grid" DataContext="{StaticResource transactionsViewSource}" >
 
-        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" MouseRightButtonUp="transactionsDataGrid_MouseRightButtonUp">
+        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" MouseRightButtonUp="transactionsDataGrid_MouseRightButtonUp">
             <DataGrid.Columns>
-
+                <DataGridTextColumn x:Name="operationIdColumn" Width="SizeToHeader" Header="Operation Id" Binding="{Binding OperationId, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
                 <DataGridTextColumn x:Name="operationDateColumn" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=d}" MinWidth="70" />
                 <DataGridTextColumn x:Name="creditColumn" Width="SizeToHeader" Header="From Acc." Binding="{Binding Credit}" MinWidth="70" />
                 <DataGridTextColumn x:Name="debitColumn" Width="SizeToHeader" Header="To acc." Binding="{Binding Debit}" MinWidth="70"/>
                 <DataGridTextColumn x:Name="summColumn" Width="SizeToHeader" Header="Amount" Binding="{Binding Summ, StringFormat=N2}" MinWidth="50"/>
                 <DataGridTextColumn x:Name="noteColumn" Width="*" Header="Note" Binding="{Binding Note}"/>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Click="Delete_Transaction" />
+                        <MenuItem Header="Edit" Click="Edit_Transaction" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
 
     </Grid>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +40,24 @@ namespace DiCaBoo.Controls.Transactions
 
         private void transactionsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("od");
+           
+        }
+
+        private void Delete_Transaction(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = (DataRowView)transactionsDataGrid.SelectedItem;
+            if (row == null)
+                return;
+
+          string id=row.Row[0].ToString();
+        if(Operations.RemoveTransaction(id)>0)
+            row.Row.Delete();
+
+        }
+
+        private void Edit_Transaction(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
