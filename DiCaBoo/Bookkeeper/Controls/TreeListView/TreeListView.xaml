@@ -33,11 +33,12 @@
                 <!--Trigger used to change the color based on selection-->
                 <Trigger Property="IsSelected" Value="true">
                     <!--Change the background color-->
-                    <Setter TargetName="Border" Property="Background"
-                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                    <!--<Setter TargetName="Border" Property="Background"
+                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
+                    <Setter TargetName="Border" Property="Background" Value="Beige" />
                     <!--Change the foreground color-->
-                    <Setter Property="Foreground" 
-                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                    <!--<Setter Property="Foreground" 
+                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>-->
                 </Trigger>
                 <!--Trigger used to change the color based on selection-->
                 <MultiTrigger>

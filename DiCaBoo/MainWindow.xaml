@@ -19,32 +19,21 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Grid.Column="1">
-                        <StackPanel Margin="0,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="130*" />
-                                    <ColumnDefinition Width="71*"/>
-                                    <ColumnDefinition Width="201*" />
-                                    <ColumnDefinition Width="201*" />
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="publishPost" Content="Publish" Click="publishPost_Click" Grid.ColumnSpan="2"/>
-                                <CheckBox x:Name="chkPostOnFacebook" Content="Post on Facebook" Grid.Column="2" IsChecked="True" Foreground="AliceBlue" Margin="20, 0"/>
-                            </Grid>
-
-                            <RichTextBox x:Name="newPost"  MinHeight="50" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus">
-                                <FlowDocument>
-                                    <Paragraph>
-                                        What are you thinking about?
-                                    </Paragraph>
-                                </FlowDocument>
-                            </RichTextBox>
-                        </StackPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button x:Name="publishPost" Content="Publish" Style="{StaticResource commandButton}" Click="publishPost_Click" />
+                            <CheckBox x:Name="chkPostOnFacebook" Content="Post on Facebook"  IsChecked="True" Foreground="AliceBlue" Margin="20, 0"/>
+                        </WrapPanel>
                     </Grid>
-                    <Grid Grid.Column="1" Grid.Row="1" Background="White">
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <RichTextBox x:Name="newPost"  MinHeight="50" Margin="0 10" GotFocus="NewPost_GotFocus" LostFocus="NewPost_LostFocus" />
+                        <TextBlock x:Name="txtPostHint" Grid.Row="1" IsHitTestVisible="False" Margin="5, 15" Text="What are you thinking about?" HorizontalAlignment="Left"  Foreground="DarkGray" />
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="2" Background="White">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
 
                             <StackPanel x:Name="diaryStackPanel">
@@ -69,7 +58,7 @@
 
                     <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button x:Name="btnCreateEvent" Content="Create event" Click="btnCreateEvent_Click" />
+                            <Button x:Name="btnCreateEvent" Content="Create event"  Style="{StaticResource commandButton}"  Click="btnCreateEvent_Click" />
                             <!--<Button x:Name="btnManageCalendars" Content="Manage calendars" Click="btnManageCalendars_Click"/>-->
                             <!--<Button x:Name="btnFilterEvents" Content="Filter"  Margin="10,0,0,0" Click="btnFilterEvents_Click" />-->
                             <StackPanel Orientation="Horizontal">
@@ -113,17 +102,23 @@
 
                     <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
                         <WrapPanel HorizontalAlignment="Center">
-                            <Button x:Name="btnBalance" Content="Balance" Click="btnBalance_Click" />
-                            <Button x:Name="btnTransactions" Content="Transactions" Click="btnTransactions_Click" />
-                            <Button x:Name="btnEditAccounts" Content="Edit Accounts" Click="btnEditAccounts_Click" />
-                            <Button x:Name="btnAddTransaction" Content="Add Transaction" Click="btnAddTransaction_Click" />
+                            <!--<Menu x:Name="BookkeperMenu" IsMainMenu="True">
+                                <MenuItem Header="_Accounts">
+                                    <MenuItem Header="_Balance" Click="MenuItemBalance_Click" />
+                                    <MenuItem Header="_Edit accounts" Click="MenuItemEditAccounts_Click" />
+                                </MenuItem>
+                            </Menu>-->
+                            <Button x:Name="btnBalance" Content="Balance" Style="{StaticResource commandButton}" Click="btnBalance_Click" />
+                            <Button x:Name="btnTransactions" Content="Transactions" Style="{StaticResource commandButton}" Click="btnTransactions_Click" />
+                            <Button x:Name="btnAddTransaction" Content="Add Transaction" Style="{StaticResource commandButton}"  Click="btnAddTransaction_Click" />
+                            <Button x:Name="btnEditAccounts" Content="Edit Accounts" Style="{StaticResource commandButton}"  Click="btnEditAccounts_Click" />
                         </WrapPanel>
                     </Grid>
 
                     <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
                         <ScrollViewer VerticalScrollBarVisibility="Visible">
                             <StackPanel x:Name="bookkeeperPanel">
-                               <!--<local:TreeList x:Name="tv" />-->
+                                <!--<local:TreeList x:Name="tv" />-->
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>

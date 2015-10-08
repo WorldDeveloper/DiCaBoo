@@ -241,8 +241,8 @@ namespace DiCaBoo
             newPost.Height = Double.NaN;
             string text = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd).Text;
 
-            if (text == "What are you thinking about?\r\n")
-                newPost.Document.Blocks.Clear();
+            if (string.IsNullOrWhiteSpace(text))
+                txtPostHint.Visibility = Visibility.Hidden;
         }
 
         private void NewPost_LostFocus(object sender, RoutedEventArgs e)
@@ -250,9 +250,9 @@ namespace DiCaBoo
             string text = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd).Text;
             if (string.IsNullOrWhiteSpace(text))
             {
-                newPost.Document.Blocks.Add(new Paragraph(new Run("What are you thinking about?")));
-                newPost.Height = 50;
+                txtPostHint.Visibility = Visibility.Visible;                
             }
+            newPost.Height = 50;
         }
 
         private void publishPost_Click(object sender, RoutedEventArgs e)
@@ -263,13 +263,12 @@ namespace DiCaBoo
             tr.Save(ms, DataFormats.Rtf);
             string SQLData = ASCIIEncoding.Default.GetString(ms.ToArray());
 
-            if (string.IsNullOrWhiteSpace(SQLData) || Diary.AddPost(SQLData) != 1)
+            if (string.IsNullOrWhiteSpace(record) || Diary.AddPost(SQLData) != 1)
             {
                 return;
             }
 
             newPost.Document.Blocks.Clear();
-            newPost.Document.Blocks.Add(new Paragraph(new Run("What are you thinking about?")));
             newPost.Height = 50;
 
             UpdateDiary();

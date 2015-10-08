@@ -5,16 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="AccountsWindow" Height="300" Width="300">
+        Title="Accounts" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TreeView x:Name="tvAccounts" SelectedItemChanged="tvAccounts_SelectedItemChanged" />
+        <TreeView x:Name="tvAccounts" SelectedItemChanged="tvAccounts_SelectedItemChanged">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
+                    <TextBlock Text="{Binding RootAccount.AccountName}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
         <TextBox  Grid.Row="1"  VerticalAlignment="Center" HorizontalAlignment="Stretch" x:Name="txtAccount" Margin="5" />
-        <TextBlock x:Name="txtAccountHint" Grid.Row="1" IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+        <TextBlock x:Name="txtAccountHint" Grid.Row="1" IsHitTestVisible="False" Text="Add or edit an account" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>

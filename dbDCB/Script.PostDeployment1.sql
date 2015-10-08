@@ -19,6 +19,9 @@ IF NOT EXISTS(SELECT * FROM Settings)
 Print 'Populating table AccountsSample.sql';
 :r .\Scripts\AccountsSample.sql
 
+Print 'Populating table AccountsSample.sql';
+:r .\Scripts\OperationsSample.sql
+
 Print 'Populating table EventTypesSample.sql';
 :r .\Scripts\EventTypesSample.sql
 

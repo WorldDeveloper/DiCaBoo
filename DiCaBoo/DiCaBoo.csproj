@@ -57,54 +57,59 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountsWindow.xaml.cs">
+    <Compile Include="Bookkeeper\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Transactions\Transaction.xaml.cs">
-      <DependentUpon>Transaction.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Transactions\Transactions.xaml.cs">
-      <DependentUpon>Transactions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TreeListView\TreeListView.cs" />
-    <Compile Include="Controls\TreeListView\TreeListView.xaml.cs">
-      <DependentUpon>TreeListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Transactions\dbDCBDataSet.Designer.cs">
+    <Compile Include="Bookkeeper\Controls\Transactions\dbDCBDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MainEvent.xaml.cs">
-      <DependentUpon>MainEvent.xaml</DependentUpon>
+    <Compile Include="Bookkeeper\Controls\Transactions\TransactionWindow.xaml.cs">
+      <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventTypes.xaml.cs">
-      <DependentUpon>EventTypes.xaml</DependentUpon>
+    <Compile Include="Bookkeeper\Controls\Transactions\TransactionsView.xaml.cs">
+      <DependentUpon>TransactionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainCalendar.cs" />
-    <Compile Include="MainSettings.cs" />
-    <Compile Include="TabBookkeeper.cs" />
-    <Page Include="AccountsWindow.xaml">
+    <Compile Include="Bookkeeper\Controls\TreeListView\TreeListView.cs" />
+    <Compile Include="Bookkeeper\Controls\TreeListView\TreeListView.xaml.cs">
+      <DependentUpon>TreeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\EventWindow.xaml.cs">
+      <DependentUpon>EventWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\EventTypesWindow.xaml.cs">
+      <DependentUpon>EventTypesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\TabCalendar.cs" />
+    <Compile Include="Settings\TabSettings.cs" />
+    <Compile Include="Bookkeeper\TabBookkeeper.cs" />
+    <Page Include="Bookkeeper\AccountsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Transactions\Transaction.xaml">
+    <Page Include="Bookkeeper\Controls\Transactions\TransactionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Transactions\Transactions.xaml">
+    <Page Include="Bookkeeper\Controls\Transactions\TransactionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TreeListView\TreeListView.xaml">
+    <Page Include="Bookkeeper\Controls\TreeListView\TreeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainEvent.xaml">
+    <Page Include="Calendar\EventWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventTypes.xaml">
+    <Page Include="Calendar\EventTypesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,7 +121,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainDiary.cs" />
+    <Compile Include="Diary\TabDiary.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -140,14 +145,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Controls\Transactions\dbDCBDataSet.xsc">
+    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xsc">
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Controls\Transactions\dbDCBDataSet.xsd">
+    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>dbDCBDataSet1.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Controls\Transactions\dbDCBDataSet.xss">
+    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xss">
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">

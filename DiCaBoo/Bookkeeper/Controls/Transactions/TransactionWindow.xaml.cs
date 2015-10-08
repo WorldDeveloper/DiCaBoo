@@ -21,24 +21,64 @@ namespace DiCaBoo.Controls.Transactions
     /// </summary>
     public partial class Transaction : Window
     {
+        private int? mTransactionId;
         public Transaction()
         {
             InitializeComponent();
             dpDate.SelectedDate = DateTime.Now;
 
+            InitAccounts();
+        }
+
+        private void InitAccounts()
+        {
             ShortAccountNode assets = Accounts.GetShortTree("/1/");
             ShortAccountNode incomes = Accounts.GetShortTree("/2/");
 
+            tvCredit.Items.Clear();
             tvCredit.Items.Add(assets);
             tvCredit.Items.Add(incomes);
 
-
+            tvDebit.Items.Clear();
             tvDebit.Items.Add(assets);
             ShortAccountNode expences = Accounts.GetShortTree("/3/");
             tvDebit.Items.Add(expences);
+
+            cbCreditItem.Content = new Account(null, null);
+            cbDebitItem.Content = new Account(null, null);
         }
 
-       
+        public Transaction(int transactionId)
+        {
+            InitializeComponent();
+
+            try
+            {
+                Operation operation = DataLayer.Operations.GetTransaction(transactionId);
+                if (operation == null)
+                {
+                    throw new Exception("Can't edit transaction");
+                }
+
+                mTransactionId = operation.ID;
+
+                InitAccounts();
+                cbCreditItem.Content = operation.Credit;
+                cbCredit.SelectedIndex = 0;
+                cbDebitItem.Content = operation.Debit;
+                cbDebit.SelectedIndex = 0;
+                dpDate.SelectedDate = operation.Date;
+                txtAmount.Text = operation.Amount.ToString();
+                txtNote.Text = operation.Note;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Incorrect input", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+        }
+
+
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -48,23 +88,29 @@ namespace DiCaBoo.Controls.Transactions
                     throw new Exception("Select a date");
 
                 DateTime date = dpDate.SelectedDate.Value;
-                date=date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute).AddSeconds(DateTime.Now.Second);
+                date = date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute).AddSeconds(DateTime.Now.Second);
 
-                if (tvCredit.SelectedItem == null)
+
+                Account credit = (Account)cbCreditItem.Content;
+                if (string.IsNullOrWhiteSpace(credit.AccountId))
                     throw new Exception("Select a credit account (From acc)");
 
-                string credit = ((ShortAccountNode)tvCredit.SelectedItem).RootAccount.AccountId;
-
-                if (tvDebit.SelectedItem == null)
+                Account debit = (Account)cbDebitItem.Content;
+                if (string.IsNullOrWhiteSpace(debit.AccountId))
                     throw new Exception("Select a debit account (To acc)");
 
-                string debit = ((ShortAccountNode)tvDebit.SelectedItem).RootAccount.AccountId;
-
                 decimal amount = 0M;
-                if (!decimal.TryParse(txtAmount.Text, out amount) ||amount<=0)
+                if (!decimal.TryParse(txtAmount.Text, out amount) || amount <= 0)
                     throw new Exception("Enter correct amount");
 
-                if (Operations.AddTransaction(date, credit, debit, amount, txtNote.Text)!=1)
+                int result;
+                if (mTransactionId == null)
+                    result = DataLayer.Operations.AddTransaction(date, credit.AccountId, debit.AccountId, amount, txtNote.Text);
+                else
+                    result = DataLayer.Operations.UpdateTransaction((int)mTransactionId, date, credit.AccountId, debit.AccountId, amount, txtNote.Text);
+
+
+                if(result!=1)
                 {
                     MessageBox.Show("Can't save transaction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -76,14 +122,12 @@ namespace DiCaBoo.Controls.Transactions
             {
                 MessageBox.Show(ex.Message, "Incorrect input", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-
-            // MessageBox.Show(((ShortAccountNode)tvTest.SelectedItem).RootAccount.AccountId);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-           
+            this.Close();
+
         }
 
 
@@ -92,7 +136,7 @@ namespace DiCaBoo.Controls.Transactions
             if (tvDebit.SelectedItem != null)
             {
                 ShortAccountNode selectedNode = ((ShortAccountNode)tvDebit.SelectedItem);
-                cbDebitItem.Content = selectedNode.RootAccount.AccountName;
+                cbDebitItem.Content = selectedNode.RootAccount;
             }
             cbDebit.SelectedIndex = 0;
             cbDebit.Visibility = Visibility.Visible;
@@ -109,15 +153,23 @@ namespace DiCaBoo.Controls.Transactions
             if (tvCredit.SelectedItem != null)
             {
                 ShortAccountNode selectedNode = ((ShortAccountNode)tvCredit.SelectedItem);
-                cbCreditItem.Content = selectedNode.RootAccount.AccountName;
+                cbCreditItem.Content = selectedNode.RootAccount;
             }
-            cbCredit.SelectedIndex=0;
+            cbCredit.SelectedIndex = 0;
             cbCredit.Visibility = Visibility.Visible;
         }
 
         private void cbCredit_DropDownOpened(object sender, EventArgs e)
         {
             cbCreditItem.Visibility = Visibility.Collapsed;
+        }
+
+        private void EditAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            AccountsWindow accountsWindow = new AccountsWindow();
+            accountsWindow.ShowDialog();
+
+            InitAccounts();
         }
     }
 

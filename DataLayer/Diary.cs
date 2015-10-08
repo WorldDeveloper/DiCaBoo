@@ -23,16 +23,11 @@ namespace DataLayer
 
     }
 
-    public class Diary : IEnumerable<DiaryPost> //without generic??****************************
+    public class Diary : IEnumerable<DiaryPost>
     {
         private List<DiaryPost> mPosts;
 
         public Diary()
-        {
-            Fill();
-        }
-
-        public void Fill()
         {
             mPosts = new List<DiaryPost>();
             using (SqlConnection connection = DB.SqlConnection)

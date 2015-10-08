@@ -1,0 +1,79 @@
+﻿<Window x:Class="DiCaBoo.Controls.Transactions.Transaction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiCaBoo.Controls.Transactions"
+        mc:Ignorable="d"
+        Title="Transaction" Height="300" Width="500">
+    <Grid x:Name="stackPanel" Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Date:" Margin="5" Grid.Row="0" />
+        <DatePicker x:Name="dpDate" Grid.Column="1" Margin="5" />
+
+        <TextBlock Text="From Acc.:" Margin="5" Grid.Row="1" />
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="cbCredit"  Margin="5 5 0 5" DropDownClosed="cbCredit_DropDownClosed" DropDownOpened="cbCredit_DropDownOpened" >
+                <ComboBoxItem x:Name="cbCreditItem"/>
+                <ComboBoxItem>
+                    <TreeView x:Name="tvCredit" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbCredit, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
+                                <TextBlock Text="{Binding RootAccount.AccountName}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </ComboBoxItem>
+            </ComboBox>
+            <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
+        </Grid>
+        
+        <TextBlock Text="To Acc.:" Margin="5" Grid.Row="2" />
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="cbDebit"  Margin="5 5 0 5" DropDownClosed="cbDebit_DropDownClosed" DropDownOpened="cbDebit_DropDownOpened" >
+                <ComboBoxItem x:Name="cbDebitItem"/>
+                <ComboBoxItem>
+                    <TreeView x:Name="tvDebit" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbDebit, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
+                                <TextBlock Text="{Binding RootAccount.AccountName}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </ComboBoxItem>
+            </ComboBox>
+            <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
+        </Grid>
+        
+
+        <TextBlock Text="Amount:" Grid.Row="3" Margin="5" />
+        <TextBox x:Name="txtAmount"  Grid.Row="3" Grid.Column="1" Margin="5" />
+
+        <TextBlock Text="Note:" Margin="5" Grid.Row="4" />
+        <TextBox x:Name="txtNote" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" Grid.Row="4" Grid.Column="1" />
+
+        <StackPanel Orientation="Horizontal"  Margin="0,15, 0,0" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="2">
+            <Button x:Name="btnOk"  Width="100" Content="Save" IsDefault="True" Click="btnOk_Click" />
+            <Button x:Name="btnCancel" IsCancel="True" Width="100" Margin="10,0, 5, 0" Content="Cancel" Click="btnCancel_Click" />
+        </StackPanel>        
+    </Grid>
+</Window>

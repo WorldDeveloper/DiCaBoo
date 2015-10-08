@@ -28,7 +28,7 @@ namespace DiCaBoo.Controls.Transactions
             InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void Transactions_Loaded(object sender, RoutedEventArgs e)
         {
 
             DiCaBoo.dbDCBDataSet dbDCBDataSet = ((DiCaBoo.dbDCBDataSet)(this.FindResource("dbDCBDataSet")));
@@ -51,13 +51,28 @@ namespace DiCaBoo.Controls.Transactions
                 return;
 
           string id=row.Row[0].ToString();
-        if(Operations.RemoveTransaction(id)>0)
+        if(DataLayer.Operations.RemoveTransaction(id) >0)
             row.Row.Delete();
 
         }
 
         private void Edit_Transaction(object sender, RoutedEventArgs e)
         {
+            DataRowView row = (DataRowView)transactionsDataGrid.SelectedItem;
+            if (row == null)
+                return;
+
+            int id = 0;
+            if (!int.TryParse(row.Row[0].ToString(), out id))
+                throw new Exception("Can't edit transaction");
+
+            Transaction transaction = new Transaction(id);
+
+            if (transaction.ShowDialog() == true)
+            {
+               Transactions_Loaded(sender, e);//ShowTransactions();
+            }
+
 
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -7,26 +8,57 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
+    public class Operation
+    {
+        public int ID { get; private set; }
+        public DateTime Date { get; private set; }
+        public Account Credit { get; private set; }
+        public Account Debit { get; private set;}
+        public decimal  Amount { get; private set; }
+        public string Note { get; set; }
+
+        public Operation(int id, DateTime date, Account credit,  Account debit, decimal amount, string note)
+        {
+            ID = id;
+            Date = date;
+            Credit = credit;
+            Debit = debit;
+            Amount = amount;
+            Note = note;
+        }
+    }
+
     public class Operations
     {
+        public static Operation GetTransaction(int id)
+        {
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "GetTransaction";
+                    command.Parameters.AddWithValue("@id", id);
 
-        //public static int UpdateTransaction(Account updatedAccount)
-        //{
-        //    if (updatedAccount == null) return 0;
-
-        //    using (SqlConnection connection = DB.SqlConnection)
-        //    {
-        //        using (SqlCommand command = connection.CreateCommand())
-        //        {
-        //            command.CommandText = @"UPDATE Accounts SET AccountName=@accountName WHERE AccountId=hierarchyid::Parse(@accountId);";
-        //            command.Parameters.AddWithValue("@accountName", updatedAccount.AccountName);
-        //            command.Parameters.AddWithValue("@accountId", updatedAccount.AccountId);
-
-        //            connection.Open();
-        //            return command.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                           return new Operation(
+                               (int)reader["OperationId"],
+                                (DateTime)reader["OperationDate"],
+                                new Account(reader["CreditId"].ToString(), reader["CreditName"].ToString()),
+                                new Account(reader["DebitId"].ToString(), reader["DebitName"].ToString()),
+                                (decimal)reader["Summ"],
+                                reader["Note"].ToString()
+                                );
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
         public static int UpdateTransaction(int id, DateTime date, string credit, string debit, decimal amount, string note)
         {
@@ -74,7 +106,6 @@ namespace DataLayer
                 }
             }
         }
-
 
         public static int RemoveTransaction(string transactionId)
         {

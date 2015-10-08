@@ -58,6 +58,10 @@ namespace DiCaBoo
             if (string.IsNullOrWhiteSpace(newAccount) || selectedNode==null)
                 return;
 
+            string level = SqlHierarchyId.Parse(selectedNode.Tag.ToString()).GetLevel().ToString();
+            if (level == "0")
+                return;
+
             string parentId = selectedNode.Tag.ToString();
             try
             {
@@ -161,13 +165,6 @@ namespace DiCaBoo
             if (selectedNode!= null)
                 txtAccount.Text = selectedNode.Header.ToString();
         }
-
-        //private void txtAccount_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    txtAccount.SelectionStart = 0;
-        //    txtAccount.SelectionLength = txtAccount.Text.Length;
-
-        //}
 
     }
 }

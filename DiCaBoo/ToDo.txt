@@ -2,3 +2,5 @@
 2. Select textBox text when got focus (accounts, calendar types)
 3. Add edit accounts to transaction form
 4. edit transaction
+5. Create logic for accounts edit In TransactionWindow 
+6. Update Transaction logic

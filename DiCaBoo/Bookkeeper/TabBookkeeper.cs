@@ -13,6 +13,24 @@ namespace DiCaBoo
     public partial class MainWindow
     {
 
+        //private void MenuItemBalance_Click(object sender, RoutedEventArgs e)
+        //{
+        //    TreeList treeList = new TreeList();
+        //    AccountNode parent = Accounts.GetTree(SqlHierarchyId.GetRoot().ToString());//Accounts.GetTree("/1/");//
+        //    treeList.Tree.Items.Add(parent);
+        //    bookkeeperPanel.Children.Clear();
+        //    bookkeeperPanel.Children.Add(treeList);
+        //}
+
+
+
+        //private void MenuItemEditAccounts_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AccountsWindow accountsWindow = new AccountsWindow();
+        //    accountsWindow.ShowDialog();
+        //}
+
+
         private void btnTransactions_Click(object sender, RoutedEventArgs e)
         {
             ShowTransactions();
@@ -34,7 +52,7 @@ namespace DiCaBoo
         private void btnBalance_Click(object sender, RoutedEventArgs e)
         {
             TreeList treeList = new TreeList();
-            AccountNode parent = Accounts.GetTree(SqlHierarchyId.GetRoot().ToString());//Accounts.GetTree("/1/");//
+            AccountNode parent = Accounts.GetTree("/1/");//my resources  //Accounts.GetTree(SqlHierarchyId.GetRoot().ToString())//all accounts
             treeList.Tree.Items.Add(parent);
             bookkeeperPanel.Children.Clear();
             bookkeeperPanel.Children.Add(treeList);
@@ -47,8 +65,5 @@ namespace DiCaBoo
             if(tr.ShowDialog()== true)
                 ShowTransactions();
         }
-
-
-
     }
 }
