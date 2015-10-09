@@ -38,7 +38,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,22 +62,25 @@
     <Compile Include="Bookkeeper\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Bookkeeper\Controls\Transactions\dbDCBDataSet1.Designer.cs">
+    <Compile Include="Controls\TimePeriod\TimePeriod.xaml.cs">
+      <DependentUpon>TimePeriod.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Transactions\dbDCBDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Bookkeeper\Controls\Transactions\TransactionWindow.xaml.cs">
+    <Compile Include="Controls\Transactions\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Bookkeeper\Controls\Transactions\TransactionsView.xaml.cs">
+    <Compile Include="Controls\Transactions\TransactionsView.xaml.cs">
       <DependentUpon>TransactionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Bookkeeper\Controls\TreeListView\TreeListView.cs" />
-    <Compile Include="Bookkeeper\Controls\TreeListView\TreeListView.xaml.cs">
+    <Compile Include="Controls\TreeListView\TreeListView.cs" />
+    <Compile Include="Controls\TreeListView\TreeListView.xaml.cs">
       <DependentUpon>TreeListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.Designer.cs">
+    <Compile Include="Controls\Transactions\dbDCBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
@@ -93,15 +98,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Bookkeeper\Controls\Transactions\TransactionWindow.xaml">
+    <Page Include="Controls\TimePeriod\TimePeriod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Bookkeeper\Controls\Transactions\TransactionsView.xaml">
+    <Page Include="Controls\Transactions\TransactionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Bookkeeper\Controls\TreeListView\TreeListView.xaml">
+    <Page Include="Controls\Transactions\TransactionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TreeListView\TreeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,15 +154,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xsc">
+    <None Include="Controls\Transactions\dbDCBDataSet.xsc">
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xsd">
+    <None Include="Controls\Transactions\dbDCBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>dbDCBDataSet1.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Bookkeeper\Controls\Transactions\dbDCBDataSet.xss">
+    <None Include="Controls\Transactions\dbDCBDataSet.xss">
       <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">

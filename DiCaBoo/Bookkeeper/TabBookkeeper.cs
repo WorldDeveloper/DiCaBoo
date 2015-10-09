@@ -12,6 +12,10 @@ namespace DiCaBoo
 {
     public partial class MainWindow
     {
+        public void test(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("It works");
+        }
 
         //private void MenuItemBalance_Click(object sender, RoutedEventArgs e)
         //{

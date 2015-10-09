@@ -33,8 +33,7 @@ namespace DiCaBoo
             InitializeComponent();
             UpdateDiary();
             cbEventTypes.ItemsSource = new EventTypes();
-            dpCalendarStartDate.SelectedDate = DateTime.Now.Date;
-            cbCalendarPeriod.SelectedIndex = 2;
+            CalendarPeriod.TimePeriodIndex = 2;
 
             btnBalance_Click(null, null);
             mSettings = new Settings();

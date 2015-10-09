@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DiCaBoo.Controls.Transactions"
              xmlns:DiCaBoo="clr-namespace:DiCaBoo" x:Class="DiCaBoo.Controls.Transactions.Transactions"
              mc:Ignorable="d" 
-             Loaded="Transactions_Loaded">
+             Loaded="Transactions_Loaded" 
+    d:DesignHeight="200" d:DesignWidth="600">
     <UserControl.Resources>
         <DiCaBoo:dbDCBDataSet x:Key="dbDCBDataSet"/>
         <CollectionViewSource x:Key="transactionsViewSource" Source="{Binding Transactions, Source={StaticResource dbDCBDataSet}}"/>

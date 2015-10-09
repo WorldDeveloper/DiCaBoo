@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace DiCaBoo.Bookkeeper.Controls.Transactions {
+namespace DiCaBoo.Controls.Transactions {
     
     
     /// <summary>
@@ -1726,7 +1726,7 @@ namespace DiCaBoo.Bookkeeper.Controls.Transactions {
         }
     }
 }
-namespace DiCaBoo.Bookkeeper.Controls.Transactions.dbDCBDataSetTableAdapters {
+namespace DiCaBoo.Controls.Transactions.dbDCBDataSetTableAdapters {
     
     
     /// <summary>
