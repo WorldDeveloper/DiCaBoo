@@ -39,5 +39,9 @@ namespace DiCaBoo
             mSettings = new Settings();
             SetSettings();
         }
+
+       
+
+      
     }
 }

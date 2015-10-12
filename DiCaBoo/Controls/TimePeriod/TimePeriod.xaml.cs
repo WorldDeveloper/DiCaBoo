@@ -66,6 +66,8 @@ namespace DiCaBoo
             }
         }
 
+
+
         private void cbPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetEndDate();
@@ -76,7 +78,7 @@ namespace DiCaBoo
         {
             if (dpStartDate.SelectedDate == null)
             {
-                MessageBox.Show("Selected date is incorrect", "DiCaBoo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Incorrect date", "DiCaBoo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 dpStartDate.SelectedDate = curStartDate;
             }
 
@@ -95,7 +97,7 @@ namespace DiCaBoo
         {
             if (dpEndDate.SelectedDate == null || (dpStartDate.SelectedDate != null && dpStartDate.SelectedDate > dpEndDate.SelectedDate))
             {
-                MessageBox.Show("Selected date is incorrect", "DiCaBoo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBox.Show("Incorrect date", "DiCaBoo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 dpEndDate.SelectedDate = curEndDate;
             }
 

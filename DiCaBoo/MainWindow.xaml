@@ -88,8 +88,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                        <WrapPanel HorizontalAlignment="Center">
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <WrapPanel HorizontalAlignment="Left">
                             <!--<Menu x:Name="BookkeperMenu" IsMainMenu="True">
                                 <MenuItem Header="_Accounts">
                                     <MenuItem Header="_Balance" Click="MenuItemBalance_Click" />
@@ -99,8 +99,8 @@
                             <Button x:Name="btnBalance" Content="Balance" Style="{StaticResource commandButton}" Click="btnBalance_Click" />
                             <Button x:Name="btnTransactions" Content="Transactions" Style="{StaticResource commandButton}" Click="btnTransactions_Click" />
                             <Button x:Name="btnAddTransaction" Content="Add Transaction" Style="{StaticResource commandButton}"  Click="btnAddTransaction_Click" />
-                            <Button x:Name="btnEditAccounts" Content="Edit Accounts" Style="{StaticResource commandButton}"  Click="btnEditAccounts_Click" />
-                            <local:Period x:Name="BookkkeeperPeriod" DateChanged="test"/>
+                            <DatePicker x:Name="dpBalanceDate" Margin="10 0 0 0" ToolTip="Balance date" SelectedDateChanged="dpBalanceDate_SelectedDateChanged"/>
+                            <local:Period x:Name="tpTransactionPeriod" DateChanged="test"/>
                         </WrapPanel>
                     </Grid>
 

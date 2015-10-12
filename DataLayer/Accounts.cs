@@ -205,7 +205,7 @@ namespace DataLayer
 
 
         private static List<AccountInfo> mAccountsList;
-        public static AccountNode GetTree(string parent)
+        public static AccountNode GetTree(string parent, DateTime date)
         {
             mAccountsList=new List<AccountInfo>();
             using (SqlConnection connection = DB.SqlConnection)
@@ -216,6 +216,7 @@ namespace DataLayer
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "GetAccountsInfo";
                     command.Parameters.AddWithValue("@parentId", parent);
+                    command.Parameters.AddWithValue("@date", date.Date.AddDays(1));
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
