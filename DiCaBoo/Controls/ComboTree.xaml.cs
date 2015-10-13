@@ -21,6 +21,7 @@ namespace DiCaBoo.Controls
     /// </summary>
     public partial class ComboTree : UserControl
     {
+        public event RoutedEventHandler SelectedItemChanged;
         public ComboTree()
         {
             InitializeComponent();
@@ -41,6 +42,13 @@ namespace DiCaBoo.Controls
         private void cbComboTree_DropDownOpened(object sender, EventArgs e)
         {
             cbComboTreeItem.Visibility = Visibility.Collapsed;
+        }
+
+
+        private void cbComboTreeItem_Selected(object sender, RoutedEventArgs e)
+        {
+            if (SelectedItemChanged != null)
+                SelectedItemChanged(sender, e);
         }
     }
 }

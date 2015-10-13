@@ -65,6 +65,9 @@
     <Compile Include="Controls\ComboTree.xaml.cs">
       <DependentUpon>ComboTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimePeriod\SimpleTimePeriod.xaml.cs">
+      <DependentUpon>SimpleTimePeriod.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TimePeriod\TimePeriod.xaml.cs">
       <DependentUpon>TimePeriod.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,10 @@
     <Page Include="Controls\ComboTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimePeriod\SimpleTimePeriod.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TimePeriod\TimePeriod.xaml">
       <SubType>Designer</SubType>

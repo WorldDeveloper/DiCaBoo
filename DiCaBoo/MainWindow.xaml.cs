@@ -34,15 +34,15 @@ namespace DiCaBoo
             UpdateDiary();
             cbEventTypes.ItemsSource = new EventTypes();
             CalendarPeriod.TimePeriodIndex = 2;
-            tpTransactionPeriod.TimePeriodIndex = 2;
 
             btnBalance_Click(null, null);
+            ctCredit.cbComboTreeItem.Content = null;
+            ctDebit.cbComboTreeItem.Content = null;
+
             mSettings = new Settings();
             SetSettings();
         }
 
-       
 
-      
     }
 }

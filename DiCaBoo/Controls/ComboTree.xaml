@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:DiCaBoo.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <ComboBox x:Name="cbComboTree"  Margin="5 5 0 5" DropDownClosed="cbComboTree_DropDownClosed" DropDownOpened="cbComboTree_DropDownOpened" >
-        <ComboBoxItem x:Name="cbComboTreeItem"/>
+    <ComboBox x:Name="cbComboTree" DropDownClosed="cbComboTree_DropDownClosed" DropDownOpened="cbComboTree_DropDownOpened" >
+        <ComboBoxItem x:Name="cbComboTreeItem" Selected="cbComboTreeItem_Selected"/>
         <ComboBoxItem>
             <TreeView x:Name="tvNestedTree" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbComboTree, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
                 <TreeView.ItemTemplate>

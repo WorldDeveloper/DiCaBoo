@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo"
         mc:Ignorable="d"
-        Title="Event" MinWidth="500"  MaxWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="Event" MinWidth="500"  MaxWidth="800" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid x:Name="stackPanel" Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80" />

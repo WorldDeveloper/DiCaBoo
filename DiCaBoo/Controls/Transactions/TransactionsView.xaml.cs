@@ -32,6 +32,7 @@ namespace DiCaBoo.Controls.Transactions
         {
 
             DiCaBoo.dbDCBDataSet dbDCBDataSet = ((DiCaBoo.dbDCBDataSet)(this.FindResource("dbDCBDataSet")));
+
             // Load data into the table Transactions. You can modify this code as needed.
             DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter dbDCBDataSetTransactionsTableAdapter = new DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter();
             dbDCBDataSetTransactionsTableAdapter.Fill(dbDCBDataSet.Transactions);

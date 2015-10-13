@@ -1,22 +1,14 @@
-﻿<UserControl x:Class="DiCaBoo.Period"
+﻿<UserControl x:Class="DiCaBoo.Controls.SimpleTimePeriod"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DiCaBoo"
+             xmlns:local="clr-namespace:DiCaBoo.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="500">
 
     <WrapPanel HorizontalAlignment="Center">
-        <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cbPeriod"  MinWidth="80" MaxWidth="100" IsEditable="True"  IsReadOnly="True"  Text="Time period" SelectionChanged="cbPeriod_SelectionChanged">
-                <ComboBoxItem Content="Day" />
-                <ComboBoxItem Content="Week" />
-                <ComboBoxItem Content="Month" />
-                <ComboBoxItem Content="Year" />
-            </ComboBox>
-            <Button x:Name="btnSkipPeriod"  Content=" x " ToolTip="Skip filter" Margin="0,0,2,0" Click="btnSkipPeriod_Click" />
-        </StackPanel>
+        <StackPanel Orientation="Horizontal"/>
         <DatePicker x:Name="dpStartDate" ToolTip="Start date"  Style="{StaticResource StartDate}" SelectedDateChanged="dpStartDate_SelectedDateChanged" />
         <DatePicker x:Name="dpEndDate" ToolTip="End date" Style="{StaticResource EndDate}" SelectedDateChanged="dpEndDate_SelectedDateChanged" />
     </WrapPanel>

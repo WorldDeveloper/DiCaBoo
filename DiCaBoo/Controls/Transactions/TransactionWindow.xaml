@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiCaBoo.Controls"
         mc:Ignorable="d"
-        Title="Transaction" Height="300" Width="500">
+        Title="Transaction" Height="300" MinWidth="300" Width="400" MaxWidth="500"  ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid x:Name="stackPanel" Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80" />
@@ -28,7 +28,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <local:ComboTree x:Name="ctCredit"/>
+            <local:ComboTree x:Name="ctCredit" Margin="5,5,0,5"/>
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
         
@@ -38,7 +38,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-           <local:ComboTree x:Name="ctDebit" />
+           <local:ComboTree x:Name="ctDebit" Margin="5,5,0,5" />
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
         
@@ -49,7 +49,7 @@
         <TextBlock Text="Note:" Margin="5" Grid.Row="4" />
         <TextBox x:Name="txtNote" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" Grid.Row="4" Grid.Column="1" />
 
-        <StackPanel Orientation="Horizontal"  Margin="0,15, 0,0" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="2">
+        <StackPanel Orientation="Horizontal"  Margin="0,15, 0,0" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
             <Button x:Name="btnOk"  Width="100" Content="Save" IsDefault="True" Click="btnOk_Click" />
             <Button x:Name="btnCancel" IsCancel="True" Width="100" Margin="10,0, 5, 0" Content="Cancel" Click="btnCancel_Click" />
         </StackPanel>        
