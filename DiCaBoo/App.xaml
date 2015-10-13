@@ -48,6 +48,7 @@
             </Storyboard>
         </BeginStoryboard>
         <Style x:Key="StartDate" TargetType="DatePicker">
+            <Setter Property="Width" Value="100" />
             <Style.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="Text" Value="Start date" />
@@ -55,6 +56,7 @@
             </Style.Resources>
         </Style>
         <Style  x:Key="EndDate" TargetType="DatePicker">
+            <Setter Property="Width" Value="100" />
             <Style.Resources>
                 <Style TargetType="{x:Type DatePickerTextBox}">
                     <Setter Property="Text" Value="End date" />

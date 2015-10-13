@@ -186,7 +186,7 @@ namespace DiCaBoo
             if (activePanel == null)
                 return;
 
-            if (MessageBox.Show("Remove selected event?", "Removing...", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) //don't move up
+            if (MessageBox.Show("Remove the selected event?", "DiCaBoo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No) //don't move up
                 return;
 
 

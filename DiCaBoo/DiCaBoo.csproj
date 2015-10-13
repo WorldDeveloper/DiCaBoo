@@ -62,6 +62,9 @@
     <Compile Include="Bookkeeper\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ComboTree.xaml.cs">
+      <DependentUpon>ComboTree.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TimePeriod\TimePeriod.xaml.cs">
       <DependentUpon>TimePeriod.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
     <Compile Include="Settings\TabSettings.cs" />
     <Compile Include="Bookkeeper\TabBookkeeper.cs" />
     <Page Include="Bookkeeper\AccountsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ComboTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

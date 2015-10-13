@@ -34,18 +34,15 @@ namespace DiCaBoo.Controls.Transactions
         {
             ShortAccountNode assets = Accounts.GetShortTree("/1/");
             ShortAccountNode incomes = Accounts.GetShortTree("/2/");
-
-            tvCredit.Items.Clear();
-            tvCredit.Items.Add(assets);
-            tvCredit.Items.Add(incomes);
-
-            tvDebit.Items.Clear();
-            tvDebit.Items.Add(assets);
             ShortAccountNode expences = Accounts.GetShortTree("/3/");
-            tvDebit.Items.Add(expences);
 
-            cbCreditItem.Content = new Account(null, null);
-            cbDebitItem.Content = new Account(null, null);
+            ctCredit.tvNestedTree.Items.Clear();
+            ctCredit.tvNestedTree.Items.Add(assets);
+            ctCredit.tvNestedTree.Items.Add(incomes);
+
+            ctDebit.tvNestedTree.Items.Clear();
+            ctDebit.tvNestedTree.Items.Add(assets);
+            ctDebit.tvNestedTree.Items.Add(expences);
         }
 
         public Transaction(int transactionId)
@@ -63,10 +60,13 @@ namespace DiCaBoo.Controls.Transactions
                 mTransactionId = operation.ID;
 
                 InitAccounts();
-                cbCreditItem.Content = operation.Credit;
-                cbCredit.SelectedIndex = 0;
-                cbDebitItem.Content = operation.Debit;
-                cbDebit.SelectedIndex = 0;
+
+                ctCredit.cbComboTreeItem.Content = operation.Credit;
+                ctCredit.cbComboTree.SelectedIndex = 0;
+
+                ctDebit.cbComboTreeItem.Content = operation.Debit;
+                ctDebit.cbComboTree.SelectedIndex = 0;
+
                 dpDate.SelectedDate = operation.Date;
                 txtAmount.Text = operation.Amount.ToString();
                 txtNote.Text = operation.Note;
@@ -77,8 +77,6 @@ namespace DiCaBoo.Controls.Transactions
                 this.Close();
             }
         }
-
-
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -91,11 +89,11 @@ namespace DiCaBoo.Controls.Transactions
                 date = date.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute).AddSeconds(DateTime.Now.Second);
 
 
-                Account credit = (Account)cbCreditItem.Content;
+                Account credit = (Account)ctCredit.cbComboTreeItem.Content;
                 if (string.IsNullOrWhiteSpace(credit.AccountId))
                     throw new Exception("Select a credit account (From acc)");
 
-                Account debit = (Account)cbDebitItem.Content;
+                Account debit = (Account)ctDebit.cbComboTreeItem.Content;
                 if (string.IsNullOrWhiteSpace(debit.AccountId))
                     throw new Exception("Select a debit account (To acc)");
 
@@ -110,7 +108,7 @@ namespace DiCaBoo.Controls.Transactions
                     result = DataLayer.Operations.UpdateTransaction((int)mTransactionId, date, credit.AccountId, debit.AccountId, amount, txtNote.Text);
 
 
-                if(result!=1)
+                if (result != 1)
                 {
                     MessageBox.Show("Can't save transaction.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -127,41 +125,6 @@ namespace DiCaBoo.Controls.Transactions
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-
-        }
-
-
-        private void cbDebit_DropDownClosed(object sender, EventArgs e)
-        {
-            if (tvDebit.SelectedItem != null)
-            {
-                ShortAccountNode selectedNode = ((ShortAccountNode)tvDebit.SelectedItem);
-                cbDebitItem.Content = selectedNode.RootAccount;
-            }
-            cbDebit.SelectedIndex = 0;
-            cbDebit.Visibility = Visibility.Visible;
-        }
-
-        private void cbDebit_DropDownOpened(object sender, EventArgs e)
-        {
-            cbDebitItem.Visibility = Visibility.Collapsed;
-        }
-
-
-        private void cbCredit_DropDownClosed(object sender, EventArgs e)
-        {
-            if (tvCredit.SelectedItem != null)
-            {
-                ShortAccountNode selectedNode = ((ShortAccountNode)tvCredit.SelectedItem);
-                cbCreditItem.Content = selectedNode.RootAccount;
-            }
-            cbCredit.SelectedIndex = 0;
-            cbCredit.Visibility = Visibility.Visible;
-        }
-
-        private void cbCredit_DropDownOpened(object sender, EventArgs e)
-        {
-            cbCreditItem.Visibility = Visibility.Collapsed;
         }
 
         private void EditAccounts_Click(object sender, RoutedEventArgs e)
@@ -172,5 +135,4 @@ namespace DiCaBoo.Controls.Transactions
             InitAccounts();
         }
     }
-
 }

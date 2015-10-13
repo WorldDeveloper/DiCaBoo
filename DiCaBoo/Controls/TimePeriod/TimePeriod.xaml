@@ -9,7 +9,7 @@
 
     <WrapPanel HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cbPeriod"  MinWidth="100" Margin="10,0,0,0" IsEditable="True"  IsReadOnly="True"  Text="Time period" SelectionChanged="cbPeriod_SelectionChanged">
+            <ComboBox x:Name="cbPeriod"  MinWidth="80" MaxWidth="100" Margin="10,0,0,0" IsEditable="True"  IsReadOnly="True"  Text="Time period" SelectionChanged="cbPeriod_SelectionChanged">
                 <ComboBoxItem Content="Day" />
                 <ComboBoxItem Content="Week" />
                 <ComboBoxItem Content="Month" />

@@ -34,6 +34,7 @@ namespace DiCaBoo
             UpdateDiary();
             cbEventTypes.ItemsSource = new EventTypes();
             CalendarPeriod.TimePeriodIndex = 2;
+            tpTransactionPeriod.TimePeriodIndex = 2;
 
             btnBalance_Click(null, null);
             mSettings = new Settings();

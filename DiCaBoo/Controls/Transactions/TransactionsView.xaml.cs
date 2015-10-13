@@ -39,20 +39,18 @@ namespace DiCaBoo.Controls.Transactions
             transactionsViewSource.View.MoveCurrentToLast();
         }
 
-        private void transactionsDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
-
         private void Delete_Transaction(object sender, RoutedEventArgs e)
         {
             DataRowView row = (DataRowView)transactionsDataGrid.SelectedItem;
             if (row == null)
                 return;
 
-          string id=row.Row[0].ToString();
-        if(DataLayer.Operations.RemoveTransaction(id) >0)
-            row.Row.Delete();
+            if (MessageBox.Show("Remove the selected record?", "DiCaBoo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            string id = row.Row[0].ToString();
+            if (DataLayer.Operations.RemoveTransaction(id) > 0)
+                row.Row.Delete();
 
         }
 
@@ -70,10 +68,8 @@ namespace DiCaBoo.Controls.Transactions
 
             if (transaction.ShowDialog() == true)
             {
-               Transactions_Loaded(sender, e);//ShowTransactions();
+                Transactions_Loaded(sender, e);//ShowTransactions();
             }
-
-
         }
     }
 }

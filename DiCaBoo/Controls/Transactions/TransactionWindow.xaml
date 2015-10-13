@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DiCaBoo.Controls.Transactions"
+        xmlns:local="clr-namespace:DiCaBoo.Controls"
         mc:Ignorable="d"
         Title="Transaction" Height="300" Width="500">
     <Grid x:Name="stackPanel" Margin="20">
@@ -28,18 +28,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="cbCredit"  Margin="5 5 0 5" DropDownClosed="cbCredit_DropDownClosed" DropDownOpened="cbCredit_DropDownOpened" >
-                <ComboBoxItem x:Name="cbCreditItem"/>
-                <ComboBoxItem>
-                    <TreeView x:Name="tvCredit" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbCredit, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
-                                <TextBlock Text="{Binding RootAccount.AccountName}" />
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                </ComboBoxItem>
-            </ComboBox>
+            <local:ComboTree x:Name="ctCredit"/>
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
         
@@ -49,18 +38,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="cbDebit"  Margin="5 5 0 5" DropDownClosed="cbDebit_DropDownClosed" DropDownOpened="cbDebit_DropDownOpened" >
-                <ComboBoxItem x:Name="cbDebitItem"/>
-                <ComboBoxItem>
-                    <TreeView x:Name="tvDebit" BorderThickness="0"  Width="{Binding ActualWidth, ElementName=cbDebit, Mode=OneWay}" ItemsSource="{Binding ChildAccounts}">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding ChildAccounts}">
-                                <TextBlock Text="{Binding RootAccount.AccountName}" />
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                </ComboBoxItem>
-            </ComboBox>
+           <local:ComboTree x:Name="ctDebit" />
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
         

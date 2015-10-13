@@ -14,7 +14,7 @@
     </UserControl.Resources>
     <Grid x:Name="grid" DataContext="{StaticResource transactionsViewSource}" >
 
-        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}" MouseRightButtonUp="transactionsDataGrid_MouseRightButtonUp">
+        <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="operationIdColumn"  Width="SizeToHeader" Header="Operation Id" Binding="{Binding OperationId, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
                 <DataGridTextColumn x:Name="operationDateColumn" SortDirection="Descending" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=\{0:dd.MM.yy HH:mm\}}" MinWidth="100" />

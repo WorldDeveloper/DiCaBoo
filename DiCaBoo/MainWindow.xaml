@@ -24,7 +24,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Grid.Column="1">
-                        <WrapPanel HorizontalAlignment="Center">
+                        <WrapPanel HorizontalAlignment="Left">
                             <Button x:Name="publishPost" Content="Publish" Style="{StaticResource commandButton}" Click="publishPost_Click" />
                             <CheckBox x:Name="chkPostOnFacebook" Content="Post on Facebook"  IsChecked="True" Foreground="AliceBlue" Margin="20, 0"/>
                         </WrapPanel>
@@ -56,8 +56,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                        <WrapPanel HorizontalAlignment="Center">
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <WrapPanel HorizontalAlignment="Left">
                             <Button x:Name="btnCreateEvent" Content="Create event"  Style="{StaticResource commandButton}"  Click="btnCreateEvent_Click" />
                             <StackPanel Orientation="Horizontal">
                                 <ComboBox x:Name="cbEventTypes" MinWidth="100" MaxWidth="300" Margin="10,0,0,0" IsEditable="True"  IsReadOnly="True"  Text="Event type" SelectionChanged="cbEventTypes_SelectionChanged" />
@@ -100,7 +100,7 @@
                             <Button x:Name="btnTransactions" Content="Transactions" Style="{StaticResource commandButton}" Click="btnTransactions_Click" />
                             <Button x:Name="btnAddTransaction" Content="Add Transaction" Style="{StaticResource commandButton}"  Click="btnAddTransaction_Click" />
                             <DatePicker x:Name="dpBalanceDate" Margin="10 0 0 0" ToolTip="Balance date" SelectedDateChanged="dpBalanceDate_SelectedDateChanged"/>
-                            <local:Period x:Name="tpTransactionPeriod" DateChanged="test"/>
+                            <local:Period x:Name="tpTransactionPeriod" DateChanged="test" Visibility="Collapsed"/>
                         </WrapPanel>
                     </Grid>
 
