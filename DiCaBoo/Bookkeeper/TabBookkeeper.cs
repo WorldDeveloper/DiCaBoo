@@ -181,7 +181,6 @@ namespace DiCaBoo
         }
 
         DateTime? curBalanceDate;
-        private Color color;
 
         private void dpBalanceDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
