@@ -38,11 +38,15 @@ namespace DiCaBoo
             btnBalance_Click(null, null);
             ctCredit.cbComboTreeItem.Content = null;
             ctDebit.cbComboTreeItem.Content = null;
+            //ComboBoxItem ci = new ComboBoxItem();
+            //ci.Content = "Day";
+            //ci.Tag = Accounts.GroupBy.Day;
+            //cbGroupBy.Items.Add(ci);
 
             mSettings = new Settings();
             SetSettings();
         }
 
-
+       
     }
 }

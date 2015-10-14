@@ -92,17 +92,17 @@
                     <Grid Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Vertical">
                             <WrapPanel HorizontalAlignment="Left" Margin="0,5">
-                                <!--<Menu x:Name="BookkeperMenu" IsMainMenu="True">
-                                <MenuItem Header="_Accounts">
-                                    <MenuItem Header="_Balance" Click="MenuItemBalance_Click" />
-                                    <MenuItem Header="_Edit accounts" Click="MenuItemEditAccounts_Click" />
-                                </MenuItem>
-                            </Menu>-->
                                 <Button x:Name="btnBalance" Content="Balance" Style="{StaticResource commandButton}" Click="btnBalance_Click" />
                                 <Button x:Name="btnTransactions" Content="Transactions" Style="{StaticResource commandButton}" Click="btnTransactions_Click" />
-                                <Button x:Name="btnAddTransaction" Content="Add Transaction" Margin="0 0 10 0" Style="{StaticResource commandButton}"  Click="btnAddTransaction_Click" />
-                                
+                                <Button x:Name="btnAddTransaction" Content="Add Transaction"  Style="{StaticResource commandButton}"  Click="btnAddTransaction_Click" />
+                                <Button x:Name="btnNetIncome" Content="Net income"  Style="{StaticResource commandButton}" Click="btnNetIncome_Click" />
                                 <DatePicker x:Name="dpBalanceDate"  ToolTip="Balance date" SelectedDateChanged="dpBalanceDate_SelectedDateChanged"/>
+                                <controls:SimpleTimePeriod x:Name="tpTransactionPeriod" Margin="0 0 10 0" DateChanged="FilterRecords" />
+                                <ComboBox x:Name="cbGroupBy" ToolTip="GroupBy"  Width="70" Visibility="Collapsed" SelectionChanged="cbGroupBy_SelectionChanged">
+                                    <ComboBoxItem Content="Day" />
+                                    <ComboBoxItem Content="Month" />
+                                    <ComboBoxItem Content="Year" />
+                                </ComboBox>
                             </WrapPanel>
                             <Grid x:Name="gridFilters" Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
@@ -110,14 +110,13 @@
                                     <ColumnDefinition Width="30" />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="210"/>
                                 </Grid.ColumnDefinitions>
                                 <controls:ComboTree x:Name="ctCredit" ToolTip="From account" Grid.Column="0"  SelectedItemChanged="FilterRecords" />
                                 <Button x:Name="btnSkipCredit" Content=" x " ToolTip="Skip filter" Grid.Column="1" Margin="0,0,5,0" Click="btnSkipCredit_Click" />
 
                                 <controls:ComboTree x:Name="ctDebit" ToolTip="To account" Grid.Column="2" SelectedItemChanged="FilterRecords"/>
                                 <Button x:Name="btnSkipDebit" Content=" x " ToolTip="Skip filter" Grid.Column="3" Click="btnSkipDebit_Click" />
-                                <controls:SimpleTimePeriod x:Name="tpTransactionPeriod"  DateChanged="FilterRecords" Grid.Column="4" />
+
                             </Grid>
                         </StackPanel>
 

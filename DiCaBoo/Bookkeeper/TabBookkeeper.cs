@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DiCaBoo.Controls;
 using DiCaBoo.Controls.Transactions;
 using Microsoft.SqlServer.Types;
 using System;
@@ -11,12 +12,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace DiCaBoo
 {
     public partial class MainWindow
     {
-        enum AccWindows { Transactions, Reports };
+        enum AccWindows { Transactions, NetIncomeReport };
         private Transactions mTransactions;
 
         private void FilterRecords(object sender, RoutedEventArgs e)
@@ -49,6 +52,10 @@ namespace DiCaBoo
                 DataView dv = dbDCBDataSet.Tables[2].DefaultView;
                 dv.RowFilter = filter;
             }
+            else if (bookkeeperPanel.Tag.ToString() == AccWindows.NetIncomeReport.ToString())
+            {
+                btnNetIncome_Click(null, null);
+            }
         }
 
         private string AddFilter(string currentFilter, string newFilter)
@@ -59,28 +66,65 @@ namespace DiCaBoo
                 return new StringBuilder(currentFilter).Append(" AND ").Append(newFilter).ToString();
         }
 
-
-        //private void MenuItemBalance_Click(object sender, RoutedEventArgs e)
-        //{
-        //    TreeList treeList = new TreeList();
-        //    AccountNode parent = Accounts.GetTree(SqlHierarchyId.GetRoot().ToString());//Accounts.GetTree("/1/");//
-        //    treeList.Tree.Items.Add(parent);
-        //    bookkeeperPanel.Children.Clear();
-        //    bookkeeperPanel.Children.Add(treeList);
-        //}
-
-
-
-        //private void MenuItemEditAccounts_Click(object sender, RoutedEventArgs e)
-        //{
-        //    AccountsWindow accountsWindow = new AccountsWindow();
-        //    accountsWindow.ShowDialog();
-        //}
-
+        private void btnBalance_Click(object sender, RoutedEventArgs e)
+        {
+            ShowBalance();
+            dpBalanceDate.Visibility = Visibility.Visible;
+            gridFilters.Visibility = Visibility.Collapsed;
+            tpTransactionPeriod.Visibility = Visibility.Collapsed;
+            cbGroupBy.Visibility = Visibility.Collapsed;
+            if (dpBalanceDate.SelectedDate == null)
+                dpBalanceDate.SelectedDate = DateTime.Now.Date;
+        }
 
         private void btnTransactions_Click(object sender, RoutedEventArgs e)
         {
             ShowTransactions();
+        }
+
+        private void btnNetIncome_Click(object sender, RoutedEventArgs e)
+        {
+            dpBalanceDate.Visibility = Visibility.Collapsed;
+            gridFilters.Visibility = Visibility.Collapsed;
+            tpTransactionPeriod.Visibility = Visibility.Visible;
+            cbGroupBy.Visibility = Visibility.Visible;
+
+            TreeList treeList = new TreeList();
+            AccountNode incomes = Accounts.ProfitLossReport("/2/", tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
+            AccountNode expences = Accounts.ProfitLossReport("/3/", tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
+            AccountNode netIncome = new AccountNode();
+            netIncome.RootAccount = new AccountInfo(SqlHierarchyId.Parse("/4/"), "Net income", incomes.RootAccount.Balance + expences.RootAccount.Balance);
+            treeList.Tree.Items.Add(incomes);
+            treeList.Tree.Items.Add(expences);
+            treeList.Tree.Items.Add(netIncome);
+            bookkeeperPanel.Children.Clear();
+            bookkeeperPanel.Children.Add(treeList);
+            bookkeeperPanel.Tag = AccWindows.NetIncomeReport;
+
+            BuildChart();
+        }
+
+        private void BuildChart()
+        {
+            Accounts.GroupBy groupBy = Accounts.GroupBy.Month;
+            if (cbGroupBy.SelectedItem != null)
+            {
+                ComboBoxItem ci = cbGroupBy.SelectedItem as ComboBoxItem;
+                groupBy= (Accounts.GroupBy)Enum.Parse(typeof(Accounts.GroupBy), ci.Content.ToString());
+            }
+
+            Chart chartProfitLoss = new Chart(bookkeeperPanel.ActualHeight / 2, bookkeeperPanel.ActualWidth,groupBy );
+            chartProfitLoss.Margin = new Thickness(0, 20, 0, 20);
+            List<ChartPoint> incomes = Accounts.GetAmounts("/2/", groupBy, tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
+            chartProfitLoss.AddLine("Incomes", Colors.Green, incomes);
+
+            List<ChartPoint> expences = Accounts.GetAmounts("/3/", groupBy, tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
+            chartProfitLoss.AddLine("Expences", Colors.Red, expences);
+
+            chartProfitLoss.Build();
+
+            bookkeeperPanel.Children.Add(chartProfitLoss);
+
         }
 
         private void ShowTransactions()
@@ -90,6 +134,7 @@ namespace DiCaBoo
             bookkeeperPanel.Children.Add(mTransactions);
             bookkeeperPanel.Tag = AccWindows.Transactions;
             dpBalanceDate.Visibility = Visibility.Collapsed;
+            cbGroupBy.Visibility = Visibility.Collapsed;
 
             ShortAccountNode assets = Accounts.GetShortTree("/1/");
             ShortAccountNode incomes = Accounts.GetShortTree("/2/");
@@ -104,6 +149,7 @@ namespace DiCaBoo
             ctDebit.tvNestedTree.Items.Add(expences);
 
             gridFilters.Visibility = Visibility.Visible;
+            tpTransactionPeriod.Visibility = Visibility.Visible;
             FilterRecords(null,null);
         }
 
@@ -113,14 +159,7 @@ namespace DiCaBoo
             accountsWindow.ShowDialog();
         }
 
-        private void btnBalance_Click(object sender, RoutedEventArgs e)
-        {
-            ShowBalance();
-            dpBalanceDate.Visibility = Visibility.Visible;
-            gridFilters.Visibility = Visibility.Collapsed;
-            if (dpBalanceDate.SelectedDate == null)
-                dpBalanceDate.SelectedDate = DateTime.Now.Date;
-        }
+       
 
         private void ShowBalance()
         {
@@ -142,6 +181,8 @@ namespace DiCaBoo
         }
 
         DateTime? curBalanceDate;
+        private Color color;
+
         private void dpBalanceDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dpBalanceDate.SelectedDate == null)
@@ -170,6 +211,11 @@ namespace DiCaBoo
         {
             ctDebit.cbComboTreeItem.IsSelected = false;
             ctDebit.cbComboTreeItem.Content = null;
+            FilterRecords(sender, e);
+        }
+
+        private void cbGroupBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             FilterRecords(sender, e);
         }
     }

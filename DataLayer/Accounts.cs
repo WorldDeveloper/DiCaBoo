@@ -89,9 +89,19 @@ namespace DataLayer
     public struct AccountNode
     {
         public AccountInfo RootAccount { get; set; }
-        public List<AccountNode> ChildAccounts { get; set; } 
+        public List<AccountNode> ChildAccounts { get; set; }
     }
 
+    public struct ChartPoint
+    {
+        public DateTime Date { get; private set; }
+        public Decimal Value { get; private set; }
+        public ChartPoint(DateTime date, decimal value)
+        {
+            Date = date;
+            Value = value;
+        }
+    }
 
     public class Accounts : IEnumerable<Account>
     {
@@ -190,7 +200,7 @@ namespace DataLayer
         private static List<ShortAccountNode> GetShortChildren(string parent)
         {
             List<ShortAccountNode> childAccounts = new List<ShortAccountNode>();
-            var children = from account in mShortAccountsList where SqlHierarchyId.Parse(account.AccountId).GetAncestor(1).ToString()==parent select account;
+            var children = from account in mShortAccountsList where SqlHierarchyId.Parse(account.AccountId).GetAncestor(1).ToString() == parent select account;
             foreach (Account account in children)
             {
                 ShortAccountNode accountNode = new ShortAccountNode();
@@ -207,7 +217,7 @@ namespace DataLayer
         private static List<AccountInfo> mAccountsList;
         public static AccountNode GetTree(string parent, DateTime date)
         {
-            mAccountsList=new List<AccountInfo>();
+            mAccountsList = new List<AccountInfo>();
             using (SqlConnection connection = DB.SqlConnection)
             {
                 connection.Open();
@@ -243,7 +253,105 @@ namespace DataLayer
             return accountNode;
         }
 
-        
+        public static AccountNode ProfitLossReport(string parent, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            mAccountsList = new List<AccountInfo>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "ProfitLossReport";
+                    command.Parameters.AddWithValue("@parentId", parent);
+                    if (startDate != null)
+                        command.Parameters.AddWithValue("@startDate", startDate.Value.Date);
+
+                    if (endDate != null)
+                        command.Parameters.AddWithValue("@endDate", endDate.Value.Date.AddDays(1));
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            mAccountsList.Add(new AccountInfo(
+                                SqlHierarchyId.Parse(reader["AccountId"].ToString()),
+                                reader["AccountName"].ToString(),
+                                (decimal)reader["Balance"]
+                                ));
+                        }
+                    }
+                }
+            }
+
+            AccountNode accountNode = new AccountNode();
+            SqlHierarchyId root = SqlHierarchyId.Parse(parent);
+            var rootAccount = from account in mAccountsList where account.AccountId.Equals(root) select account;
+            foreach (AccountInfo a in rootAccount)
+                accountNode.RootAccount = a;
+
+            accountNode.ChildAccounts = GetChildren(root);
+
+            return accountNode;
+        }
+
+        //public enum AccountType { Incomes, Expenses };
+        public enum GroupBy { Day, Month, Year };
+        public static List<ChartPoint> GetAmounts(string parent, GroupBy groupBy, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            List<ChartPoint> amountsList = new List<ChartPoint>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    string clause = null;
+                    if (parent.StartsWith("/2/"))
+                        clause = " WHERE CreditId.IsDescendantOf(@parentId)=1 ";
+                    else if (parent.StartsWith("/3/"))
+                        clause = " WHERE DebitId.IsDescendantOf(@parentId)=1 ";
+                    else
+                        return null;
+
+                    if (startDate != null)
+                    {
+                        clause += " AND OperationDate>=@startDate ";
+                        command.Parameters.AddWithValue("@startDate", startDate.Value.Date);
+                    }
+
+                    if (endDate != null)
+                    {
+                        clause += " AND OperationDate<@endDate ";
+                        command.Parameters.AddWithValue("@endDate", endDate.Value.Date.AddDays(1));
+                    }
+
+                    if (groupBy == GroupBy.Year)
+                        command.CommandText = string.Format("SELECT Datefromparts(Year(OperationDate), 1, 1) AS Date, Sum(Summ) AS Value FROM Operations {0} Group by Year(OperationDate)", clause);
+                    else if (groupBy == GroupBy.Month)
+                        command.CommandText = string.Format("SELECT Datefromparts(Year(OperationDate), Month(OperationDate), 1) AS Date, Sum(Summ) AS Value FROM Operations {0} Group by Year(OperationDate), Month(OperationDate)", clause);
+                    else if (groupBy == GroupBy.Day)
+                        command.CommandText = string.Format("SELECT CAST(OperationDate AS DATE) AS Date, Sum(Summ) AS Value FROM Operations {0} Group by CAST(OperationDate AS DATE)", clause);
+                    else
+                        return null;
+
+                    command.Parameters.AddWithValue("@parentId", parent);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            amountsList.Add(new ChartPoint(
+                                DateTime.Parse(reader["Date"].ToString()),
+                                (decimal)reader["Value"]
+                                ));
+                        }
+
+                        return amountsList;
+                    }
+                }
+            }
+        }
+
         private static List<AccountNode> GetChildren(SqlHierarchyId parent)
         {
             List<AccountNode> childAccounts = new List<AccountNode>();

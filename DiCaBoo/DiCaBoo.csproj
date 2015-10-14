@@ -35,6 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Prototyping.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="microsoft.expression.prototyping.runtime, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -50,6 +52,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -61,6 +64,9 @@
     </ApplicationDefinition>
     <Compile Include="Bookkeeper\AccountsWindow.xaml.cs">
       <DependentUpon>AccountsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Chart\Chart.xaml.cs">
+      <DependentUpon>Chart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ComboTree.xaml.cs">
       <DependentUpon>ComboTree.xaml</DependentUpon>
@@ -101,6 +107,10 @@
     <Compile Include="Settings\TabSettings.cs" />
     <Compile Include="Bookkeeper\TabBookkeeper.cs" />
     <Page Include="Bookkeeper\AccountsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Chart\Chart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
