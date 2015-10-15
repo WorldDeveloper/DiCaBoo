@@ -91,11 +91,11 @@ namespace DiCaBoo
 
             TreeList treeList = new TreeList();
             AccountNode incomes = Accounts.ProfitLossReport("/2/", tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
-            AccountNode expences = Accounts.ProfitLossReport("/3/", tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
+            AccountNode expenses = Accounts.ProfitLossReport("/3/", tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
             AccountNode netIncome = new AccountNode();
-            netIncome.RootAccount = new AccountInfo(SqlHierarchyId.Parse("/4/"), "Net income", incomes.RootAccount.Balance + expences.RootAccount.Balance);
+            netIncome.RootAccount = new AccountInfo(SqlHierarchyId.Parse("/4/"), "Net income", incomes.RootAccount.Balance + expenses.RootAccount.Balance);
             treeList.Tree.Items.Add(incomes);
-            treeList.Tree.Items.Add(expences);
+            treeList.Tree.Items.Add(expenses);
             treeList.Tree.Items.Add(netIncome);
             bookkeeperPanel.Children.Clear();
             bookkeeperPanel.Children.Add(treeList);
@@ -110,21 +110,20 @@ namespace DiCaBoo
             if (cbGroupBy.SelectedItem != null)
             {
                 ComboBoxItem ci = cbGroupBy.SelectedItem as ComboBoxItem;
-                groupBy= (Accounts.GroupBy)Enum.Parse(typeof(Accounts.GroupBy), ci.Content.ToString());
+                groupBy = (Accounts.GroupBy)Enum.Parse(typeof(Accounts.GroupBy), ci.Content.ToString());
             }
 
-            Chart chartProfitLoss = new Chart(bookkeeperPanel.ActualHeight / 2, bookkeeperPanel.ActualWidth,groupBy );
+            Chart chartProfitLoss = new Chart(bookkeeperPanel.ActualHeight / 2, bookkeeperPanel.ActualWidth, groupBy);
             chartProfitLoss.Margin = new Thickness(0, 20, 0, 20);
             List<ChartPoint> incomes = Accounts.GetAmounts("/2/", groupBy, tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
             chartProfitLoss.AddLine("Incomes", Colors.Green, incomes);
 
             List<ChartPoint> expences = Accounts.GetAmounts("/3/", groupBy, tpTransactionPeriod.StartDate, tpTransactionPeriod.EndDate);
-            chartProfitLoss.AddLine("Expences", Colors.Red, expences);
+            chartProfitLoss.AddLine("Expenses", Colors.Red, expences);
 
             chartProfitLoss.Build();
 
             bookkeeperPanel.Children.Add(chartProfitLoss);
-
         }
 
         private void ShowTransactions()
@@ -150,7 +149,7 @@ namespace DiCaBoo
 
             gridFilters.Visibility = Visibility.Visible;
             tpTransactionPeriod.Visibility = Visibility.Visible;
-            FilterRecords(null,null);
+            FilterRecords(null, null);
         }
 
         private void btnEditAccounts_Click(object sender, RoutedEventArgs e)
@@ -158,8 +157,6 @@ namespace DiCaBoo
             AccountsWindow accountsWindow = new AccountsWindow();
             accountsWindow.ShowDialog();
         }
-
-       
 
         private void ShowBalance()
         {
@@ -181,7 +178,6 @@ namespace DiCaBoo
         }
 
         DateTime? curBalanceDate;
-
         private void dpBalanceDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dpBalanceDate.SelectedDate == null)
@@ -196,7 +192,6 @@ namespace DiCaBoo
                 return;
 
             ShowBalance();
-
         }
 
         private void btnSkipCredit_Click(object sender, RoutedEventArgs e)

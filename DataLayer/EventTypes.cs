@@ -12,8 +12,7 @@ namespace DataLayer
     public class EventType
     {
         public int TypeId { get; }
-        public string TypeName{ get; }
-    
+        public string TypeName{ get; }    
 
         public EventType(int typeId,  string eventName)
         {

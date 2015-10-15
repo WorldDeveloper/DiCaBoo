@@ -42,7 +42,7 @@ namespace DiCaBoo
                 if (eventType == null)
                     return;
 
-                 int result=EventTypes.RemoveEventType(eventType.TypeId);
+                int result = EventTypes.RemoveEventType(eventType.TypeId);
                 if (result > 0)
                     UpdateTypesList();
                 else
@@ -58,7 +58,7 @@ namespace DiCaBoo
         {
             string newType = txtNewType.Text;
             EventType updatedType = (EventType)lstTypes.SelectedItem;
-            if (string.IsNullOrWhiteSpace(newType) || updatedType==null)
+            if (string.IsNullOrWhiteSpace(newType) || updatedType == null)
                 return;
 
             try
@@ -72,13 +72,12 @@ namespace DiCaBoo
                     }
                 }
 
-                updatedType= new EventType(updatedType.TypeId, newType);
+                updatedType = new EventType(updatedType.TypeId, newType);
                 int result = EventTypes.UpdateEventType(updatedType);
                 if (result > 0)
                     UpdateTypesList();
                 else
                     throw new Exception();
-
             }
             catch
             {
@@ -108,9 +107,8 @@ namespace DiCaBoo
                     UpdateTypesList();
                 else
                     throw new Exception();
-
             }
-            catch 
+            catch
             {
                 MessageBox.Show("Can't add new record.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -137,7 +135,7 @@ namespace DiCaBoo
         private void lstTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EventType eventType = (EventType)lstTypes.SelectedItem;
-            if (eventType!=null)
+            if (eventType != null)
                 txtNewType.Text = eventType.TypeName.ToString();
         }
     }

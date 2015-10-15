@@ -83,8 +83,6 @@ namespace DiCaBoo
             }
             txtWhere.Text = modifiedEvent.EventVenue;
             txtDescription.Text = modifiedEvent.EventDescription;
-
-
         }
 
         private void btnAddType_Click(object sender, RoutedEventArgs e)
@@ -107,7 +105,6 @@ namespace DiCaBoo
             {
                 if (string.IsNullOrWhiteSpace(txtTitle.Text))
                     throw new Exception("Enter event title.");
-
 
                 DateTime fromDateTime = ParseDateTime(dpFromDate.SelectedDate.Value, cbFromHour.Text, cbFromMin.Text, "From");
                 DateTime untilDateTime = ParseDateTime(dpUntilDate.SelectedDate.Value, cbUntilHour.Text, cbUntilMin.Text, "Until");
@@ -158,7 +155,7 @@ namespace DiCaBoo
 
         private void dpFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(dpFromDate.SelectedDate.HasValue)
+            if (dpFromDate.SelectedDate.HasValue)
                 dpUntilDate.SelectedDate = dpFromDate.SelectedDate.Value;
         }
     }

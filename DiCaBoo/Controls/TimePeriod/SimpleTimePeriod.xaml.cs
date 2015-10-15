@@ -92,5 +92,5 @@ namespace DiCaBoo.Controls
             if (DateChanged != null)
                 DateChanged(sender, e);
         }
-    }       
+    }
 }

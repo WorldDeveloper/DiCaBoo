@@ -71,7 +71,7 @@ namespace DiCaBoo.Controls
             double shift = lineWidth * (mRowsCollection.Count + 1);
 
 
-            double ratio = (canvas.Height-100) / (double)maxRowHeight;
+            double ratio = (canvas.Height - 100) / (double)maxRowHeight;
             double middleHeight = (double)maxY * ratio;
             if (middleHeight < 0)
                 middleHeight = 0;
@@ -87,27 +87,27 @@ namespace DiCaBoo.Controls
             canvas.Children.Add(myLine);
 
             int row = 1;
-           
+
             foreach (ChartRow item in mRowsCollection)
             {
-                
-                double x = lineWidth*row++;
+
+                double x = lineWidth * row++;
                 int j = 0;
                 for (int i = 0; i < chartDatesList.Count; ++i)
                 {
                     DateTime date = chartDatesList[i];
-                    string dateString=null;
+                    string dateString = null;
                     if (mGroupBy == Accounts.GroupBy.Day)
-                            dateString=date.Date.ToShortDateString();
-                        else if (mGroupBy == Accounts.GroupBy.Month)
-                           dateString=date.Date.ToString("MM.yy");
-                        else if (mGroupBy == Accounts.GroupBy.Year)
-                           dateString = date.Date.Year.ToString();
+                        dateString = date.Date.ToShortDateString();
+                    else if (mGroupBy == Accounts.GroupBy.Month)
+                        dateString = date.Date.ToString("MM.yy");
+                    else if (mGroupBy == Accounts.GroupBy.Year)
+                        dateString = date.Date.Year.ToString();
 
-                    if (row == 2 && shift>50)                 
+                    if (row == 2 && shift > 50)
                         DrawText(x, middleHeight + 10, dateString);
 
-                    while ( j<item.Row.Count)
+                    while (j < item.Row.Count)
                     {
                         if (item.Row[j].Date == date)
                         {
@@ -118,17 +118,17 @@ namespace DiCaBoo.Controls
                             myLine.Y1 = middleHeight;
                             myLine.Y2 = middleHeight - (double)item.Row[j].Value * ratio;
                             myLine.StrokeThickness = lineWidth;
-                            myLine.ToolTip = string.Format("{0:0.00}\n{1}",item.Row[j].Value, dateString);
+                            myLine.ToolTip = string.Format("{0:0.00}\n{1}", item.Row[j].Value, dateString);
                             canvas.Children.Add(myLine);
                             j++;
                         }
-                        x += shift;                       
+                        x += shift;
                         break;
                     }
                 }
 
                 //labels
-                double y = canvas.Height-80 + 20 * row;
+                double y = canvas.Height - 80 + 20 * row;
                 myLine = new Line();
                 myLine.Stroke = new SolidColorBrush(item.Color);
                 myLine.X1 = 50;
@@ -138,7 +138,7 @@ namespace DiCaBoo.Controls
                 myLine.StrokeThickness = 10;
                 canvas.Children.Add(myLine);
 
-                DrawText(65, y-8, item.Name);
+                DrawText(65, y - 8, item.Name);
             }
         }
 

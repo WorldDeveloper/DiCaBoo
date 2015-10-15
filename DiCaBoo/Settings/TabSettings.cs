@@ -47,6 +47,5 @@ namespace DiCaBoo
                 || String.IsNullOrWhiteSpace(mSettings.FacebookUserId));
         }
         #endregion
-
     }
 }

@@ -36,7 +36,6 @@
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="2" Background="White">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-
                             <StackPanel x:Name="diaryStackPanel">
                                 <StackPanel x:Name="postsStackPanel" />
                             </StackPanel>
@@ -67,13 +66,11 @@
                             <local:Period x:Name="CalendarPeriod" DateChanged="UpdateCalendar" />
                         </WrapPanel>
                     </Grid>
-
                     <Grid Grid.Row="1" Grid.Column="1" Background="White" Margin="0,10">
                         <ScrollViewer VerticalScrollBarVisibility="Visible">
                             <StackPanel x:Name="calendarPanel" />
                         </ScrollViewer>
                     </Grid>
-
                 </Grid>
 
             </TabItem>
@@ -116,7 +113,6 @@
 
                                 <controls:ComboTree x:Name="ctDebit" ToolTip="To account" Grid.Column="2" SelectedItemChanged="FilterRecords"/>
                                 <Button x:Name="btnSkipDebit" Content=" x " ToolTip="Skip filter" Grid.Column="3" Click="btnSkipDebit_Click" />
-
                             </Grid>
                         </StackPanel>
 
@@ -129,7 +125,6 @@
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
-
                 </Grid>
             </TabItem>
             <TabItem Header="Settings" x:Name="Settings">

@@ -178,7 +178,7 @@ namespace DiCaBoo
                     using (StreamReader reader = new StreamReader(stream))
                     {
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
-                        Article article=serializer.Deserialize<Article>(@reader.ReadToEnd());
+                        Article article = serializer.Deserialize<Article>(@reader.ReadToEnd());
                         output += "\nFacebook post id: " + article.id;
                     }
 
@@ -220,14 +220,12 @@ namespace DiCaBoo
                 if (Diary.RemovePost(id) > 0)
                     postsStackPanel.Children.Remove(activePanel);
             }
-
         }
 
         private void ItemStackPanel_MouseLeave(object sender, MouseEventArgs e)
         {
             DockPanel activePanel = sender as DockPanel;
             activePanel.Background = new SolidColorBrush(Colors.White);
-
         }
 
         private void ItemStackPanel_MouseEnter(object sender, MouseEventArgs e)
@@ -250,7 +248,7 @@ namespace DiCaBoo
             string text = new TextRange(newPost.Document.ContentStart, newPost.Document.ContentEnd).Text;
             if (string.IsNullOrWhiteSpace(text))
             {
-                txtPostHint.Visibility = Visibility.Visible;                
+                txtPostHint.Visibility = Visibility.Visible;
             }
             newPost.Height = 50;
         }
@@ -287,7 +285,5 @@ namespace DiCaBoo
             return m;
         }
         #endregion
-
-
     }
 }
