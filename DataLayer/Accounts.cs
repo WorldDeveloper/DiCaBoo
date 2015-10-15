@@ -295,7 +295,6 @@ namespace DataLayer
             return accountNode;
         }
 
-        //public enum AccountType { Incomes, Expenses };
         public enum GroupBy { Day, Month, Year };
         public static List<ChartPoint> GetAmounts(string parent, GroupBy groupBy, DateTime? startDate = null, DateTime? endDate = null)
         {

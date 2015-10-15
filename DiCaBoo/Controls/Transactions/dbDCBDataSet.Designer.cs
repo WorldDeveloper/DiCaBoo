@@ -1891,7 +1891,7 @@ SELECT AccountId, LastChild, AccountName FROM Accounts WHERE (AccountId = @Accou
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DiCaBoo.Properties.Settings.Default.dbDCBConnectionString;
+            this._connection.ConnectionString = "dbDCB";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

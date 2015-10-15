@@ -31,27 +31,24 @@
             <local:ComboTree x:Name="ctCredit" Margin="5,5,0,5"/>
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
-        
+
         <TextBlock Text="To Acc.:" Margin="5" Grid.Row="2" />
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-           <local:ComboTree x:Name="ctDebit" Margin="5,5,0,5" />
+            <local:ComboTree x:Name="ctDebit" Margin="5,5,0,5" />
             <Button Content="+" Margin="0 5 5 5" HorizontalContentAlignment="Center" Grid.Column="1" Click="EditAccounts_Click" />
         </Grid>
-        
-
         <TextBlock Text="Amount:" Grid.Row="3" Margin="5" />
         <TextBox x:Name="txtAmount"  Grid.Row="3" Grid.Column="1" Margin="5" />
-
         <TextBlock Text="Note:" Margin="5" Grid.Row="4" />
         <TextBox x:Name="txtNote" TextWrapping="Wrap" AcceptsReturn="True" Margin="5" Grid.Row="4" Grid.Column="1" />
 
         <StackPanel Orientation="Horizontal"  Margin="0,15, 0,0" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
             <Button x:Name="btnOk"  Width="100" Content="Save" IsDefault="True" Click="btnOk_Click" />
             <Button x:Name="btnCancel" IsCancel="True" Width="100" Margin="10,0, 5, 0" Content="Cancel" Click="btnCancel_Click" />
-        </StackPanel>        
+        </StackPanel>
     </Grid>
 </Window>

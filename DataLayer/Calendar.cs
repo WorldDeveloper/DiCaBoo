@@ -38,7 +38,7 @@ namespace DataLayer
     {
         private List<CalendarEvent> mEvents;
 
-        public MyCalendar(DateTime startDate, DateTime endDate, int? typeId=null)
+        public MyCalendar(DateTime startDate, DateTime endDate, int? typeId = null)
         {
             mEvents = new List<CalendarEvent>();
             using (SqlConnection connection = DB.SqlConnection)

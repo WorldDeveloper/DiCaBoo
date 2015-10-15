@@ -13,11 +13,11 @@ namespace DataLayer
         public int ID { get; private set; }
         public DateTime Date { get; private set; }
         public Account Credit { get; private set; }
-        public Account Debit { get; private set;}
-        public decimal  Amount { get; private set; }
+        public Account Debit { get; private set; }
+        public decimal Amount { get; private set; }
         public string Note { get; set; }
 
-        public Operation(int id, DateTime date, Account credit,  Account debit, decimal amount, string note)
+        public Operation(int id, DateTime date, Account credit, Account debit, decimal amount, string note)
         {
             ID = id;
             Date = date;
@@ -45,14 +45,14 @@ namespace DataLayer
                     {
                         if (reader.Read())
                         {
-                           return new Operation(
-                               (int)reader["OperationId"],
-                                (DateTime)reader["OperationDate"],
-                                new Account(reader["CreditId"].ToString(), reader["CreditName"].ToString()),
-                                new Account(reader["DebitId"].ToString(), reader["DebitName"].ToString()),
-                                (decimal)reader["Summ"],
-                                reader["Note"].ToString()
-                                );
+                            return new Operation(
+                                (int)reader["OperationId"],
+                                 (DateTime)reader["OperationDate"],
+                                 new Account(reader["CreditId"].ToString(), reader["CreditName"].ToString()),
+                                 new Account(reader["DebitId"].ToString(), reader["DebitName"].ToString()),
+                                 (decimal)reader["Summ"],
+                                 reader["Note"].ToString()
+                                 );
                         }
                     }
                 }

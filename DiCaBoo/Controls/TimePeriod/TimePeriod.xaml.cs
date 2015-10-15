@@ -66,8 +66,6 @@ namespace DiCaBoo
             }
         }
 
-
-
         private void cbPeriod_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetEndDate();

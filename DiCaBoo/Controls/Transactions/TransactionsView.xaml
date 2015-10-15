@@ -26,10 +26,9 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete" Click="Delete_Transaction" />
-                        <MenuItem Header="Edit" Click="Edit_Transaction" />
+                    <MenuItem Header="Edit" Click="Edit_Transaction" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-
     </Grid>
 </UserControl>

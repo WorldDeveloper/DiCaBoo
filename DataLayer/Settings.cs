@@ -58,8 +58,6 @@ namespace DataLayer
                         FacebookAppToken = facebookAppToken;
                         FacebookUserId = facebookUserId;
                     }
-
-
                 }
             }
         }

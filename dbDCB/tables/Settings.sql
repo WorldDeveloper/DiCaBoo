@@ -4,6 +4,3 @@
 	[FacebookAppToken] NVARCHAR(MAX) NULL,
 	[FacebookUserId] NVARCHAR(MAX) NULL
 );
-
-
-

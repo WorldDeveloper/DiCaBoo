@@ -35,8 +35,8 @@ namespace DiCaBoo.Controls
                 ShortAccountNode selectedNode = ((ShortAccountNode)tvNestedTree.SelectedItem);
                 cbComboTreeItem.Content = selectedNode.RootAccount;
             }
-           cbComboTree.SelectedIndex = 0;
-           cbComboTree.Visibility = Visibility.Visible;
+            cbComboTree.SelectedIndex = 0;
+            cbComboTree.Visibility = Visibility.Visible;
         }
 
         private void cbComboTree_DropDownOpened(object sender, EventArgs e)

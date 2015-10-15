@@ -52,7 +52,6 @@ namespace DiCaBoo.Controls.Transactions
             string id = row.Row[0].ToString();
             if (DataLayer.Operations.RemoveTransaction(id) > 0)
                 row.Row.Delete();
-
         }
 
         private void Edit_Transaction(object sender, RoutedEventArgs e)

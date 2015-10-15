@@ -77,11 +77,6 @@
     <Compile Include="Controls\TimePeriod\TimePeriod.xaml.cs">
       <DependentUpon>TimePeriod.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Transactions\dbDCBDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Transactions\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>

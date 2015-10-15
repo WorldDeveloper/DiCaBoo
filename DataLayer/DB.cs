@@ -19,7 +19,7 @@ namespace DataLayer
             get
             {
                 return new SqlConnection(ConnectionString);
-            }    
+            }
         }
     }
 }
