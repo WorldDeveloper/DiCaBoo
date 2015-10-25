@@ -71,7 +71,7 @@ namespace DiCaBoo.Controls
             double shift = lineWidth * (mRowsCollection.Count + 1);
 
 
-            double ratio = (canvas.Height - 100) / (double)maxRowHeight;
+            double ratio = (canvas.Height - 60) / (double)maxRowHeight;
             double middleHeight = (double)maxY * ratio;
             if (middleHeight < 0)
                 middleHeight = 0;
@@ -86,12 +86,12 @@ namespace DiCaBoo.Controls
             myLine.StrokeThickness = 1;
             canvas.Children.Add(myLine);
 
-            int row = 1;
+            int row = 0;
 
             foreach (ChartRow item in mRowsCollection)
             {
 
-                double x = lineWidth * row++;
+                double x = lineWidth * ++row;
                 int j = 0;
                 for (int i = 0; i < chartDatesList.Count; ++i)
                 {
@@ -104,7 +104,7 @@ namespace DiCaBoo.Controls
                     else if (mGroupBy == Accounts.GroupBy.Year)
                         dateString = date.Date.Year.ToString();
 
-                    if (row == 2 && shift > 50)
+                    if (row == 1 && shift > 50)
                         DrawText(x, middleHeight + 10, dateString);
 
                     while (j < item.Row.Count)
@@ -128,17 +128,18 @@ namespace DiCaBoo.Controls
                 }
 
                 //labels
-                double y = canvas.Height - 80 + 20 * row;
+                double lineY = canvas.Height - 15;
+                double lineX = row * 80;
                 myLine = new Line();
                 myLine.Stroke = new SolidColorBrush(item.Color);
-                myLine.X1 = 50;
-                myLine.X2 = 60;
-                myLine.Y1 = y;
-                myLine.Y2 = y;
+                myLine.X1 = lineX - 10;
+                myLine.X2 = lineX;
+                myLine.Y1 = lineY;
+                myLine.Y2 = lineY;
                 myLine.StrokeThickness = 10;
                 canvas.Children.Add(myLine);
 
-                DrawText(65, y - 8, item.Name);
+                DrawText(5 + lineX, lineY - 8, item.Name);
             }
         }
 
