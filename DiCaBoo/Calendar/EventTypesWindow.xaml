@@ -13,7 +13,19 @@
             <RowDefinition />
             <RowDefinition  Height="30"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="txtNewType" Text="Enter new event type"  Grid.Row="0" Padding="0,5"  Foreground="Gray" GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
+        <TextBox x:Name="txtNewType" Grid.Row="0" Padding="0,5"  GotFocus="txtNewType_GotFocus" LostFocus="txtNewType_LostFocus" />
+        <TextBlock x:Name="tbNewType" Grid.Row="0" IsHitTestVisible="False" Text="Enter new event type" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtNewType}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <ListBox x:Name="lstTypes" Grid.Row="1" SelectionChanged="lstTypes_SelectionChanged"></ListBox>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
