@@ -117,8 +117,15 @@ namespace DiCaBoo
         private void btnCreateEvent_Click(object sender, RoutedEventArgs e)
         {
             MainEvent wndEvent = new MainEvent();
-            if (wndEvent.ShowDialog() == true)
-                UpdateCalendar();
+            wndEvent.ShowDialog();
+
+            EventType eventType = cbEventTypes.SelectedItem as EventType;
+            EventTypes eventTypes = new EventTypes();
+            cbEventTypes.ItemsSource = eventTypes;
+            if (eventType != null)
+                cbEventTypes.SelectedItem = eventTypes.Where(item => item.TypeId == eventType.TypeId).FirstOrDefault();
+
+            UpdateCalendar();
         }
 
         private void ItemPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

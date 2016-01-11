@@ -35,6 +35,7 @@ namespace DiCaBoo
             cbEventTypes.ItemsSource = new EventTypes();
             CalendarPeriod.TimePeriodIndex = 2;
 
+
             btnBalance_Click(null, null);
             ctCredit.cbComboTreeItem.Content = null;
             ctDebit.cbComboTreeItem.Content = null;
