@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -23,52 +24,54 @@ namespace DiCaBoo.Controls.Transactions
     /// </summary>
     public partial class Transactions : UserControl
     {
+        public  ObservableCollection<Operation> mOperations;
         public Transactions()
         {
             InitializeComponent();
+            mOperations =new ObservableCollection<Operation>(Operations.GetOperations());
+            transactionsDataGrid.ItemsSource = mOperations;
         }
 
-        private void Transactions_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void Transactions_Loaded(object sender, RoutedEventArgs e)
+        //{
 
-            DiCaBoo.dbDCBDataSet dbDCBDataSet = ((DiCaBoo.dbDCBDataSet)(this.FindResource("dbDCBDataSet")));
+        //    DiCaBoo.dbDCBDataSet dbDCBDataSet = ((DiCaBoo.dbDCBDataSet)(this.FindResource("dbDCBDataSet")));
 
-            // Load data into the table Transactions. You can modify this code as needed.
-            DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter dbDCBDataSetTransactionsTableAdapter = new DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter();
-            dbDCBDataSetTransactionsTableAdapter.Fill(dbDCBDataSet.Transactions);
-            System.Windows.Data.CollectionViewSource transactionsViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionsViewSource")));
-            transactionsViewSource.View.MoveCurrentToLast();
-        }
+        //    // Load data into the table Transactions. You can modify this code as needed.
+        //    DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter dbDCBDataSetTransactionsTableAdapter = new DiCaBoo.dbDCBDataSetTableAdapters.TransactionsTableAdapter();
+        //    dbDCBDataSetTransactionsTableAdapter.Fill(dbDCBDataSet.Transactions);
+        //    System.Windows.Data.CollectionViewSource transactionsViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("transactionsViewSource")));
+        //    transactionsViewSource.View.MoveCurrentToLast();
+        //}
 
         private void Delete_Transaction(object sender, RoutedEventArgs e)
         {
-            DataRowView row = (DataRowView)transactionsDataGrid.SelectedItem;
-            if (row == null)
+            Operation operation = (Operation)transactionsDataGrid.SelectedItem;
+            if (operation == null || operation.ID <1)
                 return;
 
             if (MessageBox.Show("Remove the selected record?", "DiCaBoo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            string id = row.Row[0].ToString();
-            if (DataLayer.Operations.RemoveTransaction(id) > 0)
-                row.Row.Delete();
+            if (DataLayer.Operations.RemoveTransaction(operation.ID) > 0)
+            {
+                mOperations.Remove(operation);
+                //transactionsDataGrid.Items.Refresh();
+            }
         }
 
         private void Edit_Transaction(object sender, RoutedEventArgs e)
         {
-            DataRowView row = (DataRowView)transactionsDataGrid.SelectedItem;
-            if (row == null)
+            Operation operation = (Operation)transactionsDataGrid.SelectedItem;
+            if (operation == null || operation.ID < 1)
                 return;
 
-            int id = 0;
-            if (!int.TryParse(row.Row[0].ToString(), out id))
-                throw new Exception("Can't edit transaction");
-
-            Transaction transaction = new Transaction(id);
+            Transaction transaction = new Transaction(operation.ID);
 
             if (transaction.ShowDialog() == true)
             {
-                Transactions_Loaded(sender, e);//ShowTransactions();
+                mOperations =new ObservableCollection<Operation>(Operations.GetOperations());
+                transactionsDataGrid.ItemsSource = mOperations;
             }
         }
     }

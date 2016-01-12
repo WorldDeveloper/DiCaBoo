@@ -6,21 +6,17 @@
              xmlns:local="clr-namespace:DiCaBoo.Controls.Transactions"
              xmlns:DiCaBoo="clr-namespace:DiCaBoo" x:Class="DiCaBoo.Controls.Transactions.Transactions"
              mc:Ignorable="d" 
-             Loaded="Transactions_Loaded" 
     d:DesignHeight="200" d:DesignWidth="600">
-    <UserControl.Resources>
-        <DiCaBoo:dbDCBDataSet x:Key="dbDCBDataSet"/>
-        <CollectionViewSource x:Key="transactionsViewSource" Source="{Binding Transactions, Source={StaticResource dbDCBDataSet}}"/>
-    </UserControl.Resources>
-    <Grid x:Name="grid" DataContext="{StaticResource transactionsViewSource}" >
+
+    <Grid x:Name="grid"  >
 
         <DataGrid x:Name="transactionsDataGrid" IsReadOnly="True" SelectionMode="Single" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" RenderTransformOrigin="0.534,0.512" Width="{Binding ActualWidth, ElementName=grid, Mode=OneWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="operationIdColumn"  Width="SizeToHeader" Header="Operation Id" Binding="{Binding OperationId, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
-                <DataGridTextColumn x:Name="operationDateColumn" SortDirection="Descending" Width="SizeToHeader" Header="Date" Binding="{Binding OperationDate, StringFormat=\{0:dd.MM.yy HH:mm\}}" MinWidth="100" />
+                <DataGridTextColumn x:Name="operationIdColumn"  Width="SizeToHeader" Header="Operation Id" Binding="{Binding ID, StringFormat=d}" Visibility="Hidden" MinWidth="70" />
+                <DataGridTextColumn x:Name="operationDateColumn" SortDirection="Descending" Width="SizeToHeader" Header="Date" Binding="{Binding Date, StringFormat=\{0:dd.MM.yy HH:mm\}}" MinWidth="100" />
                 <DataGridTextColumn x:Name="creditColumn" Width="SizeToHeader" Header="From Acc." Binding="{Binding Credit}" MinWidth="100" />
                 <DataGridTextColumn x:Name="debitColumn" Width="SizeToHeader" Header="To acc." Binding="{Binding Debit}" MinWidth="100"/>
-                <DataGridTextColumn x:Name="summColumn" Width="SizeToHeader" Header="Amount" Binding="{Binding Summ, StringFormat=N2}" MinWidth="90"/>
+                <DataGridTextColumn x:Name="summColumn" Width="SizeToHeader" Header="Amount" Binding="{Binding Amount, StringFormat=N2}" MinWidth="90"/>
                 <DataGridTextColumn x:Name="noteColumn" Width="*" Header="Note" Binding="{Binding Note}"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>

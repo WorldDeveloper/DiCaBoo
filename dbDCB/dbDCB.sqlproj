@@ -79,6 +79,7 @@
     <Build Include="Views\Transactions.sql" />
     <Build Include="StoredProcedures\GetTrnasaction.sql" />
     <Build Include="StoredProcedures\ProfitLossReport.sql" />
+    <Build Include="StoredProcedures\GetTransactions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="dbDCB.refactorlog" />

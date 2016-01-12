@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -30,6 +31,38 @@ namespace DataLayer
 
     public class Operations
     {
+
+        public static List<Operation> GetOperations()
+        {
+            List<Operation> operations = new List<Operation>();
+            using (SqlConnection connection = DB.SqlConnection)
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "GetTransactions";
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            operations.Add( new Operation(
+                                (int)reader["OperationId"],
+                                 (DateTime)reader["OperationDate"],
+                                 new Account(reader["CreditId"].ToString(), reader["CreditName"].ToString()),
+                                 new Account(reader["DebitId"].ToString(), reader["DebitName"].ToString()),
+                                 (decimal)reader["Summ"],
+                                 reader["Note"].ToString()
+                                 ));
+                        }
+                    }
+                }
+            }
+
+            return operations;
+        }
+
         public static Operation GetTransaction(int id)
         {
             using (SqlConnection connection = DB.SqlConnection)
@@ -107,9 +140,9 @@ namespace DataLayer
             }
         }
 
-        public static int RemoveTransaction(string transactionId)
+        public static int RemoveTransaction(int transactionId)
         {
-            if (string.IsNullOrWhiteSpace(transactionId))
+            if (transactionId<1)
                 return 0;
 
             using (SqlConnection connection = DB.SqlConnection)
@@ -125,5 +158,6 @@ namespace DataLayer
                 }
             }
         }
+
     }
 }

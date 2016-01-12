@@ -68,7 +68,7 @@ namespace DiCaBoo.Controls.Transactions
                 ctDebit.cbComboTree.SelectedIndex = 0;
 
                 dpDate.SelectedDate = operation.Date;
-                txtAmount.Text = operation.Amount.ToString();
+                txtAmount.Text = operation.Amount.ToString("N2");
                 txtNote.Text = operation.Note;
             }
             catch (Exception ex)

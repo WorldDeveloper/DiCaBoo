@@ -4,6 +4,7 @@ using DiCaBoo.Controls.Transactions;
 using Microsoft.SqlServer.Types;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -28,29 +29,27 @@ namespace DiCaBoo
                 return;
             else if (bookkeeperPanel.Tag.ToString() == AccWindows.Transactions.ToString())
             {
-                string filter = null;
+                var res = mTransactions.mOperations.Select(operation=>operation);
+
                 if (tpTransactionPeriod.StartDate != null)
-                    filter = AddFilter(filter, string.Format("OperationDate>='{0}'", tpTransactionPeriod.StartDate.Value.Date));
+                    res = res.Where(operation => operation.Date >= tpTransactionPeriod.StartDate.Value.Date);
 
                 if (tpTransactionPeriod.EndDate != null)
-                    filter = AddFilter(filter, string.Format("OperationDate<'{0}'", tpTransactionPeriod.EndDate.Value.Date.AddDays(1)));
-
+                    res = res.Where(operation => operation.Date < tpTransactionPeriod.EndDate.Value.Date.AddDays(1));
 
                 if (ctCredit.cbComboTreeItem.Content != null)
                 {
                     Account credit = (Account)ctCredit.cbComboTreeItem.Content;
-                    filter = AddFilter(filter, string.Format("Credit='{0}'", credit.AccountName));
+                    res = res.Where(operation => operation.Credit.AccountId == credit.AccountId);
                 }
 
                 if (ctDebit.cbComboTreeItem.Content != null)
                 {
                     Account debit = (Account)ctDebit.cbComboTreeItem.Content;
-                    filter = AddFilter(filter, string.Format("Debit='{0}'", debit.AccountName));
+                    res = res.Where(operation => operation.Debit.AccountId == debit.AccountId);
                 }
 
-                dbDCBDataSet dbDCBDataSet = ((dbDCBDataSet)(mTransactions.FindResource("dbDCBDataSet")));
-                DataView dv = dbDCBDataSet.Tables[2].DefaultView;
-                dv.RowFilter = filter;
+                mTransactions.transactionsDataGrid.ItemsSource = new ObservableCollection<Operation>(res.ToList<Operation>());
             }
             else if (bookkeeperPanel.Tag.ToString() == AccWindows.NetIncomeReport.ToString())
             {

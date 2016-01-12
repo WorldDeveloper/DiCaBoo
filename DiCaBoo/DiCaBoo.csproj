@@ -26,7 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <TargetCulture>en-GB</TargetCulture>
+    <ProductName>DiCaBoo</ProductName>
+    <PublisherName>Matviienko Oleksandr</PublisherName>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -113,11 +116,6 @@
     <Compile Include="Controls\TimePeriod\TimePeriod.xaml.cs">
       <DependentUpon>TimePeriod.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Transactions\dbDCBDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Transactions\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
@@ -127,11 +125,6 @@
     <Compile Include="Controls\TreeListView\TreeListView.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.xaml.cs">
       <DependentUpon>TreeListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Transactions\dbDCBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Calendar\EventWindow.xaml.cs">
       <DependentUpon>EventWindow.xaml</DependentUpon>
@@ -215,17 +208,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Controls\Transactions\dbDCBDataSet.xsc">
-      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Controls\Transactions\dbDCBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>dbDCBDataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Controls\Transactions\dbDCBDataSet.xss">
-      <DependentUpon>dbDCBDataSet.xsd</DependentUpon>
-    </None>
     <None Include="DiCaBoo_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
