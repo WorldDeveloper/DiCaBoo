@@ -29,7 +29,7 @@ namespace DiCaBoo
                 return;
             else if (bookkeeperPanel.Tag.ToString() == AccWindows.Transactions.ToString())
             {
-                var res = mTransactions.mOperations.Select(operation=>operation);
+                var res = mTransactions.mOperations.Select(operation => operation);
 
                 if (tpTransactionPeriod.StartDate != null)
                     res = res.Where(operation => operation.Date >= tpTransactionPeriod.StartDate.Value.Date);
@@ -49,7 +49,9 @@ namespace DiCaBoo
                     res = res.Where(operation => operation.Debit.AccountId == debit.AccountId);
                 }
 
-                mTransactions.transactionsDataGrid.ItemsSource = new ObservableCollection<Operation>(res.ToList<Operation>());
+                List<Operation> operations = res.ToList<Operation>();
+                if (operations != null)
+                    mTransactions.transactionsDataGrid.ItemsSource = new ObservableCollection<Operation>(operations);
             }
             else if (bookkeeperPanel.Tag.ToString() == AccWindows.NetIncomeReport.ToString())
             {
